@@ -50,4 +50,6 @@ npm run preview
 
 ## License
 
-MIT
+[![License: MIT](https://img.shields.io/badge/License-MIT-white.svg)](LICENSE)
+
+Copyright (c) 2026 [wei-zuan](https://github.com/wei-zuan). See [LICENSE](LICENSE) for full terms.
