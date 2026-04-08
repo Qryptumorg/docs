@@ -111,7 +111,12 @@ export default function AbiReference() {
         </thead>
         <tbody>
           <tr>
-            <td>Sepolia</td>
+            <td>Sepolia (v2 -- active)</td>
+            <td><code>11155111</code></td>
+            <td><code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code></td>
+          </tr>
+          <tr>
+            <td>Sepolia (v1 -- superseded)</td>
             <td><code>11155111</code></td>
             <td><code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code></td>
           </tr>
