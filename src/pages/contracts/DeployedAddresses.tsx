@@ -9,6 +9,18 @@ export default function DeployedAddresses() {
       <h1>Deployed Addresses</h1>
 
       <h2>Sepolia Testnet (Chain ID: 11155111)</h2>
+
+      <div className="callout callout-info" style={{ marginBottom: "1.5rem" }}>
+        <strong>Active deployment: v2.</strong> v1 is preserved below for historical reference. All new QRYPTANK deployments use the v2 factory.
+      </div>
+
+      <h3>v2 -- Active (qToken decimal precision fix)</h3>
+      <p>
+        Redeployed after a bug was found in v1: ShieldToken defaulted to 18 decimals regardless of the underlying
+        token's decimal precision. For USDC (6 decimals), this caused Etherscan and wallets to display
+        9.5 qUSDC as 0.0000000000095. In v2, ShieldToken reads <code>decimals()</code> from the underlying
+        ERC-20 at qToken deployment time and stores it permanently. All qTokens now reflect the correct precision.
+      </p>
       <table>
         <thead>
           <tr>
@@ -19,20 +31,53 @@ export default function DeployedAddresses() {
         </thead>
         <tbody>
           <tr>
-            <td>ShieldFactory</td>
-            <td><code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code></td>
+            <td>ShieldFactory v2</td>
+            <td><code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code></td>
             <td style={{ color: "#16a34a", fontWeight: 600 }}>Verified</td>
           </tr>
           <tr>
-            <td>PersonalVault (implementation)</td>
+            <td>PersonalVault implementation v2</td>
+            <td><code>0x5A77630B5D49943f71785BC57aF37380bBea0c5e</code></td>
+            <td style={{ color: "#16a34a", fontWeight: 600 }}>Deployed</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <a href="https://sepolia.etherscan.io/address/0x0c060e880A405B1231Ce1263c6a52a272cC1cE05#code" target="_blank" rel="noopener noreferrer">
+          ShieldFactory v2 on Sepolia Etherscan
+        </a>
+      </p>
+
+      <h3>v1 -- Superseded (decimal precision bug)</h3>
+      <p>
+        Initial deployment. ShieldToken did not read <code>decimals()</code> from the underlying token.
+        All qTokens defaulted to 18 decimals, causing incorrect display in Etherscan and wallets.
+        These contracts remain on-chain but the app no longer points to this factory.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Contract</th>
+            <th>Address</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ShieldFactory v1</td>
+            <td><code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code></td>
+            <td style={{ color: "#ca8a04", fontWeight: 600 }}>Superseded</td>
+          </tr>
+          <tr>
+            <td>PersonalVault implementation v1</td>
             <td><code>0x63f575b38e9C6a26eAeb57d2382bC42B456fafbf</code></td>
-            <td style={{ color: "#16a34a", fontWeight: 600 }}>Verified</td>
+            <td style={{ color: "#ca8a04", fontWeight: 600 }}>Superseded</td>
           </tr>
         </tbody>
       </table>
       <p>
         <a href="https://sepolia.etherscan.io/address/0x9a66500886344cbcce882137f263CB0c61aa99b1#code" target="_blank" rel="noopener noreferrer">
-          ShieldFactory on Sepolia Etherscan
+          ShieldFactory v1 on Sepolia Etherscan
         </a>
       </p>
 
@@ -62,31 +107,46 @@ export default function DeployedAddresses() {
         </tbody>
       </table>
 
-      <h2>Test Wallets (Sepolia)</h2>
+      <h2>Test Wallets and Contracts (Sepolia)</h2>
       <p>These wallets were used for automated E2E testing on Sepolia. They hold no mainnet assets.</p>
       <table>
         <thead>
           <tr>
-            <th>Wallet</th>
+            <th>Label</th>
             <th>Address</th>
+            <th>Notes</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Wallet A (shield/transfer origin)</td>
             <td><code>0x7ee5dc8845cF2C5626bC8B5C7ea269fe221FEa6b</code></td>
+            <td></td>
           </tr>
           <tr>
             <td>Wallet B (transfer recipient)</td>
             <td><code>0x2541eED685B7677e721A185d8612fA792468577d</code></td>
+            <td></td>
           </tr>
           <tr>
-            <td>Vault A (PersonalVault clone)</td>
+            <td>Vault A v1 (PersonalVault clone)</td>
             <td><code>0x39bb32fFc4D6788518DB69304557638e6EE6578f</code></td>
+            <td>Deployed via factory v1 -- superseded</td>
           </tr>
           <tr>
-            <td>qToken USDC (ShieldToken)</td>
+            <td>Vault A v2 (PersonalVault clone)</td>
+            <td><code>0xA236C16e694B22c24Bdc641bF9B439A90fABF6B0</code></td>
+            <td>Deployed via factory v2 -- active</td>
+          </tr>
+          <tr>
+            <td>qUSDC v1 (ShieldToken)</td>
             <td><code>0xEAc05bF63B22D4969924998b1b79ceF9b2e4a702</code></td>
+            <td>18 decimals (bug) -- superseded</td>
+          </tr>
+          <tr>
+            <td>qUSDC v2 (ShieldToken)</td>
+            <td><code>0xcD1569A66F01023a8587D69F3D3ad9C4DA12c3Cf</code></td>
+            <td>6 decimals (correct) -- verified -- active</td>
           </tr>
         </tbody>
       </table>
