@@ -27,7 +27,10 @@ npm install ethers`}</code></pre>
       <pre><code>{`import { createPublicClient, createWalletClient, http } from 'viem';
 import { sepolia } from 'viem/chains';
 
-const FACTORY_ADDRESS = '0x9a66500886344cbcce882137f263CB0c61aa99b1';
+// v2 (active) -- qToken decimal precision fix: ShieldToken reads decimals() from underlying ERC-20
+const FACTORY_ADDRESS = '0x0c060e880A405B1231Ce1263c6a52a272cC1cE05';
+// v1 (superseded) -- defaulted to 18 decimals, causing incorrect display in Etherscan and wallets
+// const FACTORY_ADDRESS = '0x9a66500886344cbcce882137f263CB0c61aa99b1';
 
 const FACTORY_ABI = [
   {
