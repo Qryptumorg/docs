@@ -12,7 +12,12 @@ export default function ShieldFactory() {
       </p>
 
       <div className="callout callout-info">
-        <strong>Sepolia address:</strong> <code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code>
+        <strong>Sepolia address (v2 -- active):</strong> <code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code>
+        <br /><br />
+        <strong>Sepolia address (v1 -- superseded):</strong> <code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code>
+        <br />
+        v1 was redeployed because ShieldToken did not read <code>decimals()</code> from the underlying ERC-20.
+        v2 fixes this: every qToken deployed through the new factory stores the correct decimal precision.
       </div>
 
       <h2>Inheritance</h2>
