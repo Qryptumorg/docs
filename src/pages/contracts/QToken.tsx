@@ -20,12 +20,25 @@ export default function QToken() {
       <pre><code>{`contract ShieldToken is ERC20`}</code></pre>
 
       <h2>Constructor</h2>
-      <pre><code>{`constructor(string memory name, string memory symbol, address _vault) ERC20(name, symbol) {
+      <pre><code>{`constructor(string memory name, string memory symbol, address _vault, uint8 decimals_) ERC20(name, symbol) {
     vault = _vault;
+    _decimals = decimals_;
+}
+
+function decimals() public view override returns (uint8) {
+    return _decimals;
 }`}</code></pre>
       <p>
-        Called by PersonalVault when a token is shielded for the first time. The <code>vault</code> address is the PersonalVault instance that owns this qToken.
+        Called by PersonalVault when a token is shielded for the first time. The <code>vault</code> address is
+        the PersonalVault instance that owns this qToken. The <code>decimals_</code> value is read from the
+        underlying ERC-20 before deployment and stored permanently. This ensures Etherscan, MetaMask, and
+        all wallets display the correct token amount regardless of the underlying token's decimal precision.
       </p>
+      <div className="callout callout-info">
+        <strong>Why this matters:</strong> OpenZeppelin ERC20 defaults to 18 decimals. USDC has 6 decimals.
+        Without this fix, 9.5 qUSDC would display as 0.0000000000095 in Etherscan.
+        The constructor parameter was added in the v2 deployment.
+      </div>
 
       <h2>Overridden Functions</h2>
       <pre><code>{`function transfer(address, uint256) public pure override returns (bool) {
