@@ -57,12 +57,17 @@ export default function Overview() {
 
       <h2>Deployed Contracts (Sepolia)</h2>
       <div className="callout callout-info">
-        <strong>ShieldFactory:</strong>{" "}
-        <code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code>
+        <strong>ShieldFactory v2 (active):</strong>{" "}
+        <code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code>
         <br />
-        <a href="https://sepolia.etherscan.io/address/0x9a66500886344cbcce882137f263CB0c61aa99b1#code" target="_blank" rel="noopener noreferrer">
+        <a href="https://sepolia.etherscan.io/address/0x0c060e880A405B1231Ce1263c6a52a272cC1cE05#code" target="_blank" rel="noopener noreferrer">
           View on Sepolia Etherscan
         </a>
+        <br /><br />
+        <strong>ShieldFactory v1 (superseded):</strong>{" "}
+        <code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code>
+        {" -- "}v1 qTokens defaulted to 18 decimals regardless of underlying token. v2 fixes this by reading{" "}
+        <code>decimals()</code> from the underlying ERC-20 at qToken deploy time.
       </div>
     </div>
   );
