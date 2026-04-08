@@ -1,4 +1,4 @@
-const faqs: { q: string; a: string | JSX.Element }[] = [
+const faqs: { q: string; a: string }[] = [
   {
     q: "What is a QRYPTANK?",
     a: "A QRYPTANK is your personal smart contract vault on Ethereum. It holds your real ERC-20 tokens and issues non-transferable qTokens as receipts. Each wallet address has exactly one QRYPTANK.",
@@ -49,7 +49,7 @@ const faqs: { q: string; a: string | JSX.Element }[] = [
   },
 ];
 
-function FaqItem({ q, a }: { q: string; a: string | JSX.Element }) {
+function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <div
       style={{
