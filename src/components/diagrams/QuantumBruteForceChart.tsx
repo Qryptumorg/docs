@@ -11,16 +11,6 @@ export default function QuantumBruteForceChart() {
         position: "relative",
       }}
     >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "3px",
-          background: "linear-gradient(90deg, #7c3aed, #06b6d4, #10b981)",
-        }}
-      />
 
       <div style={{ marginBottom: "1.5rem" }}>
         <div
@@ -81,8 +71,8 @@ export default function QuantumBruteForceChart() {
             style={{
               marginTop: "0.85rem",
               padding: "0.6rem 0.75rem",
-              background: "rgba(239,68,68,0.06)",
-              border: "1px solid rgba(239,68,68,0.2)",
+              background: "hsl(var(--bg))",
+              border: "1px solid hsl(var(--card-border))",
               borderRadius: "6px",
               fontSize: "0.72rem",
               color: "hsl(var(--muted-fg))",
@@ -121,8 +111,8 @@ export default function QuantumBruteForceChart() {
           <div
             style={{
               padding: "0.6rem 0.75rem",
-              background: "rgba(124,58,237,0.06)",
-              border: "1px solid rgba(124,58,237,0.2)",
+              background: "hsl(var(--bg))",
+              border: "1px solid hsl(var(--card-border))",
               borderRadius: "6px",
               fontSize: "0.72rem",
               color: "hsl(var(--muted-fg))",
@@ -137,8 +127,8 @@ export default function QuantumBruteForceChart() {
 
       <div
         style={{
-          background: "linear-gradient(135deg, rgba(6,182,212,0.06) 0%, rgba(16,185,129,0.06) 100%)",
-          border: "1px solid rgba(6,182,212,0.25)",
+          background: "hsl(var(--bg))",
+          border: "1px solid hsl(var(--card-border))",
           borderRadius: "10px",
           padding: "1.1rem 1.25rem",
         }}
@@ -180,8 +170,8 @@ export default function QuantumBruteForceChart() {
           <div className="dual-factor-arrow" style={{ textAlign: "center", color: "#10b981", fontSize: "1.1rem", fontWeight: 700 }}>→</div>
           <div
             style={{
-              background: "rgba(16,185,129,0.1)",
-              border: "1px solid rgba(16,185,129,0.3)",
+              background: "hsl(var(--bg))",
+              border: "1px solid hsl(var(--card-border))",
               borderRadius: "8px",
               padding: "0.75rem 1rem",
               textAlign: "center",
@@ -191,7 +181,7 @@ export default function QuantumBruteForceChart() {
               <ShieldIcon />
             </div>
             <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#10b981", marginBottom: "0.2rem" }}>
-              QRYPTANK
+              Qrypt-Safe
             </div>
             <div style={{ fontSize: "0.68rem", color: "hsl(var(--muted-fg))" }}>
               Both barriers must be defeated simultaneously
@@ -229,8 +219,7 @@ function Panel({
     <div
       style={{
         background: "hsl(var(--bg))",
-        border: `1px solid hsl(var(--card-border))`,
-        borderTop: `2px solid ${accent}`,
+        border: "1px solid hsl(var(--card-border))",
         borderRadius: "8px",
         padding: "1rem",
       }}
@@ -356,8 +345,8 @@ function DualBlock({
   return (
     <div
       style={{
-        background: `rgba(${r}, 0.06)`,
-        border: `1px solid rgba(${r}, 0.25)`,
+        background: "hsl(var(--bg))",
+        border: "1px solid hsl(var(--card-border))",
         borderRadius: "8px",
         padding: "0.75rem",
         textAlign: "center",
