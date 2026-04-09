@@ -8,7 +8,7 @@ export default function ShieldFactory() {
       </div>
       <h1>ShieldFactory</h1>
       <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
-        ShieldFactory is the entry point for all QRYPTANK deployments. It uses the EIP-1167 minimal proxy pattern to deploy a unique PersonalVault for each wallet address.
+        ShieldFactory is the entry point for all Qrypt-Safe deployments. It uses the EIP-1167 minimal proxy pattern to deploy a unique PersonalVault for each wallet address.
       </p>
 
       <div className="callout callout-info">
@@ -60,14 +60,14 @@ export default function ShieldFactory() {
       <table>
         <thead><tr><th>Revert Condition</th><th>Message</th></tr></thead>
         <tbody>
-          <tr><td>Vault already exists</td><td><code>"QRYPTANK already exists for this wallet"</code></td></tr>
+          <tr><td>Vault already exists</td><td><code>"Qrypt-Safe already exists for this wallet"</code></td></tr>
           <tr><td>Factory is paused</td><td>OpenZeppelin Pausable revert</td></tr>
         </tbody>
       </table>
 
       <h3>hasVault</h3>
       <pre><code>{`function hasVault(address wallet) external view returns (bool)`}</code></pre>
-      <p>Returns <code>true</code> if the wallet has a deployed QRYPTANK.</p>
+      <p>Returns <code>true</code> if the wallet has a deployed Qrypt-Safe.</p>
 
       <h3>getVault</h3>
       <pre><code>{`function getVault(address wallet) external view returns (address)`}</code></pre>
