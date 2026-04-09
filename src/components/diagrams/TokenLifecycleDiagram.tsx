@@ -13,9 +13,9 @@ export default function TokenLifecycleDiagram() {
         <line x1="140" y1="100" x2="200" y2="100" stroke="#374151" strokeWidth="1.5" markerEnd="url(#arr3)" />
         <text x="170" y="90" textAnchor="middle" fontSize="9" fill="#374151" fontWeight="600">shield()</text>
 
-        {/* QRYPTANK box */}
+        {/* Qrypt-Safe box */}
         <rect x="200" y="50" width="160" height="100" rx="6" fill="#1a1a1a" stroke="#374151" strokeWidth="1.5" />
-        <text x="280" y="80" textAnchor="middle" fontSize="11" fontWeight="700" fill="#fff">QRYPTANK</text>
+        <text x="280" y="80" textAnchor="middle" fontSize="11" fontWeight="700" fill="#fff">Qrypt-Safe</text>
         <text x="280" y="97" textAnchor="middle" fontSize="9" fill="#9ca3af">PersonalVault contract</text>
         <line x1="210" y1="104" x2="350" y2="104" stroke="#374151" strokeWidth="1" />
         <text x="280" y="120" textAnchor="middle" fontSize="9" fill="#6b7280">Holds real USDC</text>
