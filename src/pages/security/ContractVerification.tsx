@@ -144,7 +144,7 @@ npx hardhat compile
         </thead>
         <tbody>
           {[
-            ["Create QRYPTANK", "PASS"],
+            ["Create Qrypt-Safe", "PASS"],
             ["Shield USDC (shielded balance displayed as 2.0 qUSDC -- decimal fix confirmed)", "PASS"],
             ["qToken non-transferable (direct transfer reverts)", "PASS"],
             ["Wrong vault proof reverts", "PASS"],
