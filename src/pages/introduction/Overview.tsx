@@ -57,12 +57,16 @@ export default function Overview() {
 
       <h2>Deployed Contracts (Sepolia)</h2>
       <div className="callout callout-info">
-        <strong>ShieldFactory v2 (active):</strong>{" "}
-        <code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code>
+        <strong>QryptSafe v3 (active):</strong>{" "}
+        <code>0x5c24dd33C33e70FcD9451e1Fc401E7C810c4135B</code>
         <br />
-        <a href="https://sepolia.etherscan.io/address/0x0c060e880A405B1231Ce1263c6a52a272cC1cE05#code" target="_blank" rel="noopener noreferrer">
+        <a href="https://sepolia.etherscan.io/address/0x5c24dd33C33e70FcD9451e1Fc401E7C810c4135B#code" target="_blank" rel="noopener noreferrer">
           View on Sepolia Etherscan
         </a>
+        <br /><br />
+        <strong>ShieldFactory v2 (superseded):</strong>{" "}
+        <code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code>
+        {" -- "}v2 had <code>Ownable</code> and <code>Pausable</code> admin keys. v3 removes all admin control: the factory is fully immutable.
         <br /><br />
         <strong>ShieldFactory v1 (superseded):</strong>{" "}
         <code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code>
