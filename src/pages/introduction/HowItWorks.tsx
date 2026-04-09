@@ -20,7 +20,7 @@ export default function HowItWorks() {
 
       <h2>1. Shielding Tokens</h2>
       <p>
-        Shielding moves real ERC-20 tokens from the user's wallet into their QRYPTANK. The user approves the vault contract to pull the tokens, then calls <code>shield()</code> with the token address, amount, and vault proof. The contract verifies the vault proof, pulls the tokens, and mints an equivalent amount of qTokens to the user's wallet.
+        Shielding moves real ERC-20 tokens from the user's wallet into their Qrypt-Safe. The user approves the vault contract to pull the tokens, then calls <code>shield()</code> with the token address, amount, and vault proof. The contract verifies the vault proof, pulls the tokens, and mints an equivalent amount of qTokens to the user's wallet.
       </p>
       <pre><code>{`// Steps performed by the user's browser:
 // 1. ERC20.approve(vaultAddress, amount)
@@ -71,7 +71,7 @@ export default function HowItWorks() {
       </table>
 
       <div className="callout callout-info">
-        The recipient always receives the real ERC-20 token (for example, USDC), never qUSDC. The recipient can then choose to shield the tokens into their own QRYPTANK if they want the same protection.
+        The recipient always receives the real ERC-20 token (for example, USDC), never qUSDC. The recipient can then choose to shield the tokens into their own Qrypt-Safe if they want the same protection.
       </div>
 
       <h2>4. Unshielding Tokens</h2>
@@ -79,9 +79,9 @@ export default function HowItWorks() {
         Unshielding is the reverse of shielding. The user calls <code>unshield()</code> with the token address, amount, and vault proof. The contract burns the qTokens and returns the real ERC-20 tokens to the user's wallet.
       </p>
 
-      <h2>Creating a QRYPTANK</h2>
+      <h2>Creating a Qrypt-Safe</h2>
       <p>
-        Each wallet can have exactly one QRYPTANK, deployed via the <code>ShieldFactory</code>. The user chooses a vault proof and provides its <code>keccak256</code> hash on deployment. The raw vault proof never touches any server. After deployment, the user can shield any number of different ERC-20 tokens into their single QRYPTANK.
+        Each wallet can have exactly one Qrypt-Safe, deployed via the <code>ShieldFactory</code>. The user chooses a vault proof and provides its <code>keccak256</code> hash on deployment. The raw vault proof never touches any server. After deployment, the user can shield any number of different ERC-20 tokens into their single Qrypt-Safe.
       </p>
     </div>
   );
