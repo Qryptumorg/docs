@@ -62,7 +62,7 @@ function burn(address from, uint256 amount) external onlyVault {
     _burn(from, amount);
 }`}</code></pre>
       <p>
-        Only the vault contract can call <code>mint()</code> and <code>burn()</code>. Attempts from any other address revert with <code>"Only QRYPTANK can call this"</code>.
+        Only the vault contract can call <code>mint()</code> and <code>burn()</code>. Attempts from any other address revert with <code>"Only Qrypt-Safe can call this"</code>.
       </p>
 
       <h2>Token Naming Convention</h2>
