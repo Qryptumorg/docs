@@ -79,7 +79,7 @@ if (hasVault) {
   console.log('Vault address:', vaultAddress);
 }`}</code></pre>
 
-      <h2>Create a QRYPTANK</h2>
+      <h2>Create a Qrypt-Safe</h2>
       <pre><code>{`import { keccak256, toBytes } from 'viem';
 
 // Vault proof is hashed in the browser; raw proof never sent to any server
