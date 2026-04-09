@@ -19,7 +19,7 @@ export default function TokenProtection() {
     address public vault;
 
     modifier onlyVault() {
-        require(msg.sender == vault, "Only QRYPTANK can call this");
+        require(msg.sender == vault, "Only Qrypt-Safe can call this");
         _;
     }
 
