@@ -11,14 +11,14 @@ export default function Overview() {
       </div>
       <h1>Overview</h1>
       <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
-        Qryptum is a non-custodial protocol on Ethereum L1 that lets users shield ERC-20 tokens inside a personal cryptographic vault called a QRYPTANK. Once shielded, tokens become non-transferable qTokens that no wallet, exchange, or tool can move without the correct vault proof. The vault proof layer is built on keccak256, a SHA-3 family hash function that retains 128-bit security under quantum attacks, making Qryptum designed for the post-quantum era.
+        Qryptum is a non-custodial protocol on Ethereum L1 that lets users shield ERC-20 tokens inside a personal cryptographic vault called a Qrypt-Safe. Once shielded, tokens become non-transferable qTokens that no wallet, exchange, or tool can move without the correct vault proof. The vault proof layer is built on keccak256, a SHA-3 family hash function that retains 128-bit security under quantum attacks, making Qryptum designed for the post-quantum era.
       </p>
 
       <QuantumBruteForceChart />
 
       <h2>System Architecture</h2>
       <p>
-        Every user deploys their own <code>PersonalVault</code> contract via the <code>ShieldFactory</code>. This vault is their QRYPTANK: an isolated smart contract address that holds their real ERC-20 tokens and issues non-transferable qTokens as receipts. The user pays all gas; Qryptum never touches funds.
+        Every user deploys their own <code>PersonalVault</code> contract via the <code>ShieldFactory</code>. This vault is their Qrypt-Safe: an isolated smart contract address that holds their real ERC-20 tokens and issues non-transferable qTokens as receipts. The user pays all gas; Qryptum never touches funds.
       </p>
 
       <ArchitectureDiagram />
