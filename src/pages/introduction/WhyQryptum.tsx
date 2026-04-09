@@ -24,7 +24,7 @@ export default function WhyQryptum() {
         Qryptum adds a second mandatory factor to every token movement: a vault proof. The vault proof is a 6-character string (3 letters and 3 numbers, for example <code>abc123</code>) that is verified entirely on-chain by the smart contract. No server ever sees it.
       </p>
       <p>
-        When a user shields tokens into their QRYPTANK, those tokens move to a smart contract address with no private key. The real ERC-20 tokens sit at that vault address. In their place, the user holds qTokens (such as qUSDC or qETH) in their wallet. These qTokens are receipts: they prove ownership but cannot be moved by any wallet, exchange, or script.
+        When a user shields tokens into their Qrypt-Safe, those tokens move to a smart contract address with no private key. The real ERC-20 tokens sit at that vault address. In their place, the user holds qTokens (such as qUSDC or qETH) in their wallet. These qTokens are receipts: they prove ownership but cannot be moved by any wallet, exchange, or script.
       </p>
 
       <h2>How This Compares</h2>
