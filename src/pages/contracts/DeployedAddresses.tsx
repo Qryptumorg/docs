@@ -11,7 +11,7 @@ export default function DeployedAddresses() {
       <h2>Sepolia Testnet (Chain ID: 11155111)</h2>
 
       <div className="callout callout-info" style={{ marginBottom: "1.5rem" }}>
-        <strong>Active deployment: v2.</strong> v1 is preserved below for historical reference. All new QRYPTANK deployments use the v2 factory.
+        <strong>Active deployment: v2.</strong> v1 is preserved below for historical reference. All new Qrypt-Safe deployments use the v2 factory.
       </div>
 
       <h3>v2 -- Active (qToken decimal precision fix)</h3>
