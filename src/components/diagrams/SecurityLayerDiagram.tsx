@@ -11,9 +11,9 @@ export default function SecurityLayerDiagram() {
         <ellipse cx="280" cy="150" rx="175" ry="82" fill="none" stroke="#9ca3af" strokeWidth="1.5" strokeDasharray="4,3" />
         <text x="280" y="74" textAnchor="middle" fontSize="10" fill="#6b7280">Layer 2: vault proof (6-char cryptographic proof)</text>
 
-        {/* Inner: QRYPTANK */}
+        {/* Inner: Qrypt-Safe */}
         <rect x="200" y="110" width="160" height="80" rx="8" fill="#1a1a1a" stroke="#374151" strokeWidth="1.5" />
-        <text x="280" y="140" textAnchor="middle" fontSize="12" fontWeight="700" fill="#fff">QRYPTANK</text>
+        <text x="280" y="140" textAnchor="middle" fontSize="12" fontWeight="700" fill="#fff">Qrypt-Safe</text>
         <text x="280" y="157" textAnchor="middle" fontSize="9.5" fill="#9ca3af">Token storage</text>
         <text x="280" y="172" textAnchor="middle" fontSize="9" fill="#6b7280">PersonalVault contract</text>
 
