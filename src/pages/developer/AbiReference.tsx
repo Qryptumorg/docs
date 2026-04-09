@@ -13,7 +13,7 @@ export default function AbiReference() {
 
       <h2>ShieldFactory ABI</h2>
       <pre><code>{`const FACTORY_ABI = [
-  // Create a new QRYPTANK for msg.sender
+  // Create a new Qrypt-Safe for msg.sender
   "function createVault(bytes32 passwordHash) external returns (address vault)",
 
   // Read functions
