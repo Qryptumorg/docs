@@ -4,7 +4,7 @@ Official documentation site for the Qryptum protocol. Built with React, Vite, Ty
 
 ## What Is Qryptum
 
-Qryptum is a non-custodial protocol on Ethereum L1 that shields ERC-20 tokens inside personal cryptographic vaults called QRYPTANKs. Vault access requires both a private key and a 6-character vault proof verified on-chain using keccak256.
+Qryptum is a non-custodial protocol on Ethereum L1 that shields ERC-20 tokens inside personal cryptographic vaults called Qrypt-Safes. Vault access requires both a private key and a 6-character vault proof verified on-chain using keccak256.
 
 ## Docs Structure
 
