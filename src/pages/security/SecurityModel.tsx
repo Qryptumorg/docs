@@ -18,7 +18,7 @@ export default function SecurityModel() {
         Every vault operation requires two independent factors present at the same time:
       </p>
       <ol>
-        <li><strong>Private key</strong>: The transaction must be signed by the wallet that owns the QRYPTANK. This is enforced by the <code>onlyOwner</code> modifier: <code>require(msg.sender == owner, "Not vault owner")</code>.</li>
+        <li><strong>Private key</strong>: The transaction must be signed by the wallet that owns the Qrypt-Safe. This is enforced by the <code>onlyOwner</code> modifier: <code>require(msg.sender == owner, "Not vault owner")</code>.</li>
         <li><strong>Vault proof</strong>: The correct 6-character vault proof must be passed in calldata. The contract hashes it and compares against the stored hash: <code>keccak256(abi.encodePacked(proof)) == passwordHash</code>.</li>
       </ol>
       <p>
