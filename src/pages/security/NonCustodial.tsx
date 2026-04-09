@@ -41,7 +41,7 @@ export default function NonCustodial() {
 
       <h2>No Admin Access</h2>
       <p>
-        The <code>ShieldFactory</code> deployer (Qryptum) has exactly one privileged capability: pausing and unpausing the factory. Pausing blocks new QRYPTANK creation. It does not affect any existing QRYPTANK.
+        The <code>ShieldFactory</code> deployer (Qryptum) has exactly one privileged capability: pausing and unpausing the factory. Pausing blocks new Qrypt-Safe creation. It does not affect any existing Qrypt-Safe.
       </p>
       <p>
         The deployer has zero access to any user's vault. There is no <code>adminWithdraw()</code>, no <code>setOwner()</code>, no upgradeable proxy. The code that handles user funds is immutable from the moment of deployment.
