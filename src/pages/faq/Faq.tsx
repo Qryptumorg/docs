@@ -1,11 +1,11 @@
 const faqs: { q: string; a: string }[] = [
   {
-    q: "What is a QRYPTANK?",
-    a: "A QRYPTANK is your personal smart contract vault on Ethereum. It holds your real ERC-20 tokens and issues non-transferable qTokens as receipts. Each wallet address has exactly one QRYPTANK.",
+    q: "What is a Qrypt-Safe?",
+    a: "A Qrypt-Safe is your personal smart contract vault on Ethereum. It holds your real ERC-20 tokens and issues non-transferable qTokens as receipts. Each wallet address has exactly one Qrypt-Safe.",
   },
   {
     q: "What is a vault proof?",
-    a: "A vault proof is a 6-character string (3 letters and 3 numbers, for example abc123) that you choose when creating your QRYPTANK. It acts as a second factor: every shield, unshield, and transfer operation requires both your private key and your vault proof simultaneously.",
+    a: "A vault proof is a 6-character string (3 letters and 3 numbers, for example abc123) that you choose when creating your Qrypt-Safe. It acts as a second factor: every shield, unshield, and transfer operation requires both your private key and your vault proof simultaneously.",
   },
   {
     q: "Can I lose my tokens if I forget my vault proof?",
@@ -28,8 +28,8 @@ const faqs: { q: string; a: string }[] = [
     a: "No. The Qryptum deployer can only pause and unpause new vault creation via the ShieldFactory. There is no admin key, no upgrade mechanism, and no function that allows anyone to access existing vault funds.",
   },
   {
-    q: "Can I shield multiple token types in one QRYPTANK?",
-    a: "Yes. Each QRYPTANK supports any number of ERC-20 token types. The first time you shield a given token, a new qToken contract is deployed automatically. Subsequent shields of the same token mint to the same qToken contract.",
+    q: "Can I shield multiple token types in one Qrypt-Safe?",
+    a: "Yes. Each Qrypt-Safe supports any number of ERC-20 token types. The first time you shield a given token, a new qToken contract is deployed automatically. Subsequent shields of the same token mint to the same qToken contract.",
   },
   {
     q: "Why does the commit-reveal transfer require two blockchain transactions?",
