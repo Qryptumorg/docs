@@ -113,7 +113,7 @@ console.log('Transfer complete. Tx:', revealReceipt.transactionHash);`}</code></
 
       <h2>What the Recipient Receives</h2>
       <p>
-        The recipient always receives the raw ERC-20 token (for example, USDC), never the qToken. The qToken is burned during <code>revealTransfer()</code>. The recipient wallet does not need to be a Qryptum user. They can use the received tokens freely or choose to shield them into their own QRYPTANK.
+        The recipient always receives the raw ERC-20 token (for example, USDC), never the qToken. The qToken is burned during <code>revealTransfer()</code>. The recipient wallet does not need to be a Qryptum user. They can use the received tokens freely or choose to shield them into their own Qrypt-Safe.
       </p>
     </div>
   );
