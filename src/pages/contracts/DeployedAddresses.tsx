@@ -11,15 +11,50 @@ export default function DeployedAddresses() {
       <h2>Sepolia Testnet (Chain ID: 11155111)</h2>
 
       <div className="callout callout-info" style={{ marginBottom: "1.5rem" }}>
-        <strong>Active deployment: v2.</strong> v1 is preserved below for historical reference. All new Qrypt-Safe deployments use the v2 factory.
+        <strong>Active deployment: v3.</strong> v2 and v1 are preserved below for historical reference. All new Qrypt-Safe deployments use the v3 factory.
       </div>
 
-      <h3>v2 -- Active (qToken decimal precision fix)</h3>
+      <h3>v3 -- Active (no admin keys)</h3>
       <p>
-        Redeployed after a bug was found in v1: ShieldToken defaulted to 18 decimals regardless of the underlying
-        token's decimal precision. For USDC (6 decimals), this caused Etherscan and wallets to display
-        9.5 qUSDC as 0.0000000000095. In v2, ShieldToken reads <code>decimals()</code> from the underlying
-        ERC-20 at qToken deployment time and stores it permanently. All qTokens now reflect the correct precision.
+        Redeployed to remove <code>Ownable</code> and <code>Pausable</code> from the factory. QryptSafe v3
+        is fully immutable: no one can pause vault creation or call privileged functions. The contracts are
+        renamed <code>QryptSafe</code> (factory) and <code>PersonalQryptSafe</code> (vault implementation).
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Contract</th>
+            <th>Address</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>QryptSafe v3 (factory)</td>
+            <td><code>0x5c24dd33C33e70FcD9451e1Fc401E7C810c4135B</code></td>
+            <td style={{ color: "#16a34a", fontWeight: 600 }}>Verified</td>
+          </tr>
+          <tr>
+            <td>PersonalQryptSafe implementation v3</td>
+            <td><code>0xD2db7514A58c9a940c6f0D411EE8364b9a5302D9</code></td>
+            <td style={{ color: "#16a34a", fontWeight: 600 }}>Verified</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <a href="https://sepolia.etherscan.io/address/0x5c24dd33C33e70FcD9451e1Fc401E7C810c4135B#code" target="_blank" rel="noopener noreferrer">
+          QryptSafe v3 on Sepolia Etherscan
+        </a>
+        {" | "}
+        <a href="https://sepolia.etherscan.io/address/0xD2db7514A58c9a940c6f0D411EE8364b9a5302D9#code" target="_blank" rel="noopener noreferrer">
+          PersonalQryptSafe v3 on Sepolia Etherscan
+        </a>
+      </p>
+
+      <h3>v2 -- Superseded (had admin keys)</h3>
+      <p>
+        Fixed qToken decimal precision vs v1. Superseded by v3: ShieldFactory v2 had <code>Ownable</code> and{" "}
+        <code>Pausable</code>, meaning the deployer could pause vault creation. v3 removes this entirely.
       </p>
       <table>
         <thead>
@@ -33,12 +68,12 @@ export default function DeployedAddresses() {
           <tr>
             <td>ShieldFactory v2</td>
             <td><code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code></td>
-            <td style={{ color: "#16a34a", fontWeight: 600 }}>Verified</td>
+            <td style={{ color: "#ca8a04", fontWeight: 600 }}>Superseded</td>
           </tr>
           <tr>
             <td>PersonalVault implementation v2</td>
             <td><code>0x5A77630B5D49943f71785BC57aF37380bBea0c5e</code></td>
-            <td style={{ color: "#16a34a", fontWeight: 600 }}>Deployed</td>
+            <td style={{ color: "#ca8a04", fontWeight: 600 }}>Superseded</td>
           </tr>
         </tbody>
       </table>
