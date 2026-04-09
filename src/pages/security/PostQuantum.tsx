@@ -52,7 +52,7 @@ export default function PostQuantum() {
 
       <h2>How keccak256 Protects the Vault Proof</h2>
       <p>
-        When a QRYPTANK is created, the vault proof is never stored in plaintext. The contract stores only its keccak256 hash:
+        When a Qrypt-Safe is created, the vault proof is never stored in plaintext. The contract stores only its keccak256 hash:
       </p>
       <pre><code>{`// On-chain storage (PersonalVault.sol)
 bytes32 private passwordHash;  // keccak256(abi.encodePacked("abc123"))
@@ -140,7 +140,7 @@ function revealTransfer(address token, address to, uint256 amount,
       </table>
 
       <p>
-        Exhaustive search of the vault proof keyspace costs over $1 million in gas fees at current Ethereum prices (0.5 gwei). At peak congestion (2 gwei), this rises to ~$4.2 million. This cost scales with ETH price and network demand, meaning the more valuable the assets inside a QRYPTANK, the more expensive on-chain attempts tend to become, preserving the economic deterrent.
+        Exhaustive search of the vault proof keyspace costs over $1 million in gas fees at current Ethereum prices (0.5 gwei). At peak congestion (2 gwei), this rises to ~$4.2 million. This cost scales with ETH price and network demand, meaning the more valuable the assets inside a Qrypt-Safe, the more expensive on-chain attempts tend to become, preserving the economic deterrent.
       </p>
 
       <div className="callout callout-info">
