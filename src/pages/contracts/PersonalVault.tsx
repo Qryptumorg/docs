@@ -8,7 +8,7 @@ export default function PersonalVault() {
       </div>
       <h1>PersonalVault</h1>
       <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
-        PersonalVault is the core contract for each QRYPTANK. It handles shielding, unshielding, commit-reveal transfers, vault proof management, and emergency withdrawal. One PersonalVault is deployed per wallet via the ShieldFactory.
+        PersonalVault is the core contract for each Qrypt-Safe. It handles shielding, unshielding, commit-reveal transfers, vault proof management, and emergency withdrawal. One PersonalVault is deployed per wallet via the ShieldFactory.
       </p>
 
       <h2>Inheritance</h2>
