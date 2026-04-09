@@ -13,10 +13,38 @@ export default function ContractVerification() {
 
       <h2>Sepolia Testnet (Live)</h2>
 
-      <h3>v2 -- Active</h3>
+      <h3>v3 -- Active (no admin keys)</h3>
+      <p>
+        Redeployed to remove <code>Ownable</code> and <code>Pausable</code> from the factory. QryptSafe v3 has
+        zero admin keys: no one can pause vault creation or access user funds. Contracts renamed to{" "}
+        <code>QryptSafe</code> (factory) and <code>PersonalQryptSafe</code> (vault implementation).
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Contract</th>
+            <th>Address</th>
+            <th>Etherscan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>QryptSafe v3 (factory)</td>
+            <td><code>0x5c24dd33...10c4135B</code></td>
+            <td><a href="https://sepolia.etherscan.io/address/0x5c24dd33C33e70FcD9451e1Fc401E7C810c4135B#code" target="_blank" rel="noopener noreferrer">View source</a></td>
+          </tr>
+          <tr>
+            <td>PersonalQryptSafe impl v3</td>
+            <td><code>0xD2db7514...b9a5302D9</code></td>
+            <td><a href="https://sepolia.etherscan.io/address/0xD2db7514A58c9a940c6f0D411EE8364b9a5302D9#code" target="_blank" rel="noopener noreferrer">View source</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>v2 -- Superseded (had admin keys)</h3>
       <p>
         Redeployed to fix a qToken decimal precision bug. ShieldToken now reads <code>decimals()</code> from
-        the underlying ERC-20 at deploy time, so all qTokens display the correct amount in Etherscan and wallets.
+        the underlying ERC-20 at deploy time. Superseded by v3 which removes all admin control.
       </p>
       <table>
         <thead>
