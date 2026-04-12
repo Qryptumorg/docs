@@ -31,6 +31,7 @@ export const translations = {
                 qryptSafeV1: "QryptSafe V1 History",
                 qryptSafeV2: "QryptSafe V2 History",
                 qryptSafeV3: "QryptSafe V3 History",
+                qryptSafeV5: "QryptSafe V5 History",
                 qryptSafeV4: "QryptSafe V4 History",
                 quickStart: "Quick Start",
                 integrationGuide: "Integration Guide",
@@ -71,6 +72,7 @@ export const translations = {
                 qryptSafeV1: "История QryptSafe V1",
                 qryptSafeV2: "История QryptSafe V2",
                 qryptSafeV3: "История QryptSafe V3",
+                qryptSafeV5: "История QryptSafe V5",
                 qryptSafeV4: "История QryptSafe V4",
                 quickStart: "Быстрый старт",
                 integrationGuide: "Руководство по интеграции",
@@ -111,6 +113,7 @@ export const translations = {
                 qryptSafeV1: "QryptSafe V1 历史",
                 qryptSafeV2: "QryptSafe V2 历史",
                 qryptSafeV3: "QryptSafe V3 历史",
+                qryptSafeV5: "QryptSafe V5 历史",
                 qryptSafeV4: "QryptSafe V4 历史",
                 quickStart: "快速入门",
                 integrationGuide: "集成指南",
@@ -121,6 +124,6 @@ export const translations = {
             },
         },
     },
-} as const;
+};
 
 export type TranslationSet = typeof translations.en;

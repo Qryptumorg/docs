@@ -34,6 +34,7 @@ export const NAV: NavSection[] = [
         items: [
             { key: "shieldFactory", href: "/contracts/deployed-addresses" },
             { key: "personalVault", href: "/contracts/personal-vault" },
+            { key: "qryptSafeV5", href: "/contracts/qrypt-safe-v5" },
             { key: "qryptSafeV4", href: "/contracts/qrypt-safe-v4" },
             { key: "qryptSafeV3", href: "/contracts/qrypt-safe-v3" },
             { key: "qryptSafeV2", href: "/contracts/qrypt-safe-v2" },

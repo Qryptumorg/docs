@@ -10,53 +10,55 @@ const versions = [
     label: "v6: Active",
     statusColor: "#16a34a",
     contracts: [
-      { name: "QryptSafe v6 (factory)", addr: null },
-      { name: "PersonalQryptSafe impl v6", addr: null },
-      { name: "qToken USDC v6 (ShieldToken)", addr: null },
+      { name: "QryptSafe v6 (factory)", addr: null as string | null },
+      { name: "PersonalQryptSafe impl v6", addr: null as string | null },
+      { name: "qToken USDC v6 (ShieldToken)", addr: null as string | null },
     ],
   },
   {
     key: "v5",
-    label: "v5: Historical",
+    label: "v5: Historical (51/51 E2E · MIT verified)",
     statusColor: "#ca8a04",
     contracts: [
-      { name: "QryptSafe v5 (factory)", addr: null },
-      { name: "PersonalQryptSafe impl v5", addr: null },
+      { name: "QryptSafeV5 (factory)", addr: "0xB757fb0511A6d305370a20a0647C751D7E76D2ce" as string | null },
+      { name: "PersonalQryptSafeV5 (impl)", addr: "0x06e29f9309Afa42A3f5E5640717bd8db952F12ba" as string | null },
+      { name: "qUSDC v5 (qToken)", addr: "0xeA614DD453DC33D4D6Ce1F67Df95f380AbDF215C" as string | null },
     ],
   },
   {
     key: "v4",
-    label: "v4: Historical",
+    label: "v4: Historical (47/47 · MIT verified)",
     statusColor: "#ca8a04",
     contracts: [
-      { name: "QryptSafe v4 (factory)", addr: null },
+      { name: "QryptSafeV4 (factory)", addr: "0x611Ba6F93fAeC0203eBee1c3e35d72C1e5ba560F" as string | null },
+      { name: "PersonalQryptSafeV4 (impl)", addr: "0x8E0c9350CdF384a208F6005A2F632f35FB4e413E" as string | null },
     ],
   },
   {
     key: "v3",
-    label: "v3: Historical",
+    label: "v3: Historical (36/36 · MIT verified)",
     statusColor: "#ca8a04",
     contracts: [
-      { name: "QryptSafe v3 (factory)", addr: null },
-      { name: "PersonalQryptSafe impl v3", addr: null },
+      { name: "QryptSafeV3 (factory)", addr: "0x88E8eAFafc99E83e687BCAbD53F783a92e51F75c" as string | null },
+      { name: "PersonalQryptSafeV3 (impl)", addr: "0xaf2E91CDc70e81fA74b9aE9C322e8302bb51715e" as string | null },
     ],
   },
   {
     key: "v2",
-    label: "v2: Historical",
+    label: "v2: Historical (23/23 · MIT verified)",
     statusColor: "#ca8a04",
     contracts: [
-      { name: "ShieldFactory v2 (factory)", addr: null },
-      { name: "PersonalVault impl v2", addr: null },
+      { name: "QryptSafeV2 (factory)", addr: "0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf" as string | null },
+      { name: "PersonalQryptSafeV2 (impl)", addr: "0x675f70646713D4026612c673E644C61ae3aa7725" as string | null },
     ],
   },
   {
     key: "v1",
-    label: "v1: Historical (18-decimal bug)",
+    label: "v1: Historical (12/12 · 18-decimal bug · MIT verified)",
     statusColor: "#ca8a04",
     contracts: [
-      { name: "QryptSafeV1 (factory)", addr: "0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A" },
-      { name: "PersonalQryptSafeV1 (impl)", addr: "0x5E398e1E0Ba28f9659013B1212f24b8B43d69393" },
+      { name: "QryptSafeV1 (factory)", addr: "0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A" as string | null },
+      { name: "PersonalQryptSafeV1 (impl)", addr: "0x5E398e1E0Ba28f9659013B1212f24b8B43d69393" as string | null },
     ],
   },
 ];
@@ -80,7 +82,7 @@ export default function ContractVerification() {
       <h2>{c.h2Sepolia}</h2>
 
       <div className="callout callout-info" style={{ marginBottom: "1.5rem" }}>
-        V1 and V2 are deployed and MIT-verified on Etherscan. V3-V6 verification links will be added as each version is deployed.
+        V1–V5 are deployed and MIT-verified on Etherscan. All factory and implementation addresses are live on Sepolia. V6 deployment pending.
       </div>
 
       {versions.map((v) => (

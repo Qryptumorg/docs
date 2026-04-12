@@ -17,6 +17,7 @@ import QryptSafeV1History from "@/pages/contracts/QryptSafeV1History";
 import QryptSafeV2History from "@/pages/contracts/QryptSafeV2History";
 import QryptSafeV3History from "@/pages/contracts/QryptSafeV3History";
 import QryptSafeV4History from "@/pages/contracts/QryptSafeV4History";
+import QryptSafeV5History from "@/pages/contracts/QryptSafeV5History";
 import QuickStart from "@/pages/developer/QuickStart";
 import IntegrationGuide from "@/pages/developer/IntegrationGuide";
 import ApiReference from "@/pages/developer/ApiReference";
@@ -47,6 +48,7 @@ function Router() {
         <Route path="/contracts/qrypt-safe-v2" component={QryptSafeV2History} />
         <Route path="/contracts/qrypt-safe-v3" component={QryptSafeV3History} />
         <Route path="/contracts/qrypt-safe-v4" component={QryptSafeV4History} />
+        <Route path="/contracts/qrypt-safe-v5" component={QryptSafeV5History} />
         <Route path="/developer/quick-start" component={QuickStart} />
         <Route path="/developer/integration-guide" component={IntegrationGuide} />
         <Route path="/developer/api-reference" component={ApiReference} />
