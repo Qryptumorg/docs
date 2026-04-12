@@ -52,11 +52,11 @@ const versions = [
   },
   {
     key: "v1",
-    label: "v1: Historical (critical bug)",
+    label: "v1: Historical (18-decimal bug)",
     statusColor: "#ca8a04",
     contracts: [
-      { name: "ShieldFactory v1 (factory)", addr: null },
-      { name: "PersonalVault impl v1", addr: null },
+      { name: "QryptSafeV1 (factory)", addr: "0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A" },
+      { name: "PersonalQryptSafeV1 (impl)", addr: "0x5E398e1E0Ba28f9659013B1212f24b8B43d69393" },
     ],
   },
 ];

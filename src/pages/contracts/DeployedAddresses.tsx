@@ -62,12 +62,12 @@ const versions = [
   {
     key: "v1",
     label: "v1: Historical",
-    sublabel: "Initial deployment · Ownable+Pausable factory bug (critical) · 12 tests",
-    factory: null,
-    impl: null,
+    sublabel: "Initial deployment · Ownable+Pausable factory · 18-decimal bug · 12 tests",
+    factory: "0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A",
+    impl: "0x5E398e1E0Ba28f9659013B1212f24b8B43d69393",
     status: "superseded",
-    etherscanFactory: null,
-    etherscanImpl: null,
+    etherscanFactory: "https://sepolia.etherscan.io/address/0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A#code",
+    etherscanImpl: "https://sepolia.etherscan.io/address/0x5E398e1E0Ba28f9659013B1212f24b8B43d69393#code",
     mainnet: false,
   },
 ];
