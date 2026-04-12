@@ -32,12 +32,12 @@ export const NAV: NavSection[] = [
     {
         key: "smartContracts",
         items: [
-            { key: "deployedAddresses", href: "/contracts/deployed-addresses" },
-            { key: "shieldFactory", href: "/contracts/shield-factory" },
+            { key: "shieldFactory", href: "/contracts/deployed-addresses" },
             { key: "personalVault", href: "/contracts/personal-vault" },
-            { key: "qtoken", href: "/contracts/qtoken" },
-            { key: "qryptSafeV2", href: "/contracts/qrypt-safe-v2" },
+            { key: "qryptSafeV4", href: "/contracts/qrypt-safe-v4" },
             { key: "qryptSafeV3", href: "/contracts/qrypt-safe-v3" },
+            { key: "qryptSafeV2", href: "/contracts/qrypt-safe-v2" },
+            { key: "qryptSafeV1", href: "/contracts/qrypt-safe-v1" },
         ],
     },
     {

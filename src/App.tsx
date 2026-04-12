@@ -13,8 +13,10 @@ import DeployedAddresses from "@/pages/contracts/DeployedAddresses";
 import ShieldFactory from "@/pages/contracts/ShieldFactory";
 import PersonalVault from "@/pages/contracts/PersonalVault";
 import QToken from "@/pages/contracts/QToken";
+import QryptSafeV1History from "@/pages/contracts/QryptSafeV1History";
 import QryptSafeV2History from "@/pages/contracts/QryptSafeV2History";
 import QryptSafeV3History from "@/pages/contracts/QryptSafeV3History";
+import QryptSafeV4History from "@/pages/contracts/QryptSafeV4History";
 import QuickStart from "@/pages/developer/QuickStart";
 import IntegrationGuide from "@/pages/developer/IntegrationGuide";
 import ApiReference from "@/pages/developer/ApiReference";
@@ -37,12 +39,14 @@ function Router() {
         <Route path="/security/token-protection" component={TokenProtection} />
         <Route path="/security/post-quantum" component={PostQuantum} />
         <Route path="/security/contract-verification" component={ContractVerification} />
-        <Route path="/contracts/deployed-addresses" component={DeployedAddresses} />
+        <Route path="/contracts/deployed-addresses" component={ShieldFactory} />
         <Route path="/contracts/shield-factory" component={ShieldFactory} />
         <Route path="/contracts/personal-vault" component={PersonalVault} />
         <Route path="/contracts/qtoken" component={QToken} />
+        <Route path="/contracts/qrypt-safe-v1" component={QryptSafeV1History} />
         <Route path="/contracts/qrypt-safe-v2" component={QryptSafeV2History} />
         <Route path="/contracts/qrypt-safe-v3" component={QryptSafeV3History} />
+        <Route path="/contracts/qrypt-safe-v4" component={QryptSafeV4History} />
         <Route path="/developer/quick-start" component={QuickStart} />
         <Route path="/developer/integration-guide" component={IntegrationGuide} />
         <Route path="/developer/api-reference" component={ApiReference} />
