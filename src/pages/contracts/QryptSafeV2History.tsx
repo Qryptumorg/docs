@@ -23,10 +23,10 @@ export default function QryptSafeV2History() {
 
       <h2>What V2 Changed</h2>
       <ul>
-        <li><strong>Pausable removed</strong> — V1 factory could be paused globally by the deployer. V2 removes <code>Pausable</code> entirely. No account can halt vault creation.</li>
-        <li><strong>Nonce-based commit-reveal</strong> — <code>commit()</code> now stores an incrementing nonce. Duplicate <code>commitHash</code> submissions revert with <code>Commit already exists</code>. V1 had no deduplication.</li>
-        <li><strong>SafeERC20</strong> — All token transfers use <code>SafeERC20</code> from OpenZeppelin to handle non-standard ERC-20 return values without reverting.</li>
-        <li><strong>Ownable kept for <code>setMinShieldAmount</code></strong> — The only remaining privileged function. V3 removes it entirely.</li>
+        <li><strong>Pausable removed:</strong> V1 factory could be paused globally by the deployer. V2 removes <code>Pausable</code> entirely. No account can halt vault creation.</li>
+        <li><strong>Nonce-based commit-reveal:</strong> <code>commit()</code> now stores an incrementing nonce. Duplicate <code>commitHash</code> submissions revert with <code>Commit already exists</code>. V1 had no deduplication.</li>
+        <li><strong>SafeERC20:</strong> All token transfers use <code>SafeERC20</code> from OpenZeppelin to handle non-standard ERC-20 return values without reverting.</li>
+        <li><strong>Ownable kept for <code>setMinShieldAmount</code>:</strong> The only remaining privileged function. V3 removes it entirely.</li>
       </ul>
 
       <h2>Known Issue: Static passwordHash</h2>
@@ -39,7 +39,7 @@ export default function QryptSafeV2History() {
 
       <h2>Factory Architecture</h2>
       <pre><code>{`// SPDX-License-Identifier: MIT
-// QryptSafeV2 — Pausable removed, Ownable kept for minShieldAmount
+// QryptSafeV2: Pausable removed, Ownable kept for minShieldAmount
 contract QryptSafeV2 is Ownable {
     address public immutable vaultImplementation;
     uint256 public minShieldAmount = 1e6;

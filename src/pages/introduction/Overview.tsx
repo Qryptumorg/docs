@@ -82,67 +82,69 @@ export default function Overview() {
       <h2>{c.h2DeployedContracts}</h2>
       <p>{c.pDeployedV6}</p>
 
-      <div className="callout callout-info" style={{ marginBottom: "0.75rem" }}>
-        V1 and V2 are deployed and verified. V3-V6 addresses will appear here as each version is deployed and verified on Etherscan. See the Deployed Addresses page for the full table.
-      </div>
-
+      {/* v6 */}
       <div className="callout callout-success" style={{ marginBottom: "0.75rem" }}>
-        <p style={{ margin: "0 0 0.4rem" }}>
-          <strong>{c.labelFactoryV6}</strong>{" "}{PENDING}
-        </p>
-        <p style={{ margin: "0 0 0.4rem" }}>
-          <strong>{c.labelImplV6}</strong>{" "}{PENDING}
-        </p>
-        <p style={{ margin: "0" }}>
-          <strong>{c.labelQryptAirV6}</strong>{" "}
-          <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.875rem" }}>depositToAirBag() / redeemVoucher() in PersonalQryptSafe v6</em>
-        </p>
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v6 (Active)</strong> <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.8rem" }}>Pending deployment</em></p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>OTP chain proofs, air bag isolation, pre-image resistant nonce chain. 49/49 E2E tests.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}><strong>QryptSafe v6 (factory):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}><strong>PersonalQryptSafe v6 (impl):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
       </div>
 
+      {/* v5 */}
       <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
-        <p style={{ margin: "0 0 0.4rem" }}>
-          <strong>{c.labelFactoryV5}</strong>{" "}{PENDING}
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v5 (Superseded)</strong> <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.8rem" }}>Pending deployment</em></p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>bytes32 proofHash, unshieldToRailgun, QryptAir EIP-712 vouchers. 32/32 E2E tests.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}><strong>QryptSafe v5 (factory):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}><strong>PersonalQryptSafe v5 (impl):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+      </div>
+
+      {/* v4 */}
+      <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v4 (Superseded)</strong> <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.8rem" }}>Pending deployment</em></p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>QryptAir EIP-712 vouchers, QryptShield Railgun integration.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}><strong>QryptSafe v4 (factory):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}><strong>PersonalQryptSafe v4 (impl):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+      </div>
+
+      {/* v3 */}
+      <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v3 (Superseded)</strong> <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.8rem" }}>Pending deployment</em></p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Ownable removed entirely, ECDSA changeVaultProof(), zero admin keys. 26/26 E2E tests.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}><strong>QryptSafe v3 (factory):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}><strong>PersonalQryptSafe v3 (impl):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+      </div>
+
+      {/* v2 */}
+      <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v2 (Superseded)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Pausable removed, nonce-based commit deduplication, SafeERC20. 23/23 tests.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}>
+          <strong>QryptSafe v2 (factory):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
         </p>
-        <p style={{ margin: "0 0 0.4rem" }}>
-          <strong>{c.labelImplV5}</strong>{" "}{PENDING}
-        </p>
-        <p style={{ margin: "0" }}>
-          <strong>{c.labelQryptAirV5}</strong>{" "}
-          <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.875rem" }}>redeemVoucher() in PersonalQryptSafe v5</em>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
+          <strong>PersonalQryptSafe v2 (impl):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0x675f70646713D4026612c673E644C61ae3aa7725</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0x675f70646713D4026612c673E644C61ae3aa7725" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
         </p>
       </div>
 
+      {/* v1 */}
       <div className="callout callout-warning" style={{ marginBottom: "0" }}>
-        <p style={{ margin: "0 0 0.4rem" }}>
-          <strong>v1-v4 (Historical):</strong>{" "}{PENDING}
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v1 (Historical)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Genesis deployment. EIP-1167 minimal proxy. Ownable + Pausable factory (admin keys). 12/12 tests.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}>
+          <strong>ShieldFactory v1 (factory):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
         </p>
-        <p style={{ margin: "0" }}>
-          <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.875rem" }}>{c.pendingNote}</em>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
+          <strong>PersonalVault v1 (impl):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0x5E398e1E0Ba28f9659013B1212f24b8B43d69393</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0x5E398e1E0Ba28f9659013B1212f24b8B43d69393" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
         </p>
       </div>
-
-      <h2>{c.h2V5ToV6}</h2>
-      <ul>
-        {c.v5ToV6Items.map((item, i) => <li key={i}>{item}</li>)}
-      </ul>
-
-      <h2>{c.h2V3ToV5}</h2>
-      <ul>
-        {c.v3ToV5Items.map((item, i) => <li key={i}>{item}</li>)}
-      </ul>
-
-      <h2>{c.h2V4ToV5}</h2>
-      <ul>
-        {c.v4ToV5Items.map((item, i) => <li key={i}>{item}</li>)}
-      </ul>
-
-      <h2>v1 to v3: Factory bug fixes</h2>
-      <ul>
-        <li>v1: Factory had <code>Ownable</code> and <code>Pausable</code> — deployer could pause vault creation (critical bug).</li>
-        <li>v2: Fixed decimal precision bug in qToken. Still had Ownable/Pausable.</li>
-        <li>v3: Removed <code>Ownable</code> and <code>Pausable</code> entirely. Factory is fully immutable with zero admin keys.</li>
-        <li>Renamed: <code>ShieldFactory</code> to <code>QryptSafe</code>; <code>PersonalVault</code> to <code>PersonalQryptSafe</code>.</li>
-      </ul>
     </div>
   );
 }
