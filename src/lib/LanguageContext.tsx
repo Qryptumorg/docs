@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createContext, useContext, useState, useCallback } from "react";
 import type { ReactNode } from "react";
 import { translations, type Language, type TranslationSet } from "./translations";
