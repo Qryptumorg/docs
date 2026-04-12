@@ -1,78 +1,148 @@
-import ArchitectureDiagram from "@/components/diagrams/ArchitectureDiagram";
-import QuantumBruteForceChart from "@/components/diagrams/QuantumBruteForceChart";
+import { useLanguage } from "@/lib/LanguageContext";
+import { introductionContent } from "@/lib/content/introduction";
+import TransferModeDiagram from "@/components/diagrams/TransferModeDiagram";
+
+const MODE_COLORS: Record<string, string> = {
+  QryptSafe:   "#22C55E",
+  QryptShield: "#8B5CF6",
+  QryptAir:    "#F59E0B",
+};
+
+const PENDING = (
+  <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.85rem" }}>
+    Pending deployment
+  </em>
+);
 
 export default function Overview() {
+  const { lang, t } = useLanguage();
+  const c = introductionContent[lang].overview;
+
   return (
     <div className="docs-content">
       <div style={{ marginBottom: "0.5rem" }}>
-        <span style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--muted-fg))" }}>
-          Introduction
+        <span style={{
+          fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase",
+          letterSpacing: "0.06em", color: "hsl(var(--muted-fg))",
+        }}>
+          {t.nav.sections.introduction}
         </span>
       </div>
-      <h1>Overview</h1>
+
+      <h1>{c.title}</h1>
       <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
-        Qryptum is a non-custodial protocol on Ethereum L1 that lets users shield ERC-20 tokens inside a personal cryptographic vault called a Qrypt-Safe. Once shielded, tokens become non-transferable qTokens that no wallet, exchange, or tool can move without the correct vault proof. The vault proof layer is built on keccak256, a SHA-3 family hash function that retains 128-bit security under quantum attacks, making Qryptum designed for the post-quantum era.
+        {c.intro}
       </p>
 
-      <QuantumBruteForceChart />
-
-      <h2>System Architecture</h2>
-      <p>
-        Every user deploys their own <code>PersonalVault</code> contract via the <code>ShieldFactory</code>. This vault is their Qrypt-Safe: an isolated smart contract address that holds their real ERC-20 tokens and issues non-transferable qTokens as receipts. The user pays all gas; Qryptum never touches funds.
-      </p>
-
-      <ArchitectureDiagram />
-
-      <h2>Core Properties</h2>
+      <h2>{c.h2TransferModes}</h2>
       <table>
         <thead>
           <tr>
-            <th>Property</th>
-            <th>How It Works</th>
+            {c.modeTableHeaders.map((h) => <th key={h}>{h}</th>)}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><strong>Non-custodial</strong></td>
-            <td>Tokens are held at the vault contract address. No third party has access. The deployer has zero admin keys.</td>
-          </tr>
-          <tr>
-            <td><strong>Non-transferable qTokens</strong></td>
-            <td><code>transfer()</code>, <code>transferFrom()</code>, and <code>approve()</code> always revert at the contract level. No wallet can move qTokens.</td>
-          </tr>
-          <tr>
-            <td><strong>Dual-factor protection</strong></td>
-            <td>Every vault operation requires both the user's private key and the 6-character vault proof simultaneously.</td>
-          </tr>
-          <tr>
-            <td><strong>Isolated vaults</strong></td>
-            <td>Each user has a unique vault address. User A's tokens are at <code>0xVaultA</code>; User B's are at <code>0xVaultB</code>. Never mixed.</td>
-          </tr>
-          <tr>
-            <td><strong>Commit-reveal transfer</strong></td>
-            <td>Transfers use a two-step commit-reveal scheme to prevent replay attacks and front-running exploitation.</td>
-          </tr>
+          {c.modes.map(([mode, mechanism, privacy, bestFor]) => (
+            <tr key={mode}>
+              <td><strong style={{ color: MODE_COLORS[mode] ?? "inherit" }}>{mode}</strong></td>
+              <td>{mechanism}</td>
+              <td>{privacy}</td>
+              <td>{bestFor}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
 
-      <h2>Deployed Contracts (Sepolia)</h2>
-      <div className="callout callout-info">
-        <strong>QryptSafe v3 (active):</strong>{" "}
-        <code>0x5c24dd33C33e70FcD9451e1Fc401E7C810c4135B</code>
-        <br />
-        <a href="https://sepolia.etherscan.io/address/0x5c24dd33C33e70FcD9451e1Fc401E7C810c4135B#code" target="_blank" rel="noopener noreferrer">
-          View on Sepolia Etherscan
-        </a>
-        <br /><br />
-        <strong>ShieldFactory v2 (superseded):</strong>{" "}
-        <code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code>
-        {" -- "}v2 had <code>Ownable</code> and <code>Pausable</code> admin keys. v3 removes all admin control: the factory is fully immutable.
-        <br /><br />
-        <strong>ShieldFactory v1 (superseded):</strong>{" "}
-        <code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code>
-        {" -- "}v1 qTokens defaulted to 18 decimals regardless of underlying token. v2 fixes this by reading{" "}
-        <code>decimals()</code> from the underlying ERC-20 at qToken deploy time.
+      <TransferModeDiagram />
+
+      <h2>{c.h2Architecture}</h2>
+      <p>{c.pArchitecture}</p>
+      <ul>
+        {c.archItems.map((item, i) => <li key={i}>{item}</li>)}
+      </ul>
+
+      <h2>{c.h2CoreProperties}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>{c.coreTableHeaders[0]}</th>
+            <th>{c.coreTableHeaders[1]}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {c.coreProperties.map(([prop, how]) => (
+            <tr key={prop}>
+              <td><strong>{prop}</strong></td>
+              <td>{how}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2>{c.h2DeployedContracts}</h2>
+      <p>{c.pDeployedV6}</p>
+
+      <div className="callout callout-info" style={{ marginBottom: "0.75rem" }}>
+        All V1-V6 contracts are being redeployed from a clean wallet with zero association to other projects. Contract addresses will appear here as each version is deployed and verified on Etherscan, one version per day. See the Deployed Addresses page for the full table.
       </div>
+
+      <div className="callout callout-success" style={{ marginBottom: "0.75rem" }}>
+        <p style={{ margin: "0 0 0.4rem" }}>
+          <strong>{c.labelFactoryV6}</strong>{" "}{PENDING}
+        </p>
+        <p style={{ margin: "0 0 0.4rem" }}>
+          <strong>{c.labelImplV6}</strong>{" "}{PENDING}
+        </p>
+        <p style={{ margin: "0" }}>
+          <strong>{c.labelQryptAirV6}</strong>{" "}
+          <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.875rem" }}>depositToAirBag() / redeemVoucher() in PersonalQryptSafe v6</em>
+        </p>
+      </div>
+
+      <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
+        <p style={{ margin: "0 0 0.4rem" }}>
+          <strong>{c.labelFactoryV5}</strong>{" "}{PENDING}
+        </p>
+        <p style={{ margin: "0 0 0.4rem" }}>
+          <strong>{c.labelImplV5}</strong>{" "}{PENDING}
+        </p>
+        <p style={{ margin: "0" }}>
+          <strong>{c.labelQryptAirV5}</strong>{" "}
+          <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.875rem" }}>redeemVoucher() in PersonalQryptSafe v5</em>
+        </p>
+      </div>
+
+      <div className="callout callout-warning" style={{ marginBottom: "0" }}>
+        <p style={{ margin: "0 0 0.4rem" }}>
+          <strong>v1-v4 (Historical):</strong>{" "}{PENDING}
+        </p>
+        <p style={{ margin: "0" }}>
+          <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.875rem" }}>{c.pendingNote}</em>
+        </p>
+      </div>
+
+      <h2>{c.h2V5ToV6}</h2>
+      <ul>
+        {c.v5ToV6Items.map((item, i) => <li key={i}>{item}</li>)}
+      </ul>
+
+      <h2>{c.h2V3ToV5}</h2>
+      <ul>
+        {c.v3ToV5Items.map((item, i) => <li key={i}>{item}</li>)}
+      </ul>
+
+      <h2>{c.h2V4ToV5}</h2>
+      <ul>
+        {c.v4ToV5Items.map((item, i) => <li key={i}>{item}</li>)}
+      </ul>
+
+      <h2>v1 to v3: Factory bug fixes</h2>
+      <ul>
+        <li>v1: Factory had <code>Ownable</code> and <code>Pausable</code> — deployer could pause vault creation (critical bug).</li>
+        <li>v2: Fixed decimal precision bug in qToken. Still had Ownable/Pausable.</li>
+        <li>v3: Removed <code>Ownable</code> and <code>Pausable</code> entirely. Factory is fully immutable with zero admin keys.</li>
+        <li>Renamed: <code>ShieldFactory</code> to <code>QryptSafe</code>; <code>PersonalVault</code> to <code>PersonalQryptSafe</code>.</li>
+      </ul>
     </div>
   );
 }

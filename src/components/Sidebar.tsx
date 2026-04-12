@@ -1,5 +1,6 @@
 import { useLocation, Link } from "wouter";
 import { NAV } from "@/lib/nav";
+import { useLanguage } from "@/lib/LanguageContext";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
 export default function Sidebar({ open, onClose }: Props) {
   const [location] = useLocation();
   const isMobile = useIsMobile();
+  const { t } = useLanguage();
 
   const nav = (
     <nav
@@ -50,7 +52,15 @@ export default function Sidebar({ open, onClose }: Props) {
               alt="Qryptum"
               style={{ height: "28px", width: "28px", objectFit: "contain" }}
             />
-            <span style={{ fontWeight: 700, fontSize: "0.9rem", letterSpacing: "-0.01em", color: "hsl(var(--foreground))", marginLeft: "-4px" }}>
+            <span
+              style={{
+                fontWeight: 700,
+                fontSize: "0.9rem",
+                letterSpacing: "-0.01em",
+                color: "hsl(var(--foreground))",
+                marginLeft: "-4px",
+              }}
+            >
               QRYPTUM
             </span>
           </a>
@@ -67,7 +77,14 @@ export default function Sidebar({ open, onClose }: Props) {
               alignItems: "center",
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" />
             </svg>
           </button>
@@ -76,7 +93,7 @@ export default function Sidebar({ open, onClose }: Props) {
 
       <div style={{ padding: "1.25rem 0 2rem", flex: 1, overflowY: "auto" }}>
         {NAV.map((section) => (
-          <div key={section.title} style={{ marginBottom: "0.25rem" }}>
+          <div key={section.key} style={{ marginBottom: "0.25rem" }}>
             <div
               style={{
                 padding: "0.25rem 1.5rem",
@@ -89,10 +106,11 @@ export default function Sidebar({ open, onClose }: Props) {
                 marginBottom: "0.25rem",
               }}
             >
-              {section.title}
+              {t.nav.sections[section.key]}
             </div>
             {section.items.map((item) => {
-              const isActive = location === item.href || location.startsWith(item.href);
+              const isActive =
+                location === item.href || location.startsWith(item.href);
               return (
                 <Link
                   key={item.href}
@@ -113,7 +131,7 @@ export default function Sidebar({ open, onClose }: Props) {
                     background: isActive ? "hsl(var(--muted))" : "transparent",
                   }}
                 >
-                  {item.title}
+                  {t.nav.items[item.key]}
                 </Link>
               );
             })}

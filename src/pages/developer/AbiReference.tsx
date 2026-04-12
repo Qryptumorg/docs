@@ -1,130 +1,131 @@
+import { useLanguage } from "@/lib/LanguageContext";
+import { developerContent } from "@/lib/content/developer";
+
 export default function AbiReference() {
+  const { lang, t } = useLanguage();
+  const c = developerContent[lang].abiReference;
+
   return (
     <div className="docs-content">
       <div style={{ marginBottom: "0.5rem" }}>
         <span style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--muted-fg))" }}>
-          Developer Docs
+          {t.nav.sections.developerDocs}
         </span>
       </div>
-      <h1>ABI Reference</h1>
+      <h1>{c.title}</h1>
       <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
-        Human-readable ABIs for all Qryptum contracts. Use these to read and write to the contracts using viem, ethers.js, or any EVM-compatible library.
+        {c.intro}
       </p>
 
-      <h2>ShieldFactory ABI</h2>
-      <pre><code>{`const FACTORY_ABI = [
-  // Create a new Qrypt-Safe for msg.sender
-  "function createVault(bytes32 passwordHash) external returns (address vault)",
+      <h2>{c.h2FactoryAbi}</h2>
+      <p style={{ fontSize: "0.9rem", color: "hsl(var(--muted-fg))" }}>v3+ factory (no admin keys, no pause, no owner)</p>
+      <pre><code>{`const SHIELD_FACTORY_ABI = [
+  // Read
+  "function hasVault(address user) external view returns (bool)",
+  "function getVault(address user) external view returns (address)",
+  "function vaultImplementation() external view returns (address)",
 
-  // Read functions
-  "function hasVault(address wallet) external view returns (bool)",
-  "function getVault(address wallet) external view returns (address)",
-
-  // Admin (deployer only)
-  "function pause() external",
-  "function unpause() external",
+  // Write
+  "function createVault(bytes32 proofHash) external returns (address)",
 
   // Events
   "event VaultCreated(address indexed owner, address indexed vault)",
-] as const;`}</code></pre>
+];`}</code></pre>
 
-      <h2>PersonalVault ABI</h2>
-      <pre><code>{`const VAULT_ABI = [
-  // Initialization (called once by factory)
-  "function initialize(address _owner, bytes32 _passwordHash) external",
+      <h2>{c.h2VaultAbi}</h2>
+      <p style={{ fontSize: "0.9rem", color: "hsl(var(--muted-fg))" }}>v6 PersonalQryptSafe (full feature set: OTP chain, airBudget, QryptShield, QryptAir)</p>
+      <pre><code>{`const PERSONAL_VAULT_ABI = [
+  // State
+  "function owner() external view returns (address)",
+  "function factory() external view returns (address)",
+  "function lastActivityBlock() external view returns (uint256)",
+  "function shieldedBalance(address token) external view returns (uint256)",
+  "function airBudget(address token) external view returns (uint256)",
 
-  // Core operations (onlyOwner)
-  "function shield(address tokenAddress, uint256 amount, string calldata password) external",
-  "function unshield(address tokenAddress, uint256 amount, string calldata password) external",
+  // Vault operations
+  "function shield(address token, uint256 amount, bytes32 proofHash) external",
+  "function unshield(address token, uint256 amount, bytes32 proofHash) external",
 
-  // Transfer (2 steps, onlyOwner)
+  // Commit-reveal transfer (QryptSafe)
   "function commitTransfer(bytes32 commitHash) external",
-  "function revealTransfer(address tokenAddress, address to, uint256 amount, string calldata password, uint256 nonce) external",
+  "function revealTransfer(address token, address to, uint256 amount, bytes32 proofHash, uint256 nonce) external",
 
-  // Vault proof management (onlyOwner)
-  "function changeVaultProof(string calldata oldPassword, string calldata newPassword) external",
+  // QryptShield (Railgun)
+  "function unshieldToRailgun(address token, uint256 amount, bytes32 proofHash, bytes calldata railgunRecipient) external",
 
-  // Emergency (onlyOwner, after EMERGENCY_DELAY_BLOCKS of inactivity)
+  // QryptAir (EIP-712 offline voucher)
+  "function fundAirBudget(address token, uint256 amount, bytes32 proofHash) external",
+  "function reclaimAirBudget(address token, uint256 amount, bytes32 proofHash) external",
+  "function redeemAirVoucher(address token, address to, uint256 amount, uint256 deadline, bytes32 voucherHash, bytes calldata sig) external",
+
+  // OTP chain management
+  "function proofChainHead() external view returns (bytes32)",
+  "function rechargeChain(bytes32[] calldata newLinks, bytes32 proofHash) external",
+
+  // Vault proof management
+  "function changeVaultProof(bytes32 oldProofHash, bytes32 newProofHash) external",
+
+  // Emergency
   "function emergencyWithdraw(address[] calldata tokens) external",
 
-  // View functions
-  "function getQTokenAddress(address tokenAddress) external view returns (address)",
-  "function getShieldedBalance(address tokenAddress) external view returns (uint256)",
-  "function getEmergencyWithdrawAvailableBlock() external view returns (uint256)",
-
-  // Public state
-  "function owner() external view returns (address)",
-  "function initialized() external view returns (bool)",
-  "function lastActivityBlock() external view returns (uint256)",
-
-  // Constants
-  "function COMMIT_EXPIRY_SECONDS() external view returns (uint256)",
-  "function MINIMUM_SHIELD_AMOUNT() external view returns (uint256)",
-  "function EMERGENCY_DELAY_BLOCKS() external view returns (uint256)",
-
   // Events
-  "event TokenShielded(address indexed token, uint256 amount, address indexed qToken)",
+  "event TokenShielded(address indexed token, uint256 amount)",
   "event TokenUnshielded(address indexed token, uint256 amount)",
   "event TransferExecuted(address indexed token, address indexed to, uint256 amount)",
-  "event QTokenDeployed(address indexed token, address indexed qToken)",
   "event CommitSubmitted(bytes32 indexed commitHash)",
   "event VaultProofChanged()",
+  "event AirBudgetFunded(address indexed token, uint256 amount)",
+  "event AirVoucherRedeemed(address indexed token, address indexed to, uint256 amount)",
   "event EmergencyWithdraw(address indexed token, uint256 amount)",
-] as const;`}</code></pre>
+];`}</code></pre>
 
-      <h2>ShieldToken (qToken) ABI</h2>
-      <pre><code>{`const QTOKEN_ABI = [
-  // Standard ERC-20 reads
+      <h2>{c.h2QTokenAbi}</h2>
+      <pre><code>{`const SHIELD_TOKEN_ABI = [
+  // ERC-20 read (transfer functions always revert)
   "function name() external view returns (string)",
   "function symbol() external view returns (string)",
   "function decimals() external view returns (uint8)",
   "function totalSupply() external view returns (uint256)",
   "function balanceOf(address account) external view returns (uint256)",
 
-  // Allowance always returns 0 (approvals disabled)
-  "function allowance(address, address) external view returns (uint256)",
+  // Always revert (non-transferable):
+  // transfer(), transferFrom(), approve() all revert unconditionally
 
-  // These always revert
-  "function transfer(address, uint256) external returns (bool)",
-  "function transferFrom(address, address, uint256) external returns (bool)",
-  "function approve(address, uint256) external returns (bool)",
-
-  // Vault reference
+  // Vault-only
+  "function mint(address to, uint256 amount) external",
+  "function burn(address from, uint256 amount) external",
   "function vault() external view returns (address)",
-] as const;`}</code></pre>
 
-      <h2>Minimal ERC-20 ABI (for underlying tokens)</h2>
-      <pre><code>{`const ERC20_ABI = [
-  "function name() external view returns (string)",
-  "function symbol() external view returns (string)",
-  "function decimals() external view returns (uint8)",
-  "function balanceOf(address account) external view returns (uint256)",
-  "function allowance(address owner, address spender) external view returns (uint256)",
+  // Events
+  "event Transfer(address indexed from, address indexed to, uint256 value)",
+];`}</code></pre>
+
+      <h2>{c.h2Erc20Abi}</h2>
+      <pre><code>{`const ERC20_APPROVE_ABI = [
   "function approve(address spender, uint256 amount) external returns (bool)",
-  "function transfer(address to, uint256 amount) external returns (bool)",
-] as const;`}</code></pre>
+  "function allowance(address owner, address spender) external view returns (uint256)",
+  "function balanceOf(address account) external view returns (uint256)",
+  "function decimals() external view returns (uint8)",
+  "function symbol() external view returns (string)",
+];`}</code></pre>
 
-      <h2>Contract Addresses</h2>
+      <h2>{c.h2Addresses}</h2>
       <table>
         <thead>
-          <tr><th>Network</th><th>Chain ID</th><th>ShieldFactory</th></tr>
+          <tr>
+            <th>{c.addressHeaders[0]}</th>
+            <th>{c.addressHeaders[1]}</th>
+            <th>{c.addressHeaders[2]}</th>
+          </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Sepolia (v2 -- active)</td>
-            <td><code>11155111</code></td>
-            <td><code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code></td>
-          </tr>
-          <tr>
-            <td>Sepolia (v1 -- superseded)</td>
-            <td><code>11155111</code></td>
-            <td><code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code></td>
-          </tr>
-          <tr>
-            <td>Mainnet</td>
-            <td><code>1</code></td>
-            <td>Pending deployment</td>
-          </tr>
+          {c.addressRows.map(([network, chainId, factory]) => (
+            <tr key={chainId}>
+              <td>{network}</td>
+              <td><code>{chainId}</code></td>
+              <td><code>{factory}</code></td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

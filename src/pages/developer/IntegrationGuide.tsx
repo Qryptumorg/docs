@@ -1,124 +1,129 @@
+import { useLanguage } from "@/lib/LanguageContext";
+import { developerContent } from "@/lib/content/developer";
+
 export default function IntegrationGuide() {
+  const { lang, t } = useLanguage();
+  const c = developerContent[lang].integrationGuide;
+
   return (
     <div className="docs-content">
       <div style={{ marginBottom: "0.5rem" }}>
         <span style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--muted-fg))" }}>
-          Developer Docs
+          {t.nav.sections.developerDocs}
         </span>
       </div>
-      <h1>Integration Guide</h1>
+      <h1>{c.title}</h1>
       <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
-        A complete walkthrough for integrating Qryptum into a frontend application, including vault detection, shielding, and full transfer flow.
+        {c.intro}
       </p>
 
-      <h2>1. Vault Proof Hashing</h2>
-      <p>
-        The vault proof must be hashed in the browser before any on-chain operation. Never send the raw vault proof to any backend.
-      </p>
-      <pre><code>{`import { keccak256, toBytes } from 'viem';
+      <h2>{c.h2ProofHashing}</h2>
+      <p>{c.pProofHashing}</p>
+      <pre><code>{`import { ethers } from "ethers";
 
-// For createVault:
-const proofHash = keccak256(toBytes(vaultProof));
-
-// For shield / unshield / revealTransfer:
-// Pass the raw string directly in calldata.
-// The contract hashes it internally.
-vault.shield(tokenAddress, amount, vaultProof)`}</code></pre>
-
-      <h2>2. Vault Proof Format Validation</h2>
-      <p>
-        The vault proof must be exactly 6 characters: 3 letters and 3 digits. The contract enforces this format when calling <code>changeVaultProof()</code>. Validate in the browser before submission:
-      </p>
-      <pre><code>{`function isValidVaultProof(proof: string): boolean {
-  if (proof.length !== 6) return false;
-  const letters = proof.split('').filter(c => /[a-zA-Z]/.test(c));
-  const digits = proof.split('').filter(c => /[0-9]/.test(c));
-  return letters.length === 3 && digits.length === 3;
+// Compute the commitment hash from the user's vault proof
+function computeCommitHash(
+  token: string,
+  to: string,
+  amount: bigint,
+  proof: string,
+  nonce: bigint
+): string {
+  return ethers.keccak256(
+    ethers.AbiCoder.defaultAbiCoder().encode(
+      ["address", "address", "uint256", "string", "uint256"],
+      [token, to, amount, proof, nonce]
+    )
+  );
 }`}</code></pre>
 
-      <h2>3. Detecting Vault Status</h2>
-      <pre><code>{`const hasVault = await publicClient.readContract({
-  address: FACTORY_ADDRESS,
-  abi: FACTORY_ABI,
-  functionName: 'hasVault',
-  args: [walletAddress],
-});
+      <h2>{c.h2ProofFormat}</h2>
+      <p>{c.pProofFormat}</p>
+      <pre><code>{`// Validation regex: 3 lowercase letters followed by 3 digits
+const PROOF_REGEX = /^[a-z]{3}[0-9]{3}$/;
 
-// If vault exists, get its address
-const vaultAddress = hasVault
-  ? await publicClient.readContract({
-      address: FACTORY_ADDRESS,
-      abi: FACTORY_ABI,
-      functionName: 'getVault',
-      args: [walletAddress],
-    })
-  : null;`}</code></pre>
+function isValidProof(proof: string): boolean {
+  return PROOF_REGEX.test(proof);
+}
 
-      <h2>4. Reading Shielded Balances</h2>
-      <pre><code>{`// Get the qToken address for a given underlying token
-const qTokenAddress = await publicClient.readContract({
-  address: vaultAddress,
-  abi: VAULT_ABI,
-  functionName: 'getQTokenAddress',
-  args: [tokenAddress],
-});
+// Examples:
+// isValidProof("abc123") => true
+// isValidProof("ABC123") => false (uppercase)
+// isValidProof("abc12")  => false (5 chars)
+// isValidProof("abc1234")=> false (7 chars)`}</code></pre>
 
-// Get shielded balance (in token base units)
-const shieldedBalance = await publicClient.readContract({
-  address: vaultAddress,
-  abi: VAULT_ABI,
-  functionName: 'getShieldedBalance',
-  args: [tokenAddress],
-});`}</code></pre>
+      <h2>{c.h2VaultStatus}</h2>
+      <pre><code>{`// Get vault status for a user
+const FACTORY_ABI = [
+  "function hasVault(address) view returns (bool)",
+  "function getVault(address) view returns (address)",
+];
+const factory = new ethers.Contract(FACTORY_ADDRESS, FACTORY_ABI, provider);
 
-      <h2>5. Network Configuration</h2>
-      <pre><code>{`const FACTORY_ADDRESSES = {
-  1: process.env.VITE_SHIELD_FACTORY_MAINNET,       // Ethereum mainnet
-  11155111: process.env.VITE_SHIELD_FACTORY_SEPOLIA, // Sepolia testnet
-  31337: '0x5FbDB2315678afecb367f032d93F642f64180aa3', // Hardhat local
-};
+const hasVault = await factory.hasVault(userAddress);
+const vaultAddress = hasVault ? await factory.getVault(userAddress) : null;`}</code></pre>
 
-const SUPPORTED_CHAIN_IDS = [1, 11155111, 31337];
+      <h2>{c.h2ShieldedBalances}</h2>
+      <pre><code>{`const QTOKEN_ABI = [
+  "function balanceOf(address) view returns (uint256)",
+  "function decimals() view returns (uint8)",
+  "function symbol() view returns (string)",
+];
 
-function getFactoryAddress(chainId: number): string | undefined {
-  return FACTORY_ADDRESSES[chainId];
-}`}</code></pre>
+// qToken address stored per token per vault
+// Use VaultCreated and Shielded events to discover qToken addresses
+const qToken = new ethers.Contract(qTokenAddress, QTOKEN_ABI, provider);
+const balance = await qToken.balanceOf(userAddress);
+const decimals = await qToken.decimals();
+const formatted = ethers.formatUnits(balance, decimals);`}</code></pre>
 
-      <h2>6. Recording Transactions to the API</h2>
-      <p>
-        After each successful on-chain transaction, record it to the Qryptum backend API for display in the dashboard history:
-      </p>
-      <pre><code>{`await fetch('/api/transactions', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+      <h2>{c.h2NetworkConfig}</h2>
+      <pre><code>{`const NETWORK_CONFIG = {
+  1: {
+    name: "Ethereum Mainnet",
+    factoryAddress: null, // Pending deployment
+  },
+  11155111: {
+    name: "Sepolia Testnet",
+    factoryAddress: null, // See Deployed Addresses page
+  },
+  31337: {
+    name: "Hardhat Local",
+    factoryAddress: process.env.NEXT_PUBLIC_LOCAL_FACTORY,
+  },
+} as const;`}</code></pre>
+
+      <h2>{c.h2RecordTx}</h2>
+      <p>{c.pRecordTx}</p>
+      <pre><code>{`// After a successful shield tx:
+await fetch("/api/transactions", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    walletAddress,
-    txHash: receipt.transactionHash,
-    type: 'shield', // 'shield' | 'unshield' | 'transfer'
-    tokenAddress,
-    tokenSymbol: 'USDC',
-    tokenName: 'USD Coin',
-    amount: amount.toString(),
-    fromAddress: walletAddress,
-    toAddress: null, // only for transfers
-    networkId: chainId,
+    wallet: userAddress,
+    txHash: receipt.hash,
+    type: "shield",
+    tokenSymbol: "USDC",
+    amount: "10.0",
+    chainId: 11155111,
   }),
 });`}</code></pre>
 
-      <h2>Environment Variables</h2>
+      <h2>{c.h2EnvVars}</h2>
       <table>
         <thead>
           <tr>
-            <th>Variable</th>
-            <th>Description</th>
+            <th>{c.envHeaders[0]}</th>
+            <th>{c.envHeaders[1]}</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><code>VITE_SHIELD_FACTORY_SEPOLIA</code></td><td>ShieldFactory address on Sepolia</td></tr>
-          <tr><td><code>VITE_SHIELD_FACTORY_MAINNET</code></td><td>ShieldFactory address on mainnet (set after deploy)</td></tr>
-          <tr><td><code>VITE_ALCHEMY_SEPOLIA_URL</code></td><td>Optional: Alchemy RPC for Sepolia reads</td></tr>
-          <tr><td><code>VITE_ALCHEMY_MAINNET_URL</code></td><td>Optional: Alchemy RPC for mainnet reads</td></tr>
-          <tr><td><code>VITE_WALLETCONNECT_PROJECT_ID</code></td><td>Optional: WalletConnect cloud project ID</td></tr>
+          {c.envRows.map(([key, desc]) => (
+            <tr key={key}>
+              <td><code>{key}</code></td>
+              <td>{desc}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

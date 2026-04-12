@@ -1,120 +1,110 @@
 import CommitRevealDiagram from "@/components/diagrams/CommitRevealDiagram";
+import { useLanguage } from "@/lib/LanguageContext";
+import { developerContent } from "@/lib/content/developer";
 
 export default function CommitRevealFlow() {
+  const { lang, t } = useLanguage();
+  const c = developerContent[lang].commitReveal;
+
   return (
     <div className="docs-content">
       <div style={{ marginBottom: "0.5rem" }}>
         <span style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--muted-fg))" }}>
-          Developer Docs
+          {t.nav.sections.developerDocs}
         </span>
       </div>
-      <h1>Commit-Reveal Flow</h1>
+      <h1>{c.title}</h1>
       <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
-        Transfers in Qryptum use a two-step commit-reveal scheme. The commit step records a hash on-chain without revealing the vault proof. The reveal step verifies the hash and executes the transfer.
+        {c.intro}
       </p>
 
       <CommitRevealDiagram />
 
-      <h2>Why Two Steps</h2>
-      <p>
-        A single-step transfer would expose the vault proof in the mempool before the transaction is included in a block. A malicious miner could observe the proof and attempt to front-run the transaction. The commit-reveal scheme solves this: the commit step submits only a hash (no proof), and the reveal step is valid only after the commit is included in a block.
-      </p>
-      <p>
-        Additionally, each commit hash includes a unique random nonce, making replay attacks impossible even if the same transfer parameters are used again.
-      </p>
+      <h2>{c.h2WhyTwo}</h2>
+      <p>{c.pWhyTwo1}</p>
+      <p>{c.pWhyTwo2}</p>
 
-      <h2>Step-by-Step Implementation (viem)</h2>
+      <h2>{c.h2Implementation}</h2>
 
-      <h3>Step 1: Build the Commit Hash</h3>
-      <pre><code>{`import { keccak256, encodePacked } from 'viem';
+      <h3>{c.h3Step1}</h3>
+      <pre><code>{`import { ethers } from "ethers";
 
+// Generate a random nonce
 const nonce = BigInt(Math.floor(Math.random() * 1e15));
 
-const commitHash = keccak256(
-  encodePacked(
-    ['string', 'uint256', 'address', 'address', 'uint256'],
-    [vaultProof, nonce, tokenAddress, recipientAddress, amount]
+// Compute the commitment hash (same logic as the contract)
+const commitHash = ethers.keccak256(
+  ethers.AbiCoder.defaultAbiCoder().encode(
+    ["address", "address", "uint256", "string", "uint256"],
+    [tokenAddress, recipientAddress, amount, vaultProof, nonce]
   )
 );`}</code></pre>
 
-      <h3>Step 2: Submit the Commit</h3>
-      <pre><code>{`const commitTxHash = await walletClient.writeContract({
-  address: vaultAddress,
-  abi: VAULT_ABI,
-  functionName: 'commitTransfer',
-  args: [commitHash],
-});
+      <h3>{c.h3Step2}</h3>
+      <pre><code>{`// Submit the commitment (no vault proof in this transaction)
+const VAULT_ABI = [
+  "function commitTransfer(bytes32 commitHash) external",
+];
+const vault = new ethers.Contract(vaultAddress, VAULT_ABI, signer);
 
-const commitReceipt = await publicClient.waitForTransactionReceipt({
-  hash: commitTxHash,
-});
+const commitTx = await vault.commitTransfer(commitHash);
+await commitTx.wait();
+// commitHash is now stored in the contract with a 600-second expiry`}</code></pre>
 
-console.log('Commit confirmed at block:', commitReceipt.blockNumber);`}</code></pre>
+      <h3>{c.h3Step3}</h3>
+      <pre><code>{`// Wait for commit transaction to be mined
+// The vault proof is safe to include now since it's not in the mempool
+const REVEAL_ABI = [
+  "function revealTransfer(address token, address to, uint256 amount, string calldata password, uint256 nonce) external",
+];
+const vaultWithReveal = new ethers.Contract(vaultAddress, REVEAL_ABI, signer);
 
-      <h3>Step 3: Wait for the Next Block</h3>
-      <pre><code>{`// The reveal must happen in a different block from the commit.
-// Poll until the current block is at least commitBlock + 1.
-const commitBlock = commitReceipt.blockNumber;
+const revealTx = await vaultWithReveal.revealTransfer(
+  tokenAddress,
+  recipientAddress,
+  amount,
+  vaultProof,
+  nonce
+);
+await revealTx.wait();`}</code></pre>
 
-async function waitForNextBlock() {
-  while (true) {
-    const current = await publicClient.getBlockNumber();
-    if (current > commitBlock) break;
-    await new Promise((resolve) => setTimeout(resolve, 4000));
-  }
-}`}</code></pre>
+      <h3>{c.h3Step4}</h3>
+      <pre><code>{`// On-chain verification (PersonalVault.sol):
+// 1. Recompute hash from calldata params
+bytes32 expectedHash = keccak256(abi.encode(token, to, amount, password, nonce));
 
-      <h3>Step 4: Execute the Reveal</h3>
-      <pre><code>{`const revealTxHash = await walletClient.writeContract({
-  address: vaultAddress,
-  abi: VAULT_ABI,
-  functionName: 'revealTransfer',
-  args: [tokenAddress, recipientAddress, amount, vaultProof, nonce],
-});
+// 2. Match against stored commit
+require(commits[expectedHash].timestamp > 0, "No such commit");
+require(!commits[expectedHash].used, "Commit already used");
+require(block.timestamp <= commits[expectedHash].timestamp + 600, "Commit expired");
+require(keccak256(abi.encodePacked(password)) == passwordHash, "Invalid vault proof");
 
-const revealReceipt = await publicClient.waitForTransactionReceipt({
-  hash: revealTxHash,
-});
+// 3. Mark used and transfer
+commits[expectedHash].used = true;
+// burn qToken from owner, transfer underlying ERC-20 to recipient`}</code></pre>
 
-console.log('Transfer complete. Tx:', revealReceipt.transactionHash);`}</code></pre>
-
-      <h2>Constraints</h2>
+      <h2>{c.h2Constraints}</h2>
       <table>
         <thead>
           <tr>
-            <th>Constraint</th>
-            <th>Value</th>
-            <th>Enforced By</th>
+            <th>{c.constraintHeaders[0]}</th>
+            <th>{c.constraintHeaders[1]}</th>
+            <th>{c.constraintHeaders[2]}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Minimum block gap</td>
-            <td>1 block</td>
-            <td>Contract checks <code>block.number &gt; commit.blockNumber</code></td>
-          </tr>
-          <tr>
-            <td>Commit expiry</td>
-            <td>600 seconds (10 minutes)</td>
-            <td>Contract checks <code>block.timestamp - commit.timestamp &lt;= 600</code></td>
-          </tr>
-          <tr>
-            <td>Replay prevention</td>
-            <td>Each commit hash can be used once</td>
-            <td><code>commit.used == true</code> reverts on reuse</td>
-          </tr>
-          <tr>
-            <td>Self-transfer</td>
-            <td>Blocked</td>
-            <td><code>require(to != msg.sender)</code></td>
-          </tr>
+          {c.constraintRows.map(([constraint, value, reason]) => (
+            <tr key={constraint}>
+              <td>{constraint}</td>
+              <td><code>{value}</code></td>
+              <td>{reason}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
 
-      <h2>What the Recipient Receives</h2>
-      <p>
-        The recipient always receives the raw ERC-20 token (for example, USDC), never the qToken. The qToken is burned during <code>revealTransfer()</code>. The recipient wallet does not need to be a Qryptum user. They can use the received tokens freely or choose to shield them into their own Qrypt-Safe.
-      </p>
+      <h2>{c.h2Recipient}</h2>
+      <p>{c.pRecipient}</p>
     </div>
   );
 }

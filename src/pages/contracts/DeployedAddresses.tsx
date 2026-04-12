@@ -1,219 +1,210 @@
+import { useLanguage } from "@/lib/LanguageContext";
+import { contractsContent } from "@/lib/content/contracts";
+
+const PENDING = <span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>Pending deployment</span>;
+
+const versions = [
+  {
+    key: "v6",
+    label: "v6: Active",
+    sublabel: "OTP chain (proofChainHead) · airBudget isolation · QryptumSigner broadcaster · 63 tests",
+    factory: null,
+    impl: null,
+    status: "active",
+    etherscanFactory: null,
+    etherscanImpl: null,
+    mainnet: false,
+  },
+  {
+    key: "v5",
+    label: "v5: Historical",
+    sublabel: "Railgun (unshieldToRailgun) · QryptAir EIP-712 voucher · passwordHash static bug · airBudget not isolated bug · 51 tests",
+    factory: null,
+    impl: null,
+    status: "superseded",
+    etherscanFactory: null,
+    etherscanImpl: null,
+    mainnet: false,
+  },
+  {
+    key: "v4",
+    label: "v4: Historical",
+    sublabel: "Custom errors · activityCount · createdAtBlock · partial unshield · 47 tests",
+    factory: null,
+    impl: null,
+    status: "superseded",
+    etherscanFactory: null,
+    etherscanImpl: null,
+    mainnet: false,
+  },
+  {
+    key: "v3",
+    label: "v3: Historical",
+    sublabel: "Trustless factory (no Ownable) · ECDSA meta-transfer · changeVaultProof · 36 tests",
+    factory: null,
+    impl: null,
+    status: "superseded",
+    etherscanFactory: null,
+    etherscanImpl: null,
+    mainnet: false,
+  },
+  {
+    key: "v2",
+    label: "v2: Historical",
+    sublabel: "Pausable removed · nonce commits · overflow fix · 23 tests",
+    factory: null,
+    impl: null,
+    status: "superseded",
+    etherscanFactory: null,
+    etherscanImpl: null,
+    mainnet: false,
+  },
+  {
+    key: "v1",
+    label: "v1: Historical",
+    sublabel: "Initial deployment · Ownable+Pausable factory bug (critical) · 12 tests",
+    factory: null,
+    impl: null,
+    status: "superseded",
+    etherscanFactory: null,
+    etherscanImpl: null,
+    mainnet: false,
+  },
+];
+
+const statusColor: Record<string, string> = {
+  active: "#16a34a",
+  superseded: "#ca8a04",
+  decommissioned: "#dc2626",
+  pending: "hsl(var(--muted-fg))",
+};
+
+const statusLabel: Record<string, string> = {
+  active: "Verified",
+  superseded: "Superseded",
+  decommissioned: "Decommissioned",
+  pending: "Pending",
+};
+
 export default function DeployedAddresses() {
+  const { lang, t } = useLanguage();
+  const c = contractsContent[lang].deployedAddresses;
+
   return (
     <div className="docs-content">
       <div style={{ marginBottom: "0.5rem" }}>
         <span style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--muted-fg))" }}>
-          Smart Contracts
+          {t.nav.sections.smartContracts}
         </span>
       </div>
-      <h1>Deployed Addresses</h1>
+      <h1>{c.title}</h1>
 
-      <h2>Sepolia Testnet (Chain ID: 11155111)</h2>
+      <h2>{c.h2Sepolia}</h2>
 
       <div className="callout callout-info" style={{ marginBottom: "1.5rem" }}>
-        <strong>Active deployment: v3.</strong> v2 and v1 are preserved below for historical reference. All new Qrypt-Safe deployments use the v3 factory.
+        All V1-V6 contracts are being redeployed from a clean wallet with zero association to other projects. Addresses will be filled in as each version is deployed and verified on Etherscan, one version per day.
       </div>
 
-      <h3>v3 -- Active (no admin keys)</h3>
-      <p>
-        Redeployed to remove <code>Ownable</code> and <code>Pausable</code> from the factory. QryptSafe v3
-        is fully immutable: no one can pause vault creation or call privileged functions. The contracts are
-        renamed <code>QryptSafe</code> (factory) and <code>PersonalQryptSafe</code> (vault implementation).
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Contract</th>
-            <th>Address</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>QryptSafe v3 (factory)</td>
-            <td><code>0x5c24dd33C33e70FcD9451e1Fc401E7C810c4135B</code></td>
-            <td style={{ color: "#16a34a", fontWeight: 600 }}>Verified</td>
-          </tr>
-          <tr>
-            <td>PersonalQryptSafe implementation v3</td>
-            <td><code>0xD2db7514A58c9a940c6f0D411EE8364b9a5302D9</code></td>
-            <td style={{ color: "#16a34a", fontWeight: 600 }}>Verified</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>
-        <a href="https://sepolia.etherscan.io/address/0x5c24dd33C33e70FcD9451e1Fc401E7C810c4135B#code" target="_blank" rel="noopener noreferrer">
-          QryptSafe v3 on Sepolia Etherscan
-        </a>
-        {" | "}
-        <a href="https://sepolia.etherscan.io/address/0xD2db7514A58c9a940c6f0D411EE8364b9a5302D9#code" target="_blank" rel="noopener noreferrer">
-          PersonalQryptSafe v3 on Sepolia Etherscan
-        </a>
-      </p>
+      {versions.map((v) => {
+        const isActive = v.status === "active";
+        return (
+          <div key={v.key}>
+            <h3 style={{ color: isActive ? statusColor.active : undefined }}>{v.label}</h3>
+            <p style={{ fontSize: "0.9rem", color: "hsl(var(--muted-fg))" }}>{v.sublabel}</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>{c.tableHeaders[0]}</th>
+                  <th>{c.tableHeaders[1]}</th>
+                  <th>{c.tableHeaders[2]}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>QryptSafe {v.key} (factory)</td>
+                  <td>{v.factory ? <code>{v.factory}</code> : PENDING}</td>
+                  <td style={{ color: v.factory ? statusColor[v.status] : statusColor.pending, fontWeight: 600 }}>
+                    {v.factory ? statusLabel[v.status] : statusLabel.pending}
+                  </td>
+                </tr>
+                <tr>
+                  <td>PersonalQryptSafe {v.key} (impl)</td>
+                  <td>{v.impl ? <code>{v.impl}</code> : PENDING}</td>
+                  <td style={{ color: v.impl ? statusColor[v.status] : statusColor.pending, fontWeight: 600 }}>
+                    {v.impl ? statusLabel[v.status] : statusLabel.pending}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            {v.etherscanFactory && (
+              <p>
+                <a href={`https://sepolia.etherscan.io/address/${v.etherscanFactory}#code`} target="_blank" rel="noopener noreferrer">
+                  QryptSafe {v.key} factory on Sepolia Etherscan
+                </a>
+                {v.etherscanImpl && (
+                  <>
+                    {" | "}
+                    <a href={`https://sepolia.etherscan.io/address/${v.etherscanImpl}#code`} target="_blank" rel="noopener noreferrer">
+                      PersonalQryptSafe {v.key} impl on Sepolia Etherscan
+                    </a>
+                  </>
+                )}
+              </p>
+            )}
+          </div>
+        );
+      })}
 
-      <h3>v2 -- Superseded (had admin keys)</h3>
-      <p>
-        Fixed qToken decimal precision vs v1. Superseded by v3: ShieldFactory v2 had <code>Ownable</code> and{" "}
-        <code>Pausable</code>, meaning the deployer could pause vault creation. v3 removes this entirely.
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Contract</th>
-            <th>Address</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ShieldFactory v2</td>
-            <td><code>0x0c060e880A405B1231Ce1263c6a52a272cC1cE05</code></td>
-            <td style={{ color: "#ca8a04", fontWeight: 600 }}>Superseded</td>
-          </tr>
-          <tr>
-            <td>PersonalVault implementation v2</td>
-            <td><code>0x5A77630B5D49943f71785BC57aF37380bBea0c5e</code></td>
-            <td style={{ color: "#ca8a04", fontWeight: 600 }}>Superseded</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>
-        <a href="https://sepolia.etherscan.io/address/0x0c060e880A405B1231Ce1263c6a52a272cC1cE05#code" target="_blank" rel="noopener noreferrer">
-          ShieldFactory v2 on Sepolia Etherscan
-        </a>
-      </p>
-
-      <h3>v1 -- Superseded (decimal precision bug)</h3>
-      <p>
-        Initial deployment. ShieldToken did not read <code>decimals()</code> from the underlying token.
-        All qTokens defaulted to 18 decimals, causing incorrect display in Etherscan and wallets.
-        These contracts remain on-chain but the app no longer points to this factory.
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Contract</th>
-            <th>Address</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ShieldFactory v1</td>
-            <td><code>0x9a66500886344cbcce882137f263CB0c61aa99b1</code></td>
-            <td style={{ color: "#ca8a04", fontWeight: 600 }}>Superseded</td>
-          </tr>
-          <tr>
-            <td>PersonalVault implementation v1</td>
-            <td><code>0x63f575b38e9C6a26eAeb57d2382bC42B456fafbf</code></td>
-            <td style={{ color: "#ca8a04", fontWeight: 600 }}>Superseded</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>
-        <a href="https://sepolia.etherscan.io/address/0x9a66500886344cbcce882137f263CB0c61aa99b1#code" target="_blank" rel="noopener noreferrer">
-          ShieldFactory v1 on Sepolia Etherscan
-        </a>
-      </p>
-
-      <h2>Ethereum Mainnet (Chain ID: 1)</h2>
+      <h2>{c.h2Mainnet}</h2>
       <div className="callout callout-info">
-        Mainnet deployment is pending. This table will be updated after deployment and Etherscan verification.
+        {c.calloutMainnet}
       </div>
       <table>
         <thead>
           <tr>
-            <th>Contract</th>
-            <th>Address</th>
-            <th>Status</th>
+            <th>{c.tableHeaders[0]}</th>
+            <th>{c.tableHeaders[1]}</th>
+            <th>{c.tableHeaders[2]}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>ShieldFactory</td>
-            <td><code>Pending</code></td>
-            <td style={{ color: "hsl(var(--muted-fg))" }}>Pending</td>
+            <td>QryptSafe v6 (factory)</td>
+            <td>{PENDING}</td>
+            <td style={{ color: statusColor.pending, fontWeight: 600 }}>Pending</td>
           </tr>
           <tr>
-            <td>PersonalVault (implementation)</td>
-            <td><code>Pending</code></td>
-            <td style={{ color: "hsl(var(--muted-fg))" }}>Pending</td>
+            <td>PersonalQryptSafe v6 (impl)</td>
+            <td>{PENDING}</td>
+            <td style={{ color: statusColor.pending, fontWeight: 600 }}>Pending</td>
           </tr>
         </tbody>
       </table>
 
-      <h2>Test Wallets and Contracts (Sepolia)</h2>
-      <p>These wallets were used for automated E2E testing on Sepolia. They hold no mainnet assets.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Label</th>
-            <th>Address</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Wallet A (shield/transfer origin)</td>
-            <td><code>0x7ee5dc8845cF2C5626bC8B5C7ea269fe221FEa6b</code></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Wallet B (transfer recipient)</td>
-            <td><code>0x2541eED685B7677e721A185d8612fA792468577d</code></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Vault A v1 (PersonalVault clone)</td>
-            <td><code>0x39bb32fFc4D6788518DB69304557638e6EE6578f</code></td>
-            <td>Deployed via factory v1 -- superseded</td>
-          </tr>
-          <tr>
-            <td>Vault A v2 (PersonalVault clone)</td>
-            <td><code>0xA236C16e694B22c24Bdc641bF9B439A90fABF6B0</code></td>
-            <td>Deployed via factory v2 -- active</td>
-          </tr>
-          <tr>
-            <td>qUSDC v1 (ShieldToken)</td>
-            <td><code>0xEAc05bF63B22D4969924998b1b79ceF9b2e4a702</code></td>
-            <td>18 decimals (bug) -- superseded</td>
-          </tr>
-          <tr>
-            <td>qUSDC v2 (ShieldToken)</td>
-            <td><code>0xcD1569A66F01023a8587D69F3D3ad9C4DA12c3Cf</code></td>
-            <td>6 decimals (correct) -- verified -- active</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>{c.h2TestWallets}</h2>
+      <p>{c.pTestWallets}</p>
+      <div className="callout callout-info">
+        Test wallet addresses will be published here after V1-V6 deployment is complete.
+      </div>
 
-      <h2>Supported Networks</h2>
-      <p>
-        The frontend recognizes three chain IDs. Any other connected network displays an unsupported network warning.
-      </p>
+      <h2>{c.h2SupportedNetworks}</h2>
+      <p>{c.pSupportedNetworks}</p>
       <table>
         <thead>
           <tr>
-            <th>Network</th>
-            <th>Chain ID</th>
-            <th>Use Case</th>
+            <th>{c.networkHeaders[0]}</th>
+            <th>{c.networkHeaders[1]}</th>
+            <th>{c.networkHeaders[2]}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Ethereum Mainnet</td>
-            <td><code>1</code></td>
-            <td>Production</td>
-          </tr>
-          <tr>
-            <td>Sepolia</td>
-            <td><code>11155111</code></td>
-            <td>Testnet (live)</td>
-          </tr>
-          <tr>
-            <td>Hardhat Local</td>
-            <td><code>31337</code></td>
-            <td>Development</td>
-          </tr>
+          {c.networkRows.map(([network, chainId, useCase]) => (
+            <tr key={chainId}>
+              <td>{network}</td>
+              <td><code>{chainId}</code></td>
+              <td>{useCase}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

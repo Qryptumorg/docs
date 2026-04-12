@@ -1,4 +1,5 @@
 import { Switch, Route, Router as WouterRouter, Redirect } from "wouter";
+import { LanguageProvider } from "@/lib/LanguageContext";
 import DocsLayout from "@/components/DocsLayout";
 import Overview from "@/pages/introduction/Overview";
 import WhyQryptum from "@/pages/introduction/WhyQryptum";
@@ -54,9 +55,11 @@ function Router() {
 
 function App() {
   return (
-    <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-      <Router />
-    </WouterRouter>
+    <LanguageProvider>
+      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <Router />
+      </WouterRouter>
+    </LanguageProvider>
   );
 }
 

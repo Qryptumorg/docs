@@ -1,78 +1,63 @@
+import { useLanguage } from "@/lib/LanguageContext";
+import { securityContent } from "@/lib/content/security";
+
 export default function NonCustodial() {
+  const { lang, t } = useLanguage();
+  const c = securityContent[lang].nonCustodial;
+
   return (
     <div className="docs-content">
       <div style={{ marginBottom: "0.5rem" }}>
         <span style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--muted-fg))" }}>
-          Security
+          {t.nav.sections.security}
         </span>
       </div>
-      <h1>Non-Custodial Architecture</h1>
+      <h1>{c.title}</h1>
       <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
-        Qryptum is fully non-custodial. Tokens are controlled by an immutable smart contract with no admin key, no upgrade mechanism, and no back door.
+        {c.intro}
       </p>
 
-      <h2>Token Custody: Who Holds What</h2>
+      <h2>{c.h2Custody}</h2>
       <table>
         <thead>
           <tr>
-            <th>Asset</th>
-            <th>Location</th>
-            <th>Who Controls It</th>
+            <th>{c.custodyHeaders[0]}</th>
+            <th>{c.custodyHeaders[1]}</th>
+            <th>{c.custodyHeaders[2]}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Real ERC-20 (USDC, ETH, etc.)</td>
-            <td>PersonalVault contract address (0xVaultA)</td>
-            <td>Only the vault owner via vault functions</td>
-          </tr>
-          <tr>
-            <td>qToken balance</td>
-            <td>User's wallet address (ERC-20 balance mapping)</td>
-            <td>Immovable: always reverts on transfer</td>
-          </tr>
-          <tr>
-            <td>Vault proof hash</td>
-            <td>PersonalVault storage (private)</td>
-            <td>Only changed via <code>changeVaultProof()</code> with old proof</td>
-          </tr>
+          {c.custodyRows.map(([asset, location, who]) => (
+            <tr key={asset}>
+              <td>{asset}</td>
+              <td>{location}</td>
+              <td>{who}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
 
-      <h2>No Admin Access</h2>
-      <p>
-        The <code>ShieldFactory</code> deployer (Qryptum) has exactly one privileged capability: pausing and unpausing the factory. Pausing blocks new Qrypt-Safe creation. It does not affect any existing Qrypt-Safe.
-      </p>
-      <p>
-        The deployer has zero access to any user's vault. There is no <code>adminWithdraw()</code>, no <code>setOwner()</code>, no upgradeable proxy. The code that handles user funds is immutable from the moment of deployment.
-      </p>
+      <h2>{c.h2NoAdmin}</h2>
+      <p>{c.pNoAdmin1}</p>
+      <p>{c.pNoAdmin2}</p>
 
-      <h2>No Upgrade Mechanism</h2>
-      <p>
-        PersonalVault uses EIP-1167 minimal proxy cloning for gas efficiency. The implementation contract is deployed once and all vaults delegate to it. However, there is no <code>upgradeTo()</code> function and no proxy admin. The implementation is fixed after deployment. Existing vaults cannot be modified.
-      </p>
+      <h2>{c.h2NoUpgrade}</h2>
+      <p>{c.pNoUpgrade}</p>
 
-      <h2>Emergency Withdrawal</h2>
-      <p>
-        If a user loses their vault proof and the vault is inactive for 1,296,000 blocks (approximately 6 months at 12 seconds per block), the user can call <code>emergencyWithdraw()</code> with only their private key. This returns all tokens to the owner's wallet.
-      </p>
+      <h2>{c.h2Emergency}</h2>
+      <p>{c.pEmergency}</p>
       <div className="callout callout-warning">
-        <strong>Note:</strong> Any vault activity resets the 6-month inactivity counter. Shield, unshield, or transfer operations all count as activity.
+        {c.calloutEmergency}
       </div>
 
-      <h2>Where the Server Fits In</h2>
-      <p>
-        The Qryptum backend API stores only two things: the wallet-to-vault address mapping and the transaction history (tx hashes and token symbols). It never:
-      </p>
+      <h2>{c.h2Server}</h2>
+      <p>{c.pServer}</p>
       <ul>
-        <li>Receives or stores vault proofs in any form</li>
-        <li>Relays or co-signs transactions</li>
-        <li>Holds private keys</li>
-        <li>Controls smart contract functions</li>
+        {c.serverItems.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
       </ul>
-      <p>
-        All transactions are signed in the user's browser and broadcast directly to the Ethereum network. The server is an indexing and convenience layer only.
-      </p>
+      <p>{c.pServerConclusion}</p>
     </div>
   );
 }
