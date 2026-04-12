@@ -83,7 +83,7 @@ export default function Overview() {
       <p>{c.pDeployedV6}</p>
 
       <div className="callout callout-info" style={{ marginBottom: "0.75rem" }}>
-        All V1-V6 contracts are being redeployed from a clean wallet with zero association to other projects. Contract addresses will appear here as each version is deployed and verified on Etherscan, one version per day. See the Deployed Addresses page for the full table.
+        V1 and V2 are deployed and verified. V3-V6 addresses will appear here as each version is deployed and verified on Etherscan. See the Deployed Addresses page for the full table.
       </div>
 
       <div className="callout callout-success" style={{ marginBottom: "0.75rem" }}>

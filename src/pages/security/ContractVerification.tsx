@@ -80,7 +80,7 @@ export default function ContractVerification() {
       <h2>{c.h2Sepolia}</h2>
 
       <div className="callout callout-info" style={{ marginBottom: "1.5rem" }}>
-        All V1-V6 contracts are being redeployed from a clean wallet. Etherscan verification links will be added here as each version is deployed and verified, one per day.
+        V1 and V2 are deployed and MIT-verified on Etherscan. V3-V6 verification links will be added as each version is deployed.
       </div>
 
       {versions.map((v) => (

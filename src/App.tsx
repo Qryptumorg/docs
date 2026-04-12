@@ -13,7 +13,7 @@ import DeployedAddresses from "@/pages/contracts/DeployedAddresses";
 import ShieldFactory from "@/pages/contracts/ShieldFactory";
 import PersonalVault from "@/pages/contracts/PersonalVault";
 import QToken from "@/pages/contracts/QToken";
-  import QryptSafeV2History from "@/pages/contracts/QryptSafeV2History";
+import QryptSafeV2History from "@/pages/contracts/QryptSafeV2History";
 import QuickStart from "@/pages/developer/QuickStart";
 import IntegrationGuide from "@/pages/developer/IntegrationGuide";
 import ApiReference from "@/pages/developer/ApiReference";
@@ -40,7 +40,7 @@ function Router() {
         <Route path="/contracts/shield-factory" component={ShieldFactory} />
         <Route path="/contracts/personal-vault" component={PersonalVault} />
         <Route path="/contracts/qtoken" component={QToken} />
-          <Route path="/contracts/qrypt-safe-v2" component={QryptSafeV2History} />
+        <Route path="/contracts/qrypt-safe-v2" component={QryptSafeV2History} />
         <Route path="/developer/quick-start" component={QuickStart} />
         <Route path="/developer/integration-guide" component={IntegrationGuide} />
         <Route path="/developer/api-reference" component={ApiReference} />

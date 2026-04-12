@@ -1,116 +1,157 @@
-// @ts-nocheck
-  import { useLanguage } from "@/lib/LanguageContext";
+import { useLanguage } from "@/lib/LanguageContext";
 
-  export default function QryptSafeV2History() {
-      const { t } = useLanguage();
-      return (
-          <div className="docs-content">
-              <div style={{ marginBottom: "0.5rem" }}>
-                  <span style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--muted-fg))" }}>
-                      {t.nav.sections.smartContracts}
-                  </span>
-              </div>
-              <h1>QryptSafe V2: No-Pausable Factory</h1>
-              <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
-                  QryptSafe V2 removes the Pausable admin key introduced in V1 and adds nonce-based commit tracking and SafeERC20 overflow protection to the personal vault. It retains Ownable (removed in V3).
-              </p>
+const FACTORY_V2 = "0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf";
+const IMPL_V2    = "0x675f70646713D4026612c673E644C61ae3aa7725";
+const TX_DEPLOY  = "0x8e934988c40519d973ed2cdaf00a28ff0255448e2cfaf3c30101b5922ec26e30";
+const ETHERSCAN  = "https://sepolia.etherscan.io";
 
-              <div className="callout callout-warning">
-                  V2 is superseded by V3. The factory and implementation addresses below are pending deployment.
-              </div>
+export default function QryptSafeV2History() {
+  const { t } = useLanguage();
 
-              <div className="callout callout-success" style={{ marginTop: "0.75rem" }}>
-                  QryptSafeV2 (factory) - Pending deployment
-              </div>
-              <pre><code style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>TBD after Sepolia deployment</code></pre>
+  return (
+    <div className="docs-content">
+      <div style={{ marginBottom: "0.5rem" }}>
+        <span style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "hsl(var(--muted-fg))" }}>
+          {t.nav.sections.smartContracts}
+        </span>
+      </div>
 
-              <div className="callout callout-success" style={{ marginTop: "0.75rem" }}>
-                  PersonalQryptSafeV2 (implementation) - Pending deployment
-              </div>
-              <pre><code style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>TBD after Sepolia deployment</code></pre>
+      <h1>QryptSafe V2 History</h1>
+      <p style={{ fontSize: "1.0625rem", color: "hsl(var(--muted-fg))", lineHeight: 1.7, marginBottom: "2rem" }}>
+        Second deployment in the sequential contract history. V2 removes the Pausable admin key introduced in V1, adds nonce-based commit deduplication, and wraps all token transfers in SafeERC20. Ownable remains for minimum-shield governance. The static passwordHash limitation is documented here; it is resolved in V3 with an ECDSA meta-signature scheme.
+      </p>
 
-              <h2>What changed from V1 to V2</h2>
-              <table>
-                  <thead>
-                      <tr><th>Change</th><th>Detail</th><th>Status</th></tr>
-                  </thead>
-                  <tbody>
-                      <tr><td>Pausable removed</td><td>Factory no longer inherits Pausable. No address can freeze vault creation.</td><td>Fixed</td></tr>
-                      <tr><td>Nonce-based commit tracking</td><td>CommitData stores a nonce to prevent cross-session commit hash replay.</td><td>Fixed</td></tr>
-                      <tr><td>SafeERC20 + balance checks</td><td>unshield() uses SafeERC20.safeTransfer() and explicit require(balance &gt;= amount).</td><td>Fixed</td></tr>
-                      <tr><td>Ownable retained</td><td>Admin can call setMinShieldAmount(). Removed in V3.</td><td>Known</td></tr>
-                      <tr><td>Static passwordHash</td><td>Vault proof cannot be changed after creation. Exposed in failed TX calldata. Fixed in V3 via ECDSA.</td><td>Known</td></tr>
-                  </tbody>
-              </table>
+      <h2>What V2 Changed</h2>
+      <ul>
+        <li><strong>Pausable removed</strong> — V1 factory could be paused globally by the deployer. V2 removes <code>Pausable</code> entirely. No account can halt vault creation.</li>
+        <li><strong>Nonce-based commit-reveal</strong> — <code>commit()</code> now stores an incrementing nonce. Duplicate <code>commitHash</code> submissions revert with <code>Commit already exists</code>. V1 had no deduplication.</li>
+        <li><strong>SafeERC20</strong> — All token transfers use <code>SafeERC20</code> from OpenZeppelin to handle non-standard ERC-20 return values without reverting.</li>
+        <li><strong>Ownable kept for <code>setMinShieldAmount</code></strong> — The only remaining privileged function. V3 removes it entirely.</li>
+      </ul>
 
-              <h2>QryptSafeV2 factory</h2>
-              <pre><code>{`// SPDX-License-Identifier: MIT
-  pragma solidity 0.8.34;
+      <h2>Known Issue: Static passwordHash</h2>
+      <p>
+        V2 stores <code>keccak256(proof)</code> at vault creation and never allows it to be rotated. If the vault proof leaks via calldata inspection, the attacker gains permanent access until the user migrates. V3 introduces <code>changeVaultProof()</code> guarded by an ECDSA meta-signature.
+      </p>
+      <div className="callout callout-warning">
+        <strong>Calldata visibility:</strong> <code>reveal()</code> accepts the raw proof bytes. Any observer of the submitted transaction can extract the proof from calldata and replay it. V3 moves to an off-chain ECDSA signature approach.
+      </div>
 
-  contract QryptSafeV2 is Ownable {
-      address public immutable vaultImplementation;
-      uint256 public minShieldAmount = 1e6;
-      mapping(address => address) private vaults;
+      <h2>Factory Architecture</h2>
+      <pre><code>{`// SPDX-License-Identifier: MIT
+// QryptSafeV2 — Pausable removed, Ownable kept for minShieldAmount
+contract QryptSafeV2 is Ownable {
+    address public immutable vaultImplementation;
+    uint256 public minShieldAmount = 1e6;
+    mapping(address => address) private vaults;
 
-      constructor() Ownable(msg.sender) {
-          vaultImplementation = address(new PersonalQryptSafeV2());
-      }
+    constructor() Ownable(msg.sender) {
+        vaultImplementation = address(new PersonalQryptSafeV2());
+    }
 
-      function createVault(bytes32 passwordHash) external returns (address vault);
-      function setMinShieldAmount(uint256 newMin) external onlyOwner;
-      function hasVault(address wallet) external view returns (bool);
-      function getVault(address wallet) external view returns (address);
-  }`}</code></pre>
+    function createVault(bytes32 passwordHash) external returns (address vault) {
+        require(vaults[msg.sender] == address(0), "Vault already exists for this wallet");
+        vault = vaultImplementation.clone();
+        PersonalQryptSafeV2(vault).initialize(msg.sender, passwordHash, minShieldAmount);
+        vaults[msg.sender] = vault;
+    }
 
-              <h2>PersonalQryptSafeV2 vault</h2>
-              <pre><code>{`// Key functions
-  function shield(address tokenAddress, uint256 amount, bytes32 proof) external;
-  function unshield(address tokenAddress, uint256 amount, bytes32 proof) external;
-  function commit(bytes32 commitHash, bytes32 proof) external;
-  function reveal(address tokenAddress, address to, uint256 amount, bytes32 proof, bytes32 commitHash) external;
-  function emergencyWithdraw(address[] calldata tokenAddresses, bytes32 proof) external;
-  function getShieldedBalance(address tokenAddress) external view returns (uint256);
-  function getQTokenAddress(address tokenAddress) external view returns (address);`}</code></pre>
+    function setMinShieldAmount(uint256 newMin) external onlyOwner {
+        require(newMin > 0, "Min must be positive");
+        minShieldAmount = newMin;
+    }
+}`}</code></pre>
 
-              <h2>validProof modifier</h2>
-              <pre><code>{`modifier validProof(bytes32 proof) {
-      require(keccak256(abi.encodePacked(proof)) == passwordHash, "Invalid vault proof");
-      _;
-  }`}</code></pre>
-              <p>
-                  The vault stores <code>passwordHash</code> set at initialization. Each vault operation passes the raw bytes32 proof; the modifier hashes it and compares to the stored hash. Because passwordHash is static, exposure in a failed transaction permanently compromises the vault. This is the V2 critical bug, fixed in V3.
-              </p>
+      <h2>Commit-Reveal with Nonce</h2>
+      <pre><code>{`struct CommitData {
+    uint256 blockNumber;
+    uint256 timestamp;
+    uint256 nonce;     // V2: added for replay protection
+    bool used;
+}
 
-              <h2>Commit-reveal nonce (V2 fix)</h2>
-              <pre><code>{`struct CommitData {
-      uint256 blockNumber;
-      uint256 timestamp;
-      uint256 nonce;   // V2: added to prevent cross-session replay
-      bool used;
-  }
+function commit(bytes32 commitHash, bytes32 proof) external onlyOwner validProof(proof) {
+    require(commits[commitHash].blockNumber == 0, "Commit already exists");
+    commitNonce++;
+    commits[commitHash] = CommitData({
+        blockNumber: block.number,
+        timestamp:   block.timestamp,
+        nonce:       commitNonce,
+        used:        false
+    });
+}`}</code></pre>
 
-  function commit(bytes32 commitHash, bytes32 proof) external onlyOwner validProof(proof) {
-      require(commits[commitHash].blockNumber == 0, "Commit already exists");
-      commitNonce++;
-      commits[commitHash] = CommitData({
-          blockNumber: block.number,
-          timestamp: block.timestamp,
-          nonce: commitNonce,
-          used: false
-      });
-  }`}</code></pre>
+      <h2>Proof Verification (V2)</h2>
+      <pre><code>{`modifier validProof(bytes32 proof) {
+    require(
+        keccak256(abi.encodePacked(proof)) == passwordHash,
+        "Invalid vault proof"
+    );
+    _;
+}
 
-              <h2>Test results</h2>
-              <div className="callout callout-success">
-                  23 / 23 unit tests pass on Hardhat local fork.
-              </div>
-              <p>Tests cover factory admin controls, vault creation, shield, unshield, commit-reveal nonce enforcement, overflow protection, emergency delay, qToken non-transferability, and multi-token independence.</p>
+// proof must be zeroPadBytes(toUtf8Bytes(password), 32)
+// passwordHash is keccak256(proof) stored at vault creation`}</code></pre>
+      <div className="callout callout-info">
+        The proof is a right-padded 32-byte value. Clients must call <code>ethers.zeroPadBytes(ethers.toUtf8Bytes(password), 32)</code> before passing it to any vault function.
+      </div>
 
-              <h2>V3 migration</h2>
-              <p>
-                  V3 removes Ownable entirely (no admin of any kind) and replaces the static passwordHash with ECDSA meta-signatures, eliminating both remaining V2 risks. Vault data from V2 is not migrated: users must create a new V3 vault.
-              </p>
-          </div>
-      );
-  }
-  
+      <h2>V2 Sepolia Contracts</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Contract</th>
+            <th>Address</th>
+            <th>Etherscan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>QryptSafeV2 (factory)</td>
+            <td><code>{FACTORY_V2 === "PENDING" ? "Deployment pending" : FACTORY_V2}</code></td>
+            <td>{FACTORY_V2 !== "PENDING" && <a href={`${ETHERSCAN}/address/${FACTORY_V2}`} target="_blank" rel="noopener noreferrer">View ↗</a>}</td>
+          </tr>
+          <tr>
+            <td>PersonalQryptSafeV2 (impl)</td>
+            <td><code>{IMPL_V2 === "PENDING" ? "Deployment pending" : IMPL_V2}</code></td>
+            <td>{IMPL_V2 !== "PENDING" && <a href={`${ETHERSCAN}/address/${IMPL_V2}`} target="_blank" rel="noopener noreferrer">View ↗</a>}</td>
+          </tr>
+          <tr>
+            <td>Deploy TX</td>
+            <td><code>{TX_DEPLOY === "PENDING" ? "Deployment pending" : TX_DEPLOY.slice(0, 18) + "..."}</code></td>
+            <td>{TX_DEPLOY !== "PENDING" && <a href={`${ETHERSCAN}/tx/${TX_DEPLOY}`} target="_blank" rel="noopener noreferrer">View ↗</a>}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Test Suite (23/23)</h2>
+      <p>
+        23 unit tests cover all V2 changes. Run with: <code>npm run test:v2</code>
+      </p>
+      <ul>
+        <li>Pausable removal (factory.pause is undefined)</li>
+        <li>Admin-only <code>setMinShieldAmount</code></li>
+        <li>Duplicate vault prevention</li>
+        <li>Shield / unshield with balance checks</li>
+        <li>Nonce deduplication on commit</li>
+        <li>Commit expiry and used-commit rejection</li>
+        <li>Multi-token isolation</li>
+        <li>Emergency withdraw delay enforcement</li>
+        <li>Non-transferable qTokens</li>
+        <li>Partial unshield balance accounting</li>
+      </ul>
+
+      <h2>Version Lineage</h2>
+      <table>
+        <thead>
+          <tr><th>Version</th><th>Key Change</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>V1</td><td>Genesis: EIP-1167 proxy, Ownable + Pausable factory</td><td>Superseded</td></tr>
+          <tr><td>V2</td><td>Pausable removed, nonce commit, SafeERC20</td><td>Superseded</td></tr>
+          <tr><td>V3</td><td>Ownable removed, ECDSA changeVaultProof</td><td>Active</td></tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}

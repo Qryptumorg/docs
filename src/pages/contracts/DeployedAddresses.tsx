@@ -102,7 +102,7 @@ export default function DeployedAddresses() {
       <h2>{c.h2Sepolia}</h2>
 
       <div className="callout callout-info" style={{ marginBottom: "1.5rem" }}>
-        All V1-V6 contracts are being redeployed from a clean wallet with zero association to other projects. Addresses will be filled in as each version is deployed and verified on Etherscan, one version per day.
+        V1 and V2 are deployed and MIT-verified on Etherscan. V3-V6 addresses will be added as each version is deployed and verified.
       </div>
 
       {versions.map((v) => {
