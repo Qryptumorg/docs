@@ -1,8 +1,8 @@
 import { useLanguage } from "@/lib/LanguageContext";
 
-const FACTORY_V1 = "0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A";
-const IMPL_V1    = "0x5E398e1E0Ba28f9659013B1212f24b8B43d69393";
-const TX_DEPLOY  = "PENDING";
+const FACTORY_V1: string = "0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A";
+const IMPL_V1: string    = "0x5E398e1E0Ba28f9659013B1212f24b8B43d69393";
+const TX_DEPLOY: string  = "PENDING";
 const ETHERSCAN  = "https://sepolia.etherscan.io";
 
 export default function QryptSafeV1History() {
