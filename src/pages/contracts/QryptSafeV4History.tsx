@@ -1,7 +1,7 @@
 import { useLanguage } from "@/lib/LanguageContext";
 
-const FACTORY_V4   = "0x611Ba6F93fAeC0203eBee1c3e35d72C1e5ba560F";
-const IMPL_V4      = "0x8E0c9350CdF384a208F6005A2F632f35FB4e413E";
+const FACTORY_V4: string   = "0x611Ba6F93fAeC0203eBee1c3e35d72C1e5ba560F";
+const IMPL_V4: string      = "0x8E0c9350CdF384a208F6005A2F632f35FB4e413E";
 const DEPLOY_TX_V4 = "0x6d5ccda226bf57e7b0e2c03e676c0de2fc6031a8060840936d909f2ed920cc2a";
 const VAULT_A_V4   = "0x575bd006391DC3bF4443e1c3933162025288dbA8";
 const ETHERSCAN    = "https://sepolia.etherscan.io";

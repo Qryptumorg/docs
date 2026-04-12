@@ -1,9 +1,9 @@
 import { useLanguage } from "@/lib/LanguageContext";
 
-const FACTORY_V2 = "0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf";
-const IMPL_V2    = "0x675f70646713D4026612c673E644C61ae3aa7725";
-const TX_DEPLOY  = "0x8e934988c40519d973ed2cdaf00a28ff0255448e2cfaf3c30101b5922ec26e30";
-const ETHERSCAN  = "https://sepolia.etherscan.io";
+const FACTORY_V2: string = "0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf";
+const IMPL_V2: string    = "0x675f70646713D4026612c673E644C61ae3aa7725";
+const TX_DEPLOY: string  = "0x8e934988c40519d973ed2cdaf00a28ff0255448e2cfaf3c30101b5922ec26e30";
+const ETHERSCAN          = "https://sepolia.etherscan.io";
 
 export default function QryptSafeV2History() {
   const { t } = useLanguage();
