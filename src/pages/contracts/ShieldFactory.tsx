@@ -30,14 +30,25 @@ export default function ShieldFactory() {
       <pre style={{ marginTop: "0.5rem" }}><code style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>Pending deployment</code></pre>
 
       <div className="callout callout-warning" style={{ marginTop: "1.25rem" }}>{c.calloutAddressV3}</div>
-      <pre style={{ marginTop: "0.5rem" }}><code style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>Pending deployment</code></pre>
+      <pre style={{ marginTop: "0.5rem" }}><code>0x88E8eAFafc99E83e687BCAbD53F783a92e51F75c</code></pre>
+      <p style={{ fontSize: "0.85rem", color: "hsl(var(--muted-fg))", marginTop: "0.25rem" }}>
+        impl: <code>0xaf2E91CDc70e81fA74b9aE9C322e8302bb51715e</code>{" "}
+        — <a href="https://sepolia.etherscan.io/address/0x88E8eAFafc99E83e687BCAbD53F783a92e51F75c#code" target="_blank" rel="noopener noreferrer">Etherscan ↗</a>
+      </p>
 
       <div className="callout callout-warning" style={{ marginTop: "0.75rem" }}>{c.calloutAddressV2}</div>
-      <pre style={{ marginTop: "0.5rem" }}><code style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>Pending deployment</code></pre>
+      <pre style={{ marginTop: "0.5rem" }}><code>0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf</code></pre>
+      <p style={{ fontSize: "0.85rem", color: "hsl(var(--muted-fg))", marginTop: "0.25rem" }}>
+        impl: <code>0x675f70646713D4026612c673E644C61ae3aa7725</code>{" "}
+        — <a href="https://sepolia.etherscan.io/address/0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf#code" target="_blank" rel="noopener noreferrer">Etherscan ↗</a>
+      </p>
       <div className="callout callout-info" style={{ marginTop: "0.5rem" }}>{c.calloutV2Note}</div>
 
       <div className="callout callout-warning" style={{ marginTop: "0.75rem" }}>{c.calloutAddressV1}</div>
-      <pre style={{ marginTop: "0.5rem" }}><code style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>Pending deployment</code></pre>
+      <pre style={{ marginTop: "0.5rem" }}><code>0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A</code></pre>
+      <p style={{ fontSize: "0.85rem", color: "hsl(var(--muted-fg))", marginTop: "0.25rem" }}>
+        <a href="https://sepolia.etherscan.io/address/0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A#code" target="_blank" rel="noopener noreferrer">Etherscan ↗</a>
+      </p>
 
       <ArchitectureDiagram />
 

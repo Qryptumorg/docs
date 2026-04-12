@@ -108,10 +108,18 @@ export default function Overview() {
 
       {/* v3 */}
       <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
-        <p style={{ margin: "0 0 0.25rem" }}><strong>v3 (Superseded)</strong> <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.8rem" }}>Pending deployment</em></p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Ownable removed entirely, ECDSA changeVaultProof(), zero admin keys. 26/26 E2E tests.</p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}><strong>QryptSafe v3 (factory):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
-        <p style={{ margin: "0", fontSize: "0.875rem" }}><strong>PersonalQryptSafe v3 (impl):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v3 (Superseded)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Ownable removed entirely, changeVaultProof(), metaTransfer() EIP-712. 36 unit tests, 5 on-chain E2E txs.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}>
+          <strong>QryptSafe v3 (factory):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0x88E8eAFafc99E83e687BCAbD53F783a92e51F75c</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0x88E8eAFafc99E83e687BCAbD53F783a92e51F75c" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
+        </p>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
+          <strong>PersonalQryptSafe v3 (impl):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0xaf2E91CDc70e81fA74b9aE9C322e8302bb51715e</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0xaf2E91CDc70e81fA74b9aE9C322e8302bb51715e" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
+        </p>
       </div>
 
       {/* v2 */}

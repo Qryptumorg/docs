@@ -41,22 +41,22 @@ const versions = [
     key: "v3",
     label: "v3: Historical",
     sublabel: "Trustless factory (no Ownable) · ECDSA meta-transfer · changeVaultProof · 36 tests",
-    factory: null,
-    impl: null,
+    factory: "0x88E8eAFafc99E83e687BCAbD53F783a92e51F75c",
+    impl: "0xaf2E91CDc70e81fA74b9aE9C322e8302bb51715e",
     status: "superseded",
-    etherscanFactory: null,
-    etherscanImpl: null,
+    etherscanFactory: "https://sepolia.etherscan.io/address/0x88E8eAFafc99E83e687BCAbD53F783a92e51F75c#code",
+    etherscanImpl: "https://sepolia.etherscan.io/address/0xaf2E91CDc70e81fA74b9aE9C322e8302bb51715e#code",
     mainnet: false,
   },
   {
     key: "v2",
     label: "v2: Historical",
     sublabel: "Pausable removed · nonce commits · overflow fix · 23 tests",
-    factory: null,
-    impl: null,
+    factory: "0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf",
+    impl: "0x675f70646713D4026612c673E644C61ae3aa7725",
     status: "superseded",
-    etherscanFactory: null,
-    etherscanImpl: null,
+    etherscanFactory: "https://sepolia.etherscan.io/address/0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf#code",
+    etherscanImpl: "https://sepolia.etherscan.io/address/0x675f70646713D4026612c673E644C61ae3aa7725#code",
     mainnet: false,
   },
   {
@@ -102,7 +102,7 @@ export default function DeployedAddresses() {
       <h2>{c.h2Sepolia}</h2>
 
       <div className="callout callout-info" style={{ marginBottom: "1.5rem" }}>
-        V1 and V2 are deployed and MIT-verified on Etherscan. V3-V6 addresses will be added as each version is deployed and verified.
+        V1, V2, and V3 are deployed and MIT-verified on Etherscan. V4-V6 addresses will be added as each version is deployed and verified.
       </div>
 
       {versions.map((v) => {

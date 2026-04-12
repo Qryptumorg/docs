@@ -37,6 +37,7 @@ export const NAV: NavSection[] = [
             { key: "personalVault", href: "/contracts/personal-vault" },
             { key: "qtoken", href: "/contracts/qtoken" },
             { key: "qryptSafeV2", href: "/contracts/qrypt-safe-v2" },
+            { key: "qryptSafeV3", href: "/contracts/qrypt-safe-v3" },
         ],
     },
     {

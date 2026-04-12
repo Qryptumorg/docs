@@ -149,7 +149,7 @@ function commit(bytes32 commitHash, bytes32 proof) external onlyOwner validProof
         <tbody>
           <tr><td>V1</td><td>Genesis: EIP-1167 proxy, Ownable + Pausable factory</td><td>Superseded</td></tr>
           <tr><td>V2</td><td>Pausable removed, nonce commit, SafeERC20</td><td>Superseded</td></tr>
-          <tr><td>V3</td><td>Ownable removed, ECDSA changeVaultProof</td><td>Active</td></tr>
+          <tr><td>V3</td><td>Ownable removed, ECDSA changeVaultProof</td><td>Deployed</td></tr>
         </tbody>
       </table>
     </div>

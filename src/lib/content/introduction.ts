@@ -151,7 +151,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       labelFactoryV6: "QryptSafe factory v6 (active):",
       labelImplV6: "PersonalQryptSafe impl v6 (active):",
       labelQryptAirV6: "QryptAir air bags v6 (active):",
-      pDeployedV6: "All contracts are verified MIT on Sepolia Etherscan. v6 is the canonical deployment: OTP chain replaces static bytes32 proofHash, air bags isolate QryptAir funds. 49/49 E2E tests pass.",
+      pDeployedV6: "V1, V2, and V3 are deployed and MIT-verified on Sepolia Etherscan. V4-V6 addresses will be added as each version is deployed and verified.",
       h2V5ToV6: "v5 to v6: What Changed",
       v5ToV6Items: [
         "OTP chain replaces static bytes32 proofHash: each proof is single-use and advances the chain head, making replay attacks structurally impossible.",
@@ -358,7 +358,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       labelFactoryV6: "QryptSafe factory v6 (активный):",
       labelImplV6: "PersonalQryptSafe impl v6 (активный):",
       labelQryptAirV6: "QryptAir air bags v6 (активный):",
-      pDeployedV6: "Все контракты верифицированы по лицензии MIT в Sepolia Etherscan. v6 — каноническое развёртывание: OTP-цепочка заменяет статический bytes32 proofHash, air bags изолируют средства QryptAir. 49/49 E2E-тестов проходят.",
+      pDeployedV6: "V1, V2 и V3 задеплоены и верифицированы по MIT на Sepolia Etherscan. Адреса V4-V6 будут добавлены по мере деплоя каждой версии.",
       h2V5ToV6: "v5 to v6: что изменилось",
       v5ToV6Items: [
         "OTP-цепочка заменяет статический bytes32 proofHash: каждый proof одноразовый и продвигает голову цепочки, делая атаки повтора структурно невозможными.",
@@ -565,7 +565,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       labelFactoryV6: "QryptSafe factory v6（活跃）：",
       labelImplV6: "PersonalQryptSafe impl v6（活跃）：",
       labelQryptAirV6: "QryptAir air bags v6（活跃）：",
-      pDeployedV6: "所有合约均在 Sepolia Etherscan 上通过 MIT 许可证验证。v6 是标准部署：OTP 链替换静态 bytes32 proofHash，air bags 隔离 QryptAir 资金。49/49 E2E 测试全部通过。",
+      pDeployedV6: "V1、V2 和 V3 已在 Sepolia Etherscan 上部署并通过 MIT 许可证验证。V4-V6 的地址将在每个版本部署并验证后添加。",
       h2V5ToV6: "v5 to v6: 变更内容",
       v5ToV6Items: [
         "OTP 链替换静态 bytes32 proofHash：每个 proof 一次性使用并推进链头，从结构上使重放攻击不可能。",
