@@ -29,12 +29,12 @@ const versions = [
   {
     key: "v4",
     label: "v4: Historical",
-    sublabel: "Custom errors · activityCount · createdAtBlock · partial unshield · 47 tests",
-    factory: null,
-    impl: null,
+    sublabel: "Custom errors (13) · vault metadata (createdAtBlock, activityCount) · partial unshield · 47 tests",
+    factory: "0x611Ba6F93fAeC0203eBee1c3e35d72C1e5ba560F",
+    impl: "0x8E0c9350CdF384a208F6005A2F632f35FB4e413E",
     status: "superseded",
-    etherscanFactory: null,
-    etherscanImpl: null,
+    etherscanFactory: "https://sepolia.etherscan.io/address/0x611Ba6F93fAeC0203eBee1c3e35d72C1e5ba560F#code",
+    etherscanImpl: "https://sepolia.etherscan.io/address/0x8E0c9350CdF384a208F6005A2F632f35FB4e413E#code",
     mainnet: false,
   },
   {
@@ -102,7 +102,7 @@ export default function DeployedAddresses() {
       <h2>{c.h2Sepolia}</h2>
 
       <div className="callout callout-info" style={{ marginBottom: "1.5rem" }}>
-        V1, V2, and V3 are deployed and MIT-verified on Etherscan. V4-V6 addresses will be added as each version is deployed and verified.
+        V1, V2, V3, and V4 are deployed and MIT-verified on Etherscan. V5-V6 addresses will be added as each version is deployed and verified.
       </div>
 
       {versions.map((v) => {

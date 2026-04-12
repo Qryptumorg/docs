@@ -100,10 +100,18 @@ export default function Overview() {
 
       {/* v4 */}
       <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
-        <p style={{ margin: "0 0 0.25rem" }}><strong>v4 (Superseded)</strong> <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.8rem" }}>Pending deployment</em></p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>QryptAir EIP-712 vouchers, QryptShield Railgun integration.</p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}><strong>QryptSafe v4 (factory):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
-        <p style={{ margin: "0", fontSize: "0.875rem" }}><strong>PersonalQryptSafe v4 (impl):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v4 (Superseded)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Custom errors (13), vault metadata (createdAtBlock, activityCount), partial unshield. 47 unit tests, 10 on-chain E2E txs.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}>
+          <strong>QryptSafe v4 (factory):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0x611Ba6F93fAeC0203eBee1c3e35d72C1e5ba560F</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0x611Ba6F93fAeC0203eBee1c3e35d72C1e5ba560F" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
+        </p>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
+          <strong>PersonalQryptSafe v4 (impl):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0x8E0c9350CdF384a208F6005A2F632f35FB4e413E</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0x8E0c9350CdF384a208F6005A2F632f35FB4e413E" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
+        </p>
       </div>
 
       {/* v3 */}
