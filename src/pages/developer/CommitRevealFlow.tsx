@@ -43,33 +43,33 @@ const commitHash = ethers.keccak256(
       <h3>{c.h3Step2}</h3>
       <pre><code>{`// Submit the commitment (no vault proof in this transaction)
 const VAULT_ABI = [
-  "function commitTransfer(bytes32 commitHash) external",
+  "function initTransfer(bytes32 commitHash) external",
 ];
-const vault = new ethers.Contract(vaultAddress, VAULT_ABI, signer);
+const vault = new ethers.Contract(safeAddress, VAULT_ABI, signer);
 
-const commitTx = await vault.commitTransfer(commitHash);
+const commitTx = await vault.initTransfer(commitHash);
 await commitTx.wait();
 // commitHash is now stored in the contract with a 600-second expiry`}</code></pre>
 
       <h3>{c.h3Step3}</h3>
       <pre><code>{`// Wait for commit transaction to be mined
 // The vault proof is safe to include now since it's not in the mempool
-const REVEAL_ABI = [
-  "function revealTransfer(address token, address to, uint256 amount, string calldata password, uint256 nonce) external",
+const FINALIZE_ABI = [
+  "function finalizeTransfer(address token, address to, uint256 amount, string calldata password, uint256 nonce) external",
 ];
-const vaultWithReveal = new ethers.Contract(vaultAddress, REVEAL_ABI, signer);
+const vaultWithFinalize = new ethers.Contract(safeAddress, FINALIZE_ABI, signer);
 
-const revealTx = await vaultWithReveal.revealTransfer(
+const finalizeTx = await vaultWithFinalize.finalizeTransfer(
   tokenAddress,
   recipientAddress,
   amount,
   vaultProof,
   nonce
 );
-await revealTx.wait();`}</code></pre>
+await finalizeTx.wait();`}</code></pre>
 
       <h3>{c.h3Step4}</h3>
-      <pre><code>{`// On-chain verification (PersonalVault.sol):
+      <pre><code>{`// On-chain verification (PersonalQryptSafeV6.sol):
 // 1. Recompute hash from calldata params
 bytes32 expectedHash = keccak256(abi.encode(token, to, amount, password, nonce));
 
