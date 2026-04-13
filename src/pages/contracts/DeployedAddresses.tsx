@@ -7,7 +7,7 @@ const versions = [
   {
     key: "v6",
     label: "v6: Active",
-    sublabel: "OTP chain (proofChainHead) · airBudget isolation · QryptumSigner broadcaster · 50 tests",
+    sublabel: "OTP chain (proofChainHead) · airBudget isolation · QryptumSigner broadcaster · 67 tests",
     factory: "0xeaa722e996888b662E71aBf63d08729c6B6802F4",
     impl: "0x3E03f768476a763A48f2E00B73e4dC69f9E8A7E3",
     status: "active",
