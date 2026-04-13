@@ -18,23 +18,23 @@ export default function AbiReference() {
       </p>
 
       <h2>{c.h2FactoryAbi}</h2>
-      <p style={{ fontSize: "0.9rem", color: "hsl(var(--muted-fg))" }}>v3+ factory (no admin keys, no pause, no owner)</p>
-      <pre><code>{`const SHIELD_FACTORY_ABI = [
+      <p style={{ fontSize: "0.9rem", color: "hsl(var(--muted-fg))" }}>v6 QryptSafe Factory (no admin keys, no pause, no owner)</p>
+      <pre><code>{`const QRYPTSAFE_FACTORY_ABI = [
   // Read
-  "function hasVault(address user) external view returns (bool)",
-  "function getVault(address user) external view returns (address)",
-  "function vaultImplementation() external view returns (address)",
+  "function hasQryptSafe(address user) external view returns (bool)",
+  "function getQryptSafe(address user) external view returns (address)",
+  "function implementation() external view returns (address)",
 
   // Write
-  "function createVault(bytes32 proofHash) external returns (address)",
+  "function createQryptSafe(bytes32 initialChainHead) external returns (address)",
 
   // Events
-  "event VaultCreated(address indexed owner, address indexed vault)",
+  "event QryptSafeCreated(address indexed owner, address indexed vault)",
 ];`}</code></pre>
 
       <h2>{c.h2VaultAbi}</h2>
       <p style={{ fontSize: "0.9rem", color: "hsl(var(--muted-fg))" }}>v6 PersonalQryptSafe (full feature set: OTP chain, airBudget, QryptShield, QryptAir)</p>
-      <pre><code>{`const PERSONAL_VAULT_ABI = [
+      <pre><code>{`const PERSONAL_VAULT_V6_ABI = [
   // State
   "function owner() external view returns (address)",
   "function factory() external view returns (address)",
@@ -43,20 +43,20 @@ export default function AbiReference() {
   "function airBudget(address token) external view returns (uint256)",
 
   // Vault operations
-  "function shield(address token, uint256 amount, bytes32 proofHash) external",
-  "function unshield(address token, uint256 amount, bytes32 proofHash) external",
+  "function Qrypt(address token, uint256 amount, bytes32 proofHash) external",
+  "function unqrypt(address token, uint256 amount, bytes32 proofHash) external",
 
   // Commit-reveal transfer (QryptSafe)
-  "function commitTransfer(bytes32 commitHash) external",
-  "function revealTransfer(address token, address to, uint256 amount, bytes32 proofHash, uint256 nonce) external",
+  "function initTransfer(bytes32 commitHash) external",
+  "function finalizeTransfer(address token, address to, uint256 amount, string calldata password, uint256 nonce) external",
 
   // QryptShield (Railgun)
-  "function unshieldToRailgun(address token, uint256 amount, bytes32 proofHash, bytes calldata railgunRecipient) external",
+  "function railgun(address token, uint256 amount, bytes32 proofHash, bytes calldata railgunRecipient) external",
 
   // QryptAir (EIP-712 offline voucher)
-  "function fundAirBudget(address token, uint256 amount, bytes32 proofHash) external",
-  "function reclaimAirBudget(address token, uint256 amount, bytes32 proofHash) external",
-  "function redeemAirVoucher(address token, address to, uint256 amount, uint256 deadline, bytes32 voucherHash, bytes calldata sig) external",
+  "function fundAirBags(address token, uint256 amount, bytes32 proofHash) external",
+  "function reclaimAirBags(address token, uint256 amount, bytes32 proofHash) external",
+  "function claimAirVoucher(address token, address to, uint256 amount, uint256 deadline, bytes32 voucherHash, bytes calldata sig) external",
 
   // OTP chain management
   "function proofChainHead() external view returns (bytes32)",
@@ -69,13 +69,13 @@ export default function AbiReference() {
   "function emergencyWithdraw(address[] calldata tokens) external",
 
   // Events
-  "event TokenShielded(address indexed token, uint256 amount)",
-  "event TokenUnshielded(address indexed token, uint256 amount)",
+  "event TokenQrypted(address indexed token, uint256 amount)",
+  "event TokenUnqrypted(address indexed token, uint256 amount)",
   "event TransferExecuted(address indexed token, address indexed to, uint256 amount)",
-  "event CommitSubmitted(bytes32 indexed commitHash)",
+  "event TransferInitiated(bytes32 indexed commitHash)",
   "event VaultProofChanged()",
-  "event AirBudgetFunded(address indexed token, uint256 amount)",
-  "event AirVoucherRedeemed(address indexed token, address indexed to, uint256 amount)",
+  "event AirBagsFunded(address indexed token, uint256 amount)",
+  "event AirVoucherClaimed(address indexed token, address indexed to, uint256 amount)",
   "event EmergencyWithdraw(address indexed token, uint256 amount)",
 ];`}</code></pre>
 
