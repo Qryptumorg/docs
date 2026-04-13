@@ -53,15 +53,15 @@ function isValidProof(proof: string): boolean {
 // isValidProof("abc1234")=> false (7 chars)`}</code></pre>
 
       <h2>{c.h2VaultStatus}</h2>
-      <pre><code>{`// Get vault status for a user
+      <pre><code>{`// Get Qrypt-Safe status for a user
 const FACTORY_ABI = [
-  "function hasVault(address) view returns (bool)",
-  "function getVault(address) view returns (address)",
+  "function hasQryptSafe(address) view returns (bool)",
+  "function getQryptSafe(address) view returns (address)",
 ];
 const factory = new ethers.Contract(FACTORY_ADDRESS, FACTORY_ABI, provider);
 
-const hasVault = await factory.hasVault(userAddress);
-const vaultAddress = hasVault ? await factory.getVault(userAddress) : null;`}</code></pre>
+const hasSafe = await factory.hasQryptSafe(userAddress);
+const safeAddress = hasSafe ? await factory.getQryptSafe(userAddress) : null;`}</code></pre>
 
       <h2>{c.h2ShieldedBalances}</h2>
       <pre><code>{`const QTOKEN_ABI = [
@@ -71,7 +71,7 @@ const vaultAddress = hasVault ? await factory.getVault(userAddress) : null;`}</c
 ];
 
 // qToken address stored per token per vault
-// Use VaultCreated and Shielded events to discover qToken addresses
+// Use QryptSafeCreated and TokenQrypted events to discover qToken addresses
 const qToken = new ethers.Contract(qTokenAddress, QTOKEN_ABI, provider);
 const balance = await qToken.balanceOf(userAddress);
 const decimals = await qToken.decimals();
@@ -84,8 +84,8 @@ const formatted = ethers.formatUnits(balance, decimals);`}</code></pre>
     factoryAddress: null, // Pending deployment
   },
   11155111: {
-    name: "Sepolia Testnet",
-    factoryAddress: null, // See Deployed Addresses page
+    name: "Sepolia Testnet (V6 active)",
+    factoryAddress: "0xeaa722e996888b662E71aBf63d08729c6B6802F4",
   },
   31337: {
     name: "Hardhat Local",
@@ -95,14 +95,14 @@ const formatted = ethers.formatUnits(balance, decimals);`}</code></pre>
 
       <h2>{c.h2RecordTx}</h2>
       <p>{c.pRecordTx}</p>
-      <pre><code>{`// After a successful shield tx:
+      <pre><code>{`// After a successful Qrypt tx:
 await fetch("/api/transactions", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
     wallet: userAddress,
     txHash: receipt.hash,
-    type: "shield",
+    type: "Qrypt",
     tokenSymbol: "USDC",
     amount: "10.0",
     chainId: 11155111,
