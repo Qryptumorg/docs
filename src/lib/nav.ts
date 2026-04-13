@@ -26,7 +26,6 @@ export const NAV: NavSection[] = [
             { key: "nonCustodial", href: "/security/non-custodial" },
             { key: "tokenProtection", href: "/security/token-protection" },
             { key: "postQuantum", href: "/security/post-quantum" },
-            { key: "contractVerification", href: "/security/contract-verification" },
         ],
     },
     {
@@ -34,6 +33,7 @@ export const NAV: NavSection[] = [
         items: [
             { key: "shieldFactory", href: "/contracts/deployed-addresses" },
             { key: "personalVault", href: "/contracts/personal-vault" },
+            { key: "qryptSafeV6", href: "/contracts/qrypt-safe-v6" },
             { key: "qryptSafeV5", href: "/contracts/qrypt-safe-v5" },
             { key: "qryptSafeV4", href: "/contracts/qrypt-safe-v4" },
             { key: "qryptSafeV3", href: "/contracts/qrypt-safe-v3" },
@@ -49,6 +49,7 @@ export const NAV: NavSection[] = [
             { key: "apiReference", href: "/developer/api-reference" },
             { key: "commitRevealFlow", href: "/developer/commit-reveal-flow" },
             { key: "abiReference", href: "/developer/abi-reference" },
+            { key: "joinTestnet", href: "/developer/join-testnet" },
         ],
     },
     {
