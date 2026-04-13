@@ -48,7 +48,7 @@ export default function Sidebar({ open, onClose }: Props) {
             style={{ display: "flex", alignItems: "center", gap: 0, textDecoration: "none" }}
           >
             <img
-              src="/qryptum-logo.png"
+              src={`${import.meta.env.BASE_URL}qryptum-logo.png`}
               alt="Qryptum"
               style={{ height: "28px", width: "28px", objectFit: "contain" }}
             />
