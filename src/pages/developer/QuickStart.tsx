@@ -33,38 +33,38 @@ export default function QuickStart() {
 const provider = new ethers.BrowserProvider(window.ethereum);
 const signer = await provider.getSigner();
 
-const FACTORY_ADDRESS = "/* See Deployed Addresses page for current Sepolia factory address */";
+const FACTORY_ADDRESS = "0xeaa722e996888b662E71aBf63d08729c6B6802F4"; // V6 Sepolia
 const FACTORY_ABI = [
-  "function hasVault(address) view returns (bool)",
-  "function getVault(address) view returns (address)",
-  "function createVault(bytes32 proofHash) returns (address)",
+  "function hasQryptSafe(address) view returns (bool)",
+  "function getQryptSafe(address) view returns (address)",
+  "function createQryptSafe(bytes32 initialChainHead) returns (address)",
 ];
 
 const factory = new ethers.Contract(FACTORY_ADDRESS, FACTORY_ABI, signer);`}</code></pre>
 
       <h2>{c.h2CheckVault}</h2>
       <pre><code>{`const userAddress = await signer.getAddress();
-const hasVault = await factory.hasVault(userAddress);
+const hasSafe = await factory.hasQryptSafe(userAddress);
 
-if (hasVault) {
-  const vaultAddress = await factory.getVault(userAddress);
-  console.log("Vault:", vaultAddress);
+if (hasSafe) {
+  const safeAddress = await factory.getQryptSafe(userAddress);
+  console.log("Qrypt-Safe:", safeAddress);
 }`}</code></pre>
 
       <h2>{c.h2Create}</h2>
       <pre><code>{`const rawProof = "abc123"; // 3 lowercase letters + 3 digits
-// Hash the proof off-chain — the raw proof never touches the chain
-const proofHash = ethers.keccak256(ethers.toUtf8Bytes(rawProof));
+// Hash the proof off-chain: the raw proof never touches the chain
+const initialChainHead = ethers.keccak256(ethers.toUtf8Bytes(rawProof));
 
-const tx = await factory.createVault(proofHash);
+const tx = await factory.createQryptSafe(initialChainHead);
 const receipt = await tx.wait();
-// VaultCreated event: receipt.logs[0]`}</code></pre>
+// QryptSafeCreated event: receipt.logs[0]`}</code></pre>
 
       <h2>{c.h2Shield}</h2>
       <pre><code>{`const VAULT_ABI = [
-  "function shield(address token, uint256 amount, bytes32 proofHash) external",
+  "function Qrypt(address token, uint256 amount, bytes32 proofHash) external",
 ];
-const vault = new ethers.Contract(vaultAddress, VAULT_ABI, signer);
+const vault = new ethers.Contract(safeAddress, VAULT_ABI, signer);
 
 const USDC_ADDRESS = "0x..."; // token contract address
 const USDC_ABI = ["function approve(address spender, uint256 amount) returns (bool)"];
@@ -72,10 +72,10 @@ const usdc = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer);
 
 // Step 1: approve vault to spend tokens
 const amount = ethers.parseUnits("10", 6); // 10 USDC (6 decimals)
-await usdc.approve(vaultAddress, amount);
+await usdc.approve(safeAddress, amount);
 
-// Step 2: shield (pass the hash, not the raw proof)
-await vault.shield(USDC_ADDRESS, amount, proofHash);`}</code></pre>
+// Step 2: Qrypt (pass the hash, not the raw proof)
+await vault.Qrypt(USDC_ADDRESS, amount, proofHash);`}</code></pre>
       <div className="callout callout-warning">{c.calloutProof}</div>
 
       <h2>{c.h2NextSteps}</h2>
