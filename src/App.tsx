@@ -18,11 +18,13 @@ import QryptSafeV2History from "@/pages/contracts/QryptSafeV2History";
 import QryptSafeV3History from "@/pages/contracts/QryptSafeV3History";
 import QryptSafeV4History from "@/pages/contracts/QryptSafeV4History";
 import QryptSafeV5History from "@/pages/contracts/QryptSafeV5History";
+import QryptSafeV6History from "@/pages/contracts/QryptSafeV6History";
 import QuickStart from "@/pages/developer/QuickStart";
 import IntegrationGuide from "@/pages/developer/IntegrationGuide";
 import ApiReference from "@/pages/developer/ApiReference";
 import CommitRevealFlow from "@/pages/developer/CommitRevealFlow";
 import AbiReference from "@/pages/developer/AbiReference";
+import JoinTestnet from "@/pages/developer/JoinTestnet";
 import Faq from "@/pages/faq/Faq";
 
 function Router() {
@@ -48,12 +50,14 @@ function Router() {
         <Route path="/contracts/qrypt-safe-v2" component={QryptSafeV2History} />
         <Route path="/contracts/qrypt-safe-v3" component={QryptSafeV3History} />
         <Route path="/contracts/qrypt-safe-v4" component={QryptSafeV4History} />
+        <Route path="/contracts/qrypt-safe-v6" component={QryptSafeV6History} />
         <Route path="/contracts/qrypt-safe-v5" component={QryptSafeV5History} />
         <Route path="/developer/quick-start" component={QuickStart} />
         <Route path="/developer/integration-guide" component={IntegrationGuide} />
         <Route path="/developer/api-reference" component={ApiReference} />
         <Route path="/developer/commit-reveal-flow" component={CommitRevealFlow} />
         <Route path="/developer/abi-reference" component={AbiReference} />
+        <Route path="/developer/join-testnet" component={JoinTestnet} />
         <Route path="/faq" component={Faq} />
         <Route>
           <Redirect to="/introduction/overview" />
