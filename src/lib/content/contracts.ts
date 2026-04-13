@@ -55,6 +55,17 @@ export type ContractsContent = {
     calloutV3Note: string;
     calloutV2Note: string;
     calloutAddressV1: string;
+    h2V6Design: string;
+    pV6Design: string;
+    calloutV6Features: string;
+    v6StateHeaders: [string, string, string];
+    v6StateRows: [string, string, string][];
+    h2V6Functions: string;
+    v6FuncHeaders: [string, string];
+    v6FuncRows: [string, string][];
+    h2V6Events: string;
+    v6EventHeaders: [string, string, string];
+    v6EventRows: [string, string, string][];
     h2Design: string;
     pDesign: string;
     calloutNoAdmin: string;
@@ -192,6 +203,42 @@ export const contractsContent: Record<"en" | "ru" | "zh", ContractsContent> = {
         "v3 is the current active factory. No admin keys, no owner, no pause function. Vault creation is always open.",
       calloutV2Note:
         "v2 was superseded by v3. The v2 factory had Ownable and Pausable, meaning the deployer could pause vault creation. v3 removes all admin control.",
+      h2V6Design: "Contract Design (v6)",
+      pV6Design:
+        "v6 is the current canonical version. The factory uses EIP-1167 clone deployment with no admin roles. The vault (PersonalQryptSafeV6) introduces an OTP chain (proofChainHead) replacing the static bytes32 proofHash, per-token airBudget isolation for QryptAir, and the QryptumSigner broadcaster pattern. 67/67 E2E tests verified on Sepolia.",
+      calloutV6Features:
+        "No admin keys exist in v6. The deployer has zero special access. OTP chain replaces static password hash: each operation consumes one OTP node and the chain head advances. airBudget is isolated per token, preventing cross-token draining.",
+      v6StateHeaders: ["Variable", "Type", "Description"],
+      v6StateRows: [
+        ["vaultImplementation", "address immutable", "PersonalQryptSafeV6 implementation. Set at construction, never changed."],
+        ["vaults", "mapping(address => address) private", "Maps wallet address to deployed vault address."],
+        ["SALT", "string constant", "Deployment namespace string: \"qryptum.mainnet\". Used for domain separation."],
+        ["proofChainHead", "bytes32", "(vault) Current OTP chain tip. Advances with every authenticated call."],
+        ["airBudget", "mapping(address => uint256)", "(vault) Per-token budget for QryptAir voucher issuance."],
+      ],
+      h2V6Functions: "Key Vault Functions (PersonalQryptSafeV6)",
+      v6FuncHeaders: ["Function", "Description"],
+      v6FuncRows: [
+        ["Qrypt(token, amount, proof)", "Shield ERC-20 into vault. Consumes one OTP node. Mints qToken to owner."],
+        ["unQrypt(token, amount, proof)", "Withdraw ERC-20 from vault. Consumes one OTP node. Burns qToken."],
+        ["initTransfer(token, amount, proof)", "Commit phase. OTP consumed. Records commit hash on-chain."],
+        ["finalizeTransfer(token, amount, proof)", "Reveal phase. Verifies commit, burns qToken, sends ERC-20 to recipient."],
+        ["enterRailgun(token, amount, proof, railgunAddr)", "Atomic unQrypt then deposit to Railgun ZK pool in one transaction."],
+        ["claimAirVoucher(voucher, sig)", "Redeem an EIP-712 offline voucher signed by QryptumSigner broadcaster."],
+        ["rechargeChain(newChainHead)", "Top up the OTP chain with a new chain head after existing nodes are exhausted."],
+        ["emergencyWithdraw(token)", "Available after 6 months inactivity. Requires only private key, not OTP."],
+      ],
+      h2V6Events: "Events (v6)",
+      v6EventHeaders: ["Event", "Parameters", "Emitted When"],
+      v6EventRows: [
+        ["VaultCreated", "owner (indexed), vault (indexed)", "Factory deploys a new vault clone"],
+        ["Qrypt", "owner (indexed), token (indexed), amount, qToken", "Tokens shielded into vault"],
+        ["unQrypt", "owner (indexed), token (indexed), amount, qToken", "Tokens withdrawn from vault"],
+        ["InitData", "owner (indexed), token (indexed), amount, commitHash", "Commit phase recorded"],
+        ["FinalizeData", "owner (indexed), token (indexed), amount, recipient (indexed)", "Transfer executed"],
+        ["AirVoucherClaimed", "recipient (indexed), token (indexed), amount", "EIP-712 voucher redeemed"],
+        ["ChainRecharged", "owner (indexed), newHead", "OTP chain topped up"],
+      ],
       h2Design: "Contract Design (v3)",
       pDesign:
         "v3 removes all privileged roles. There is no owner and no pause mechanism. The contract imports only the Clones library for EIP-1167 proxy deployment. Anyone can call createVault at any time.",
@@ -368,6 +415,42 @@ export const contractsContent: Record<"en" | "ru" | "zh", ContractsContent> = {
         "v3: текущая активная фабрика. Нет административных ключей, нет владельца, нет функции паузы. Создание хранилищ всегда открыто.",
       calloutV2Note:
         "v2 заменён v3. У фабрики v2 были Ownable и Pausable: деплойер мог ставить создание хранилищ на паузу. v3 полностью устраняет административный контроль.",
+      h2V6Design: "Архитектура контракта (v6)",
+      pV6Design:
+        "v6 - текущая каноническая версия. Фабрика использует деплой EIP-1167 клонов без административных ролей. Хранилище (PersonalQryptSafeV6) вводит OTP-цепочку (proofChainHead), заменяющую статический bytes32 proofHash, изоляцию airBudget по токенам для QryptAir и паттерн вещателя QryptumSigner. 67/67 E2E тестов верифицировано на Sepolia.",
+      calloutV6Features:
+        "В v6 нет административных ключей. Деплойер не имеет никаких особых прав. OTP-цепочка заменяет статический хэш пароля: каждая операция расходует один OTP-узел и голова цепочки продвигается. airBudget изолирован по токенам, что исключает межтокенный дренаж.",
+      v6StateHeaders: ["Переменная", "Тип", "Описание"],
+      v6StateRows: [
+        ["vaultImplementation", "address immutable", "Реализация PersonalQryptSafeV6. Устанавливается при деплое, не меняется."],
+        ["vaults", "mapping(address => address) private", "Сопоставляет адрес кошелька с адресом хранилища."],
+        ["SALT", "string constant", "Строка пространства имён деплоя: \"qryptum.mainnet\". Для доменного разделения."],
+        ["proofChainHead", "bytes32", "(хранилище) Текущий кончик OTP-цепочки. Продвигается при каждом аутентифицированном вызове."],
+        ["airBudget", "mapping(address => uint256)", "(хранилище) Бюджет на выпуск ваучеров QryptAir по каждому токену."],
+      ],
+      h2V6Functions: "Ключевые функции хранилища (PersonalQryptSafeV6)",
+      v6FuncHeaders: ["Функция", "Описание"],
+      v6FuncRows: [
+        ["Qrypt(token, amount, proof)", "Защитить ERC-20 в хранилище. Расходует OTP-узел. Минтит qToken владельцу."],
+        ["unQrypt(token, amount, proof)", "Вывести ERC-20 из хранилища. Расходует OTP-узел. Сжигает qToken."],
+        ["initTransfer(token, amount, proof)", "Фаза коммита. OTP расходуется. Записывает хэш коммита в блокчейн."],
+        ["finalizeTransfer(token, amount, proof)", "Фаза раскрытия. Проверяет коммит, сжигает qToken, отправляет ERC-20 получателю."],
+        ["enterRailgun(token, amount, proof, railgunAddr)", "Атомарный unQrypt и депозит в Railgun ZK-пул в одной транзакции."],
+        ["claimAirVoucher(voucher, sig)", "Погасить EIP-712 офлайн-ваучер, подписанный вещателем QryptumSigner."],
+        ["rechargeChain(newChainHead)", "Пополнить OTP-цепочку новой головой после исчерпания узлов."],
+        ["emergencyWithdraw(token)", "Доступен после 6 месяцев бездействия. Требует только приватного ключа, без OTP."],
+      ],
+      h2V6Events: "События (v6)",
+      v6EventHeaders: ["Событие", "Параметры", "Когда эмитируется"],
+      v6EventRows: [
+        ["VaultCreated", "owner (indexed), vault (indexed)", "Фабрика деплоит новый клон хранилища"],
+        ["Qrypt", "owner (indexed), token (indexed), amount, qToken", "Токены помещены в хранилище"],
+        ["unQrypt", "owner (indexed), token (indexed), amount, qToken", "Токены выведены из хранилища"],
+        ["InitData", "owner (indexed), token (indexed), amount, commitHash", "Записана фаза коммита"],
+        ["FinalizeData", "owner (indexed), token (indexed), amount, recipient (indexed)", "Перевод выполнен"],
+        ["AirVoucherClaimed", "recipient (indexed), token (indexed), amount", "EIP-712 ваучер погашен"],
+        ["ChainRecharged", "owner (indexed), newHead", "OTP-цепочка пополнена"],
+      ],
       h2Design: "Архитектура контракта (v3)",
       pDesign:
         "v3 удаляет все привилегированные роли. Нет владельца, нет механизма паузы. Контракт импортирует только библиотеку Clones для деплоя EIP-1167 прокси. Любой желающий может вызвать createVault в любое время.",
@@ -542,6 +625,42 @@ export const contractsContent: Record<"en" | "ru" | "zh", ContractsContent> = {
         "v3 是当前活跃工厂。无管理员密钥、无所有者、无暂停函数。保险库创建始终开放。",
       calloutV2Note:
         "v2 已被 v3 取代。v2 工厂具有 Ownable 和 Pausable，这意味着部署者可以暂停保险库创建。v3 移除了所有管理控制。",
+      h2V6Design: "合约设计（v6）",
+      pV6Design:
+        "v6 是当前标准版本。工厂使用 EIP-1167 克隆部署，无管理员角色。保险库（PersonalQryptSafeV6）引入 OTP 链（proofChainHead）替代静态 bytes32 proofHash，为 QryptAir 提供按代币隔离的 airBudget，以及 QryptumSigner 广播者模式。67/67 E2E 测试已在 Sepolia 验证。",
+      calloutV6Features:
+        "v6 中不存在管理员密钥。部署者没有任何特殊访问权限。OTP 链替代静态密码哈希：每次操作消耗一个 OTP 节点，链头向前推进。airBudget 按代币隔离，防止跨代币耗尽。",
+      v6StateHeaders: ["变量", "类型", "描述"],
+      v6StateRows: [
+        ["vaultImplementation", "address immutable", "PersonalQryptSafeV6 实现。部署时设置，永不更改。"],
+        ["vaults", "mapping(address => address) private", "将钱包地址映射到保险库地址。"],
+        ["SALT", "string constant", "部署命名空间字符串：\"qryptum.mainnet\"。用于域分离。"],
+        ["proofChainHead", "bytes32", "（保险库）当前 OTP 链顶端。每次认证调用后向前推进。"],
+        ["airBudget", "mapping(address => uint256)", "（保险库）每个代币的 QryptAir 凭证发行预算。"],
+      ],
+      h2V6Functions: "保险库关键函数（PersonalQryptSafeV6）",
+      v6FuncHeaders: ["函数", "描述"],
+      v6FuncRows: [
+        ["Qrypt(token, amount, proof)", "将 ERC-20 存入保险库。消耗 OTP 节点。向所有者铸造 qToken。"],
+        ["unQrypt(token, amount, proof)", "从保险库取出 ERC-20。消耗 OTP 节点。销毁 qToken。"],
+        ["initTransfer(token, amount, proof)", "提交阶段。OTP 被消耗。将提交哈希记录在链上。"],
+        ["finalizeTransfer(token, amount, proof)", "揭示阶段。验证提交，销毁 qToken，将 ERC-20 发送给接收方。"],
+        ["enterRailgun(token, amount, proof, railgunAddr)", "在一笔交易中原子性地 unQrypt 并存入 Railgun ZK 池。"],
+        ["claimAirVoucher(voucher, sig)", "兑换由 QryptumSigner 广播者签名的 EIP-712 离线凭证。"],
+        ["rechargeChain(newChainHead)", "节点耗尽后用新链头补充 OTP 链。"],
+        ["emergencyWithdraw(token)", "6 个月无活动后可用。只需私钥，无需 OTP。"],
+      ],
+      h2V6Events: "事件（v6）",
+      v6EventHeaders: ["事件", "参数", "触发时机"],
+      v6EventRows: [
+        ["VaultCreated", "owner (indexed), vault (indexed)", "工厂部署新保险库克隆时"],
+        ["Qrypt", "owner (indexed), token (indexed), amount, qToken", "代币存入保险库时"],
+        ["unQrypt", "owner (indexed), token (indexed), amount, qToken", "代币从保险库取出时"],
+        ["InitData", "owner (indexed), token (indexed), amount, commitHash", "提交阶段记录时"],
+        ["FinalizeData", "owner (indexed), token (indexed), amount, recipient (indexed)", "转账执行时"],
+        ["AirVoucherClaimed", "recipient (indexed), token (indexed), amount", "EIP-712 凭证兑换时"],
+        ["ChainRecharged", "owner (indexed), newHead", "OTP 链补充时"],
+      ],
       h2Design: "合约设计（v3）",
       pDesign:
         "v3 移除了所有特权角色。没有所有者，没有暂停机制。合约仅导入 Clones 库用于 EIP-1167 代理部署。任何人都可以随时调用 createVault。",
