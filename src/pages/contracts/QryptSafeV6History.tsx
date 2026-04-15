@@ -1,7 +1,7 @@
 import { useLanguage } from "@/lib/LanguageContext";
 import { v6historyContent } from "@/lib/content/v6history";
 
-const FACTORY_V6: string = "";
+const FACTORY_V6: string = "0xeaa722e996888b662E71aBf63d08729c6B6802F4";
 const IMPL_V6: string    = "";
 const VAULT_A_V6         = "";
 const VAULT_B_V6         = "";
@@ -256,26 +256,11 @@ await vault.reclaimAirBags(USDC);
                         <td><AddrCell value={IMPL_V6} /></td>
                         <td>{IMPL_V6 ? <a href={`${ETHERSCAN}/address/${IMPL_V6}#code`} target="_blank" rel="noopener noreferrer">View ↗</a> : <span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>pending</span>}</td>
                     </tr>
-                    <tr>
-                        <td>Vault A</td>
-                        <td><AddrCell value={VAULT_A_V6} /></td>
-                        <td>{VAULT_A_V6 ? <a href={`${ETHERSCAN}/address/${VAULT_A_V6}`} target="_blank" rel="noopener noreferrer">View ↗</a> : <span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>pending</span>}</td>
-                    </tr>
-                    <tr>
-                        <td>Vault B</td>
-                        <td><AddrCell value={VAULT_B_V6} /></td>
-                        <td>{VAULT_B_V6 ? <a href={`${ETHERSCAN}/address/${VAULT_B_V6}`} target="_blank" rel="noopener noreferrer">View ↗</a> : <span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>pending</span>}</td>
-                    </tr>
                 </tbody>
             </table>
 
             <h2>{c.h2E2E}</h2>
             <p>{c.pE2E}</p>
-            {(VAULT_A_V6 || VAULT_B_V6) && (
-                <p style={{ fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>
-                    Vault A: <code>{VAULT_A_V6}</code> &nbsp; Vault B: <code>{VAULT_B_V6}</code>
-                </p>
-            )}
             <table>
                 <thead>
                     <tr>
