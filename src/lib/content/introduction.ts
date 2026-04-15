@@ -118,9 +118,9 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       h2TransferModes: "Transfer Modes",
       modeTableHeaders: ["Mode", "Mechanism", "Privacy Level", "Best For"],
       modes: [
-        ["QryptSafe", "Commit-reveal vault proof", "On-chain visible", "Personal token protection against private key theft"],
+        ["QryptSafe", "qrypt / unqrypt, vault-gated", "On-chain visible", "Personal token protection against private key theft"],
         ["QryptShield", "Railgun ZK privacy pool", "Zero-knowledge private", "Anonymous transfers with no on-chain link between sender and recipient"],
-        ["QryptAir", "EIP-712 voucher + QR code", "Offline signed", "Airgapped transfers: sign without internet, broadcast later"],
+        ["QryptAir", "EIP-712 offToken + QR code", "Offline signed", "Airgapped transfers: sign without internet, broadcast later"],
       ],
       h2Architecture: "System Architecture",
       pArchitecture:
@@ -128,7 +128,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       archItems: [
         "QryptSafe: Each user deploys their own PersonalVault contract via the ShieldFactory. The vault holds real ERC-20 tokens and issues non-transferable qTokens as receipts. Every token movement requires both the user's private key and a 6-character vault proof.",
         "QryptShield: Transfers are routed through the Railgun privacy pool. Zero-knowledge proofs cryptographically sever the on-chain link between sender and recipient. No Qryptum-owned contracts are involved: the Railgun protocol handles all on-chain logic.",
-        "QryptAir: The sender signs an EIP-712 typed voucher entirely offline. The signed voucher is encoded as a QR code and shared with the recipient, who broadcasts it to Ethereum. The redeemVoucher function on the vault contract verifies the signature and executes the transfer.",
+        "QryptAir: The sender signs an EIP-712 typed offToken entirely offline. The signed offToken is encoded as a QR code and shared with the recipient, who broadcasts it to Ethereum. The claimAirVoucher function on the vault contract verifies the signature and executes the transfer.",
       ],
       h2CoreProperties: "Core Properties",
       coreTableHeaders: ["Property", "How It Works"],
@@ -138,9 +138,9 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         ["Dual-factor protection (QryptSafe)", "Every vault operation requires both the user's private key and the 6-character vault proof simultaneously."],
         ["Zero-knowledge privacy (QryptShield)", "Railgun ZK proofs hide sender address, recipient address, and transfer amount from on-chain observers."],
         ["Offline signing (QryptAir)", "The sender's private key never touches a live network node. Signing is fully local. Broadcast is separate."],
-        ["Isolated vaults", "Each user has a unique vault address. User A's tokens are at 0xVaultA; User B's are at 0xVaultB. Never mixed."],
-        ["Commit-reveal transfer (QryptSafe)", "Transfers use a two-step commit-reveal scheme to prevent replay attacks and front-running."],
-        ["Replay protection (QryptAir)", "Each voucher nonce can only be redeemed once. The usedVouchers mapping prevents double-spending."],
+        ["Isolated vaults", "Each user has a unique vault address. User A's tokens are at 0xQryptSafeA; User B's are at 0xQryptSafeB. Never mixed."],
+        ["QryptAir offToken nonce (QryptSafe)", "Each offToken nonce is single-use. claimAirVoucher() reverts on replay with VoucherAlreadyUsed()."],
+        ["Replay protection (QryptAir)", "Each offToken nonce can only be redeemed once. The usedVouchers mapping prevents double-spending."],
       ],
       h2DeployedContracts: "Deployed Contracts (Sepolia)",
       pDeployed: "All contracts are verified MIT on Sepolia Etherscan. QryptShield uses Railgun contracts (deployed and maintained by the Railgun Community).",
@@ -156,25 +156,25 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       v5ToV6Items: [
         "OTP chain replaces static bytes32 proofHash: each proof is single-use and advances the chain head, making replay attacks structurally impossible.",
         "rechargeChain() added: owner can append a new OTP chain to the vault without redeploying.",
-        "Air bags isolation: QryptAir voucher redemption draws from a separate air bags balance, preventing double-spend against the shielded balance.",
-        "depositToAirBag() and withdrawFromAirBag() added for explicit air bags fund management.",
+        "Air bags isolation: QryptAir offToken redemption draws from a separate air bags balance, preventing double-spend against the shielded balance.",
+        "depositToAirBag() and withdrawFromAirBag() added for explicit air bags balance management.",
         "49/49 E2E tests pass on Sepolia. Factory and implementation MIT-verified on Etherscan.",
       ],
       labelFactoryV5: "QryptSafe factory v5 (superseded by v6):",
       labelImplV5: "PersonalQryptSafe impl v5 (superseded by v6):",
-      labelQryptAirV5: "QryptAir redeemVoucher v5 (superseded by v6):",
+      labelQryptAirV5: "QryptAir claimAirVoucher v5 (superseded by v6):",
       pDeployedV5: "v5 is superseded by v6 (OTP chain upgrade). All v5 contracts remain verified MIT on Sepolia Etherscan. 32/32 E2E tests pass.",
       h2V3ToV5: "v3 to v5: What Changed",
       v3ToV5Items: [
         "bytes32 proofHash replaces string vaultProof: keccak256 hash sent to contract instead of raw string, enabling EIP-712 struct-hash compatibility.",
         "unshieldToRailgun() added: QryptShield can now route unshields directly to the Railgun privacy pool.",
-        "redeemVoucher() added: QryptAir EIP-712 offline signed vouchers now live in PersonalQryptSafe (no separate contract needed).",
+        "claimAirVoucher() added: QryptAir EIP-712 offline signed vouchers now live in PersonalQryptSafe (no separate contract needed).",
         "v4 intermediate deployment decommissioned (used string vaultProof with QryptAir/QryptShield). Superseded by v5.",
         "32/32 E2E tests pass on Sepolia. All contracts MIT-verified on Etherscan.",
       ],
       h2V4ToV5: "v4 to v5: bytes32 proofHash Upgrade",
       v4ToV5Items: [
-        "vaultProof parameter changed from string to bytes32 in all functions (shield, unshield, commit, reveal, changeVaultProof).",
+        "vaultProof parameter changed from string to bytes32 in all functions (qrypt, unqrypt, changeVaultProof, claimAirVoucher, unshieldToRailgun).",
         "EIP-712 struct-hash now works correctly: bytes32 is a fixed-size type, compatible with encodeData.",
         "All 32 E2E tests pass with the new bytes32 proofHash on Sepolia.",
       ],
@@ -197,7 +197,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       levels: [
         ["QryptSafe", "Private key theft, phishing approvals, malicious contract calls", "Vault proof: a second factor required on every token movement"],
         ["QryptShield", "On-chain transaction tracing, wallet address linking, balance surveillance", "Railgun ZK pool: sender and recipient are cryptographically unlinked"],
-        ["QryptAir", "Signing key exposure during network-connected signing sessions", "EIP-712 offline voucher: signing key never touches a live node"],
+        ["QryptAir", "Signing key exposure during network-connected signing sessions", "EIP-712 offline offToken: signing key never touches a live node"],
       ],
       h2QryptSafe: "QryptSafe: Vault Proof Layer",
       pQryptSafe1:
@@ -245,27 +245,27 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       safeIntro:
         "QryptSafe protects ERC-20 tokens by locking them in a personal smart contract vault. Every token movement requires both the user's private key and a 6-character vault proof, verified on-chain. A stolen private key alone cannot move tokens.",
       safeH2Lifecycle: "Token Lifecycle",
-      safeStep01Title: "Shield - Deposit tokens into your Qrypt-Safe",
+      safeStep01Title: "qrypt - Deposit tokens into your Qrypt-Safe",
       safeStep01Desc:
-        "The user approves the vault contract to pull tokens, then calls shield(tokenAddress, amount, vaultProof). The contract verifies the vault proof, pulls the ERC-20 tokens, and mints an equivalent amount of non-transferable qTokens (for example, qUSDC) to the user's wallet.",
+        "The user approves the vault contract to pull tokens, then calls qrypt(tokenAddress, amount, vaultProof). The contract verifies the vault proof, pulls the ERC-20 tokens, and mints an equivalent amount of non-transferable qTokens (for example, qUSDC) to the user's wallet.",
       safeStep02Title: "Hold - qTokens as receipts",
       safeStep02Desc:
-        "After shielding, the user holds qTokens in their wallet. The underlying ERC-20 tokens sit at the vault contract address. Any call to transfer(), transferFrom(), or approve() on qTokens immediately reverts at the contract level. No wallet, exchange, or script can move them.",
-      safeStep03Title: "Transfer - Commit-reveal scheme",
+        "After calling qrypt, the user holds qTokens in their wallet. The underlying ERC-20 tokens sit at the vault contract address. Any call to transfer(), transferFrom(), or approve() on qTokens immediately reverts at the contract level. No wallet, exchange, or script can move them.",
+      safeStep03Title: "Transfer - QryptAir offToken or QryptShield",
       safeStep03Desc:
-        "To send tokens to another address, the user follows a two-step commit-reveal scheme. This prevents replay attacks and ensures the vault proof is not exposed before the transaction is finalized.",
+        "To send tokens peer-to-peer, use QryptAir (claimAirVoucher) for offline EIP-712 signed offTokens, or QryptShield (unshieldToRailgun) for anonymous delivery via the Railgun ZK pool.",
       safeTransferTableHeaders: ["Step", "Action", "On-chain"],
       safeTransferRows: [
-        ["1", "Browser computes commit hash from vault proof, nonce, token, recipient, and amount", "No"],
-        ["2", "commitTransfer(commitHash) is sent. Vault proof is not included in this transaction.", "Yes"],
-        ["3", "Wait for the commit transaction to be included in a block (mandatory 1-block delay)", "Yes"],
-        ["4", "revealTransfer(token, to, amount, proof, nonce) is sent. Contract verifies hash, burns qTokens, sends real ERC-20 to recipient.", "Yes"],
+        ["1", "Sender signs an EIP-712 offToken offline (QryptAir) or calls unshieldToRailgun (QryptShield)", "No / Yes"],
+        ["2", "QryptAir: recipient calls claimAirVoucher(voucher, sig). Contract verifies signature and nonce.", "Yes"],
+        ["3", "QryptShield: Railgun ZK pool receives deposit; recipient withdraws anonymously.", "Yes"],
+        ["4", "Real ERC-20 is received by recipient. qToken is burned on sender's vault.", "Yes"],
       ],
       safeTransferCallout:
-        "The recipient always receives the real ERC-20 (for example, USDC), never qUSDC. They can then shield it into their own Qrypt-Safe if they want the same protection.",
-      safeStep04Title: "Unshield - Withdraw tokens back to wallet",
+        "The recipient always receives the real ERC-20 (for example, USDC), never qUSDC. They can then call qrypt on their own Qrypt-Safe if they want the same protection.",
+      safeStep04Title: "unqrypt - Withdraw tokens back to wallet",
       safeStep04Desc:
-        "The user calls unshield(tokenAddress, amount, vaultProof). The contract burns the qTokens and returns the real ERC-20 tokens to the user's wallet.",
+        "The user calls unqrypt(tokenAddress, amount, vaultProof). The contract burns the qTokens and returns the real ERC-20 tokens to the user's wallet.",
       safeH2Creating: "Creating a Qrypt-Safe",
       safeCreatingDesc:
         "Each wallet can have exactly one Qrypt-Safe, deployed via the ShieldFactory. The user chooses a vault proof and provides its keccak256 hash on deployment. The raw vault proof never touches any server. After deployment, the user can shield any number of different ERC-20 tokens into their single Qrypt-Safe.",
@@ -294,18 +294,18 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       ],
 
       airIntro:
-        "QryptAir lets users create, sign, and deliver a token transfer entirely without internet access. The signed EIP-712 voucher is encoded as a QR code. The recipient scans and broadcasts it to Ethereum. The sender's private key never touches a live network node.",
-      airStep01Title: "Sign - Create a voucher offline",
+        "QryptAir lets users create, sign, and deliver a token transfer entirely without internet access. The signed offToken is encoded as a QR code. The recipient scans and broadcasts it to Ethereum. The sender's private key never touches a live network node.",
+      airStep01Title: "Sign - Create an offToken offline",
       airStep01Desc:
-        "The sender generates an EIP-712 typed data voucher specifying the recipient, token, amount, deadline, and nonce. The voucher is signed with the sender's private key, entirely offline. No internet connection is required at any point during this step.",
+        "The sender generates an EIP-712 offToken specifying the recipient, token, amount, deadline, and nonce. It is signed with the sender's private key, entirely offline. No internet connection is required at any point during this step.",
       airStep02Title: "Encode - Share via QR code",
       airStep02Desc:
-        "The signed voucher (recipient, token, amount, deadline, nonce, and signature) is encoded as a QR code. The QR can be printed, photographed, displayed on a screen, or transmitted via any physical medium. It remains valid until its deadline timestamp.",
-      airStep03Title: "Broadcast - Recipient redeems on-chain",
+        "The signed offToken (recipient, token, amount, deadline, nonce, and signature) is encoded as a QR code. The QR can be printed, photographed, displayed on a screen, or transmitted via any physical medium. It remains valid until its deadline timestamp.",
+      airStep03Title: "Broadcast - Recipient claims on-chain",
       airStep03Desc:
-        "The recipient scans the QR code, extracts the voucher data, and calls redeemVoucher() on the QryptAir contract. The contract verifies the EIP-712 signature on-chain, checks the deadline and nonce (replay protection), and executes the token transfer.",
+        "The recipient scans the QR code, extracts the voucher data, and calls claimAirVoucher(voucher, sig) on the vault contract. The contract verifies the EIP-712 signature on-chain, checks the deadline and nonce (replay protection), and executes the token transfer.",
       airStep03Callout:
-        "Each nonce can only be redeemed once. The usedVouchers mapping on the contract permanently records used nonces to prevent replay attacks.",
+        "Each nonce can only be claimed once. claimAirVoucher() reverts with VoucherAlreadyUsed() on replay. Expired vouchers revert with VoucherExpired().",
       airH2UseCases: "Use Cases",
       airUseCaseHeaders: ["Scenario", "How QryptAir Helps"],
       airUseCases: [
@@ -325,7 +325,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       h2TransferModes: "Режимы перевода",
       modeTableHeaders: ["Режим", "Механизм", "Уровень конфиденциальности", "Лучше всего подходит для"],
       modes: [
-        ["QryptSafe", "Commit-reveal с vault proof", "Видимо on-chain", "Личная защита токенов от кражи приватного ключа"],
+        ["QryptSafe", "qrypt / unqrypt, vault-gated", "Видимо on-chain", "Личная защита токенов от кражи приватного ключа"],
         ["QryptShield", "Пул конфиденциальности Railgun ZK", "Zero-knowledge, приватно", "Анонимные переводы без on-chain связи между отправителем и получателем"],
         ["QryptAir", "EIP-712 ваучер + QR-код", "Подписано офлайн", "Airgapped-переводы: подпись без интернета, трансляция позже"],
       ],
@@ -335,7 +335,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       archItems: [
         "QryptSafe: Каждый пользователь развёртывает собственный контракт PersonalVault через ShieldFactory. Хранилище держит реальные токены ERC-20 и выпускает непередаваемые qToken в качестве квитанций. Любое движение токенов требует одновременного наличия приватного ключа и 6-символьного vault proof.",
         "QryptShield: Переводы маршрутизируются через пул конфиденциальности Railgun. Доказательства с нулевым разглашением криптографически разрывают on-chain связь между отправителем и получателем. Контракты Qryptum не задействованы: всю логику обрабатывает протокол Railgun.",
-        "QryptAir: Отправитель подписывает типизированный ваучер EIP-712 полностью офлайн. Подписанный ваучер кодируется в QR-код и передаётся получателю, который транслирует его в Ethereum. Функция redeemVoucher в контракте хранилища проверяет подпись и исполняет перевод.",
+        "QryptAir: Отправитель подписывает типизированный ваучер EIP-712 полностью офлайн. Подписанный ваучер кодируется в QR-код и передаётся получателю, который транслирует его в Ethereum. Функция claimAirVoucher в контракте хранилища проверяет подпись и исполняет перевод.",
       ],
       h2CoreProperties: "Основные свойства",
       coreTableHeaders: ["Свойство", "Принцип работы"],
@@ -345,8 +345,8 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         ["Двухфакторная защита (QryptSafe)", "Каждая операция с хранилищем требует одновременного наличия приватного ключа и 6-символьного vault proof."],
         ["Zero-knowledge конфиденциальность (QryptShield)", "ZK-доказательства Railgun скрывают адрес отправителя, адрес получателя и сумму перевода от наблюдателей on-chain."],
         ["Офлайн-подпись (QryptAir)", "Приватный ключ отправителя никогда не соприкасается с живым сетевым узлом. Подпись выполняется локально. Трансляция отдельна."],
-        ["Изолированные хранилища", "У каждого пользователя уникальный адрес хранилища. Токены A на 0xVaultA, токены B на 0xVaultB. Никогда не смешиваются."],
-        ["Commit-reveal перевод (QryptSafe)", "Переводы используют двухэтапную схему commit-reveal для защиты от атак повторного воспроизведения."],
+        ["Изолированные хранилища", "У каждого пользователя уникальный адрес хранилища. Токены A на 0xQryptSafeA, токены B на 0xQryptSafeB. Никогда не смешиваются."],
+        ["Nonce ваучера QryptAir (QryptSafe)", "Каждый nonce ваучера одноразовый. claimAirVoucher() завершается с ошибкой VoucherAlreadyUsed() при повторе."],
         ["Защита от повторного использования (QryptAir)", "Каждый нонс ваучера можно использовать только один раз. Маппинг usedVouchers предотвращает двойные траты."],
       ],
       h2DeployedContracts: "Задеплоенные контракты (Sepolia)",
@@ -369,13 +369,13 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       ],
       labelFactoryV5: "QryptSafe factory v5 (заменён v6):",
       labelImplV5: "PersonalQryptSafe impl v5 (заменён v6):",
-      labelQryptAirV5: "QryptAir redeemVoucher v5 (заменён v6):",
+      labelQryptAirV5: "QryptAir claimAirVoucher v5 (заменён v6):",
       pDeployedV5: "v5 заменён v6 (обновление OTP-цепочки). Все контракты v5 по-прежнему верифицированы MIT в Sepolia Etherscan. 32/32 E2E-теста проходят.",
       h2V3ToV5: "v3 to v5: что изменилось",
       v3ToV5Items: [
         "bytes32 proofHash вместо string vaultProof: keccak256 хэш передаётся в контракт вместо сырой строки, обеспечивая совместимость с EIP-712 struct-hash.",
         "Добавлен unshieldToRailgun(): QryptShield теперь может направлять аншилды напрямую в пул приватности Railgun.",
-        "Добавлен redeemVoucher(): EIP-712 офлайн-подписанные ваучеры QryptAir теперь живут в PersonalQryptSafe (отдельный контракт не нужен).",
+        "Добавлен claimAirVoucher(): EIP-712 офлайн-подписанные ваучеры QryptAir теперь живут в PersonalQryptSafe (отдельный контракт не нужен).",
         "Промежуточное развёртывание v4 выведено (использовало string vaultProof с QryptAir/QryptShield). Заменено v5.",
         "32/32 E2E-теста проходят на Sepolia. Все контракты MIT-верифицированы на Etherscan.",
       ],
@@ -452,27 +452,27 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       safeIntro:
         "QryptSafe защищает токены ERC-20, блокируя их в личном смарт-контракте хранилища. Любое движение токенов требует одновременно приватного ключа пользователя и 6-символьного vault proof, проверяемого on-chain. Похищенный приватный ключ сам по себе не может переместить токены.",
       safeH2Lifecycle: "Жизненный цикл токена",
-      safeStep01Title: "Shield: внести токены в Qrypt-Safe",
+      safeStep01Title: "qrypt: внести токены в Qrypt-Safe",
       safeStep01Desc:
-        "Пользователь разрешает контракту хранилища списать токены, затем вызывает shield(tokenAddress, amount, vaultProof). Контракт проверяет vault proof, списывает токены ERC-20 и выпускает эквивалентное количество непередаваемых qToken (например, qUSDC) на кошелёк пользователя.",
+        "Пользователь разрешает контракту хранилища списать токены, затем вызывает qrypt(tokenAddress, amount, vaultProof). Контракт проверяет vault proof, списывает токены ERC-20 и выпускает эквивалентное количество непередаваемых qToken (например, qUSDC) на кошелёк пользователя.",
       safeStep02Title: "Hold: qToken как квитанции",
       safeStep02Desc:
-        "После защиты пользователь держит qToken в своём кошельке. Исходные токены ERC-20 находятся по адресу контракта хранилища. Любой вызов transfer(), transferFrom() или approve() для qToken немедленно завершается с ошибкой на уровне контракта. Ни один кошелёк, биржа или скрипт не может их переместить.",
-      safeStep03Title: "Transfer: схема commit-reveal",
+        "После вызова qrypt пользователь держит qToken в своём кошельке. Исходные токены ERC-20 находятся по адресу контракта хранилища. Любой вызов transfer(), transferFrom() или approve() для qToken немедленно завершается с ошибкой на уровне контракта. Ни один кошелёк, биржа или скрипт не может их переместить.",
+      safeStep03Title: "Transfer: ваучер QryptAir или QryptShield",
       safeStep03Desc:
-        "Для отправки токенов другому адресу пользователь следует двухэтапной схеме commit-reveal. Это предотвращает атаки повторного воспроизведения и гарантирует, что vault proof не будет раскрыт до финализации транзакции.",
+        "Для отправки токенов P2P используйте QryptAir (claimAirVoucher) для офлайн EIP-712 ваучеров или QryptShield (unshieldToRailgun) для анонимной доставки через ZK-пул Railgun.",
       safeTransferTableHeaders: ["Шаг", "Действие", "On-chain"],
       safeTransferRows: [
-        ["1", "Браузер вычисляет хэш коммита из vault proof, nonce, токена, получателя и суммы", "Нет"],
-        ["2", "Отправляется commitTransfer(commitHash). Vault proof не включён в эту транзакцию.", "Да"],
-        ["3", "Ожидание включения транзакции коммита в блок (обязательная задержка 1 блок)", "Да"],
-        ["4", "Отправляется revealTransfer(token, to, amount, proof, nonce). Контракт проверяет хэш, сжигает qToken, отправляет реальный ERC-20 получателю.", "Да"],
+        ["1", "Отправитель подписывает EIP-712 ваучер офлайн (QryptAir) или вызывает unshieldToRailgun (QryptShield)", "Нет / Да"],
+        ["2", "QryptAir: получатель вызывает claimAirVoucher(voucher, sig). Контракт проверяет подпись и nonce.", "Да"],
+        ["3", "QryptShield: ZK-пул Railgun принимает депозит; получатель выводит анонимно.", "Да"],
+        ["4", "Получатель получает реальный ERC-20. qToken сжигается в хранилище отправителя.", "Да"],
       ],
       safeTransferCallout:
-        "Получатель всегда получает реальный токен ERC-20 (например, USDC), а не qUSDC. При желании он может защитить токены в своём Qrypt-Safe для той же защиты.",
-      safeStep04Title: "Unshield: вывести токены обратно в кошелёк",
+        "Получатель всегда получает реальный токен ERC-20 (например, USDC), а не qUSDC. При желании он может вызвать qrypt в своём Qrypt-Safe для той же защиты.",
+      safeStep04Title: "unqrypt: вывести токены обратно в кошелёк",
       safeStep04Desc:
-        "Пользователь вызывает unshield(tokenAddress, amount, vaultProof). Контракт сжигает qToken и возвращает реальные токены ERC-20 на кошелёк пользователя.",
+        "Пользователь вызывает unqrypt(tokenAddress, amount, vaultProof). Контракт сжигает qToken и возвращает реальные токены ERC-20 на кошелёк пользователя.",
       safeH2Creating: "Создание Qrypt-Safe",
       safeCreatingDesc:
         "Каждый кошелёк может иметь ровно один Qrypt-Safe, развёртываемый через ShieldFactory. Пользователь выбирает vault proof и предоставляет его keccak256-хэш при деплое. Сам vault proof никогда не попадает ни на один сервер. После развёртывания пользователь может защитить любое количество различных токенов ERC-20 в своём единственном Qrypt-Safe.",
@@ -508,11 +508,11 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       airStep02Title: "Encode: поделиться через QR-код",
       airStep02Desc:
         "Подписанный ваучер (получатель, токен, сумма, дедлайн, nonce и подпись) кодируется в QR-код. QR можно распечатать, сфотографировать, показать на экране или передать любым физическим способом. Он действителен до наступления дедлайна.",
-      airStep03Title: "Broadcast: получатель погашает on-chain",
+      airStep03Title: "Broadcast: получатель забирает on-chain",
       airStep03Desc:
-        "Получатель сканирует QR-код, извлекает данные ваучера и вызывает redeemVoucher() в контракте QryptAir. Контракт проверяет EIP-712 подпись on-chain, проверяет дедлайн и nonce (защита от повторного использования) и выполняет перевод токенов.",
+        "Получатель сканирует QR-код, извлекает данные ваучера и вызывает claimAirVoucher(voucher, sig) в контракте хранилища. Контракт проверяет EIP-712 подпись on-chain, проверяет дедлайн и nonce (защита от повторного использования) и выполняет перевод токенов.",
       airStep03Callout:
-        "Каждый nonce можно погасить только один раз. Маппинг usedVouchers в контракте постоянно записывает использованные nonce для предотвращения повторных атак.",
+        "Каждый nonce можно использовать только один раз. claimAirVoucher() завершается с ошибкой VoucherAlreadyUsed() при повторе. Истёкшие ваучеры завершаются с ошибкой VoucherExpired().",
       airH2UseCases: "Сценарии использования",
       airUseCaseHeaders: ["Сценарий", "Как помогает QryptAir"],
       airUseCases: [
@@ -542,7 +542,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       archItems: [
         "QryptSafe：每位用户通过 ShieldFactory 部署自己的 PersonalVault 合约。保险库持有真实 ERC-20 代币并发行不可转让的 qToken 作为凭证。每次代币操作都同时需要用户的私钥和 6 位 vault proof。",
         "QryptShield：转账通过 Railgun 隐私池路由。零知识证明在密码学上切断发送方与接收方之间的链上关联。不涉及 Qryptum 自有合约，所有链上逻辑由 Railgun 协议处理。",
-        "QryptAir：发送方完全离线签署 EIP-712 类型化凭证。签名凭证编码为二维码并分享给接收方，接收方将其广播到以太坊。保险库合约上的 redeemVoucher 函数验证签名并执行转账。",
+        "QryptAir：发送方完全离线签署 EIP-712 类型化凭证。签名凭证编码为二维码并分享给接收方，接收方将其广播到以太坊。保险库合约上的 claimAirVoucher 函数验证签名并执行转账。",
       ],
       h2CoreProperties: "核心特性",
       coreTableHeaders: ["特性", "工作原理"],
@@ -552,8 +552,8 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         ["双因素保护（QryptSafe）", "每次保险库操作都同时需要用户的私钥和 6 位 vault proof。"],
         ["零知识隐私（QryptShield）", "Railgun ZK 证明向链上观察者隐藏发送方地址、接收方地址和转账金额。"],
         ["离线签名（QryptAir）", "发送方的私钥从不接触实时网络节点。签名完全在本地进行，广播是独立步骤。"],
-        ["隔离保险库", "每位用户拥有唯一的保险库地址。用户 A 的代币在 0xVaultA，用户 B 的在 0xVaultB，永不混淆。"],
-        ["提交-揭示转账（QryptSafe）", "转账使用两步提交-揭示方案，防止重放攻击和抢先交易。"],
+        ["隔离保险库", "每位用户拥有唯一的保险库地址。用户 A 的代币在 0xQryptSafeA，用户 B 的在 0xQryptSafeB，永不混淆。"],
+        ["QryptAir 凭证 nonce（QryptSafe）", "每个凭证 nonce 仅可使用一次。claimAirVoucher() 重放时以 VoucherAlreadyUsed() 回滚。"],
         ["重放保护（QryptAir）", "每个凭证 nonce 只能使用一次。usedVouchers 映射防止双重花费。"],
       ],
       h2DeployedContracts: "已部署合约（Sepolia）",
@@ -576,19 +576,19 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       ],
       labelFactoryV5: "QryptSafe factory v5（已被 v6 取代）：",
       labelImplV5: "PersonalQryptSafe impl v5（已被 v6 取代）：",
-      labelQryptAirV5: "QryptAir redeemVoucher v5（已被 v6 取代）：",
+      labelQryptAirV5: "QryptAir claimAirVoucher v5（已被 v6 取代）：",
       pDeployedV5: "v5 已被 v6 取代（OTP 链升级）。所有 v5 合约仍在 Sepolia Etherscan 上通过 MIT 许可证验证。32/32 E2E 测试全部通过。",
       h2V3ToV5: "v3 to v5: 变更内容",
       v3ToV5Items: [
         "bytes32 proofHash 替换 string vaultProof：将 keccak256 哈希发送到合约而非原始字符串，实现 EIP-712 struct-hash 兼容性。",
         "添加 unshieldToRailgun()：QryptShield 现在可以将取消屏蔽直接路由到 Railgun 隐私池。",
-        "添加 redeemVoucher()：QryptAir EIP-712 离线签名凭证现在存在于 PersonalQryptSafe 中（无需单独合约）。",
+        "添加 claimAirVoucher()：QryptAir EIP-712 离线签名凭证现在存在于 PersonalQryptSafe 中（无需单独合约）。",
         "v4 中间部署已停用（使用 string vaultProof 配合 QryptAir/QryptShield）。被 v5 取代。",
         "Sepolia 上 32/32 E2E 测试全部通过。所有合约已在 Etherscan 进行 MIT 验证。",
       ],
       h2V4ToV5: "v4 to v5: bytes32 proofHash 升级",
       v4ToV5Items: [
-        "vaultProof 参数在所有函数中从 string 更改为 bytes32（shield、unshield、commit、reveal、changeVaultProof）。",
+        "vaultProof 参数在所有函数中从 string 更改为 bytes32（qrypt、unqrypt、changeVaultProof、claimAirVoucher、unshieldToRailgun）。",
         "EIP-712 struct-hash 现在正常工作：bytes32 是固定大小类型，与 encodeData 兼容。",
         "在 Sepolia 上使用新 bytes32 proofHash 的所有 32 个 E2E 测试全部通过。",
       ],
@@ -659,27 +659,27 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       safeIntro:
         "QryptSafe 通过将 ERC-20 代币锁定在个人智能合约保险库中来保护它们。每次代币操作都需要用户的私钥和经链上验证的 6 位 vault proof。仅凭被盗的私钥无法移动代币。",
       safeH2Lifecycle: "代币生命周期",
-      safeStep01Title: "Shield - 将代币存入 Qrypt-Safe",
+      safeStep01Title: "qrypt - 将代币存入 Qrypt-Safe",
       safeStep01Desc:
-        "用户授权保险库合约提取代币，然后调用 shield(tokenAddress, amount, vaultProof)。合约验证 vault proof，提取 ERC-20 代币，并向用户钱包铸造等量的不可转让 qToken（例如 qUSDC）。",
+        "用户授权保险库合约提取代币，然后调用 qrypt(tokenAddress, amount, vaultProof)。合约验证 vault proof，提取 ERC-20 代币，并向用户钱包铸造等量的不可转让 qToken（例如 qUSDC）。",
       safeStep02Title: "Hold - qToken 作为凭证",
       safeStep02Desc:
-        "存入后，用户在钱包中持有 qToken。底层 ERC-20 代币存放在保险库合约地址。对 qToken 调用 transfer()、transferFrom() 或 approve() 会立即在合约层面回滚。任何钱包、交易所或脚本都无法移动它们。",
-      safeStep03Title: "Transfer - 提交-揭示方案",
+        "调用 qrypt 后，用户在钱包中持有 qToken。底层 ERC-20 代币存放在保险库合约地址。对 qToken 调用 transfer()、transferFrom() 或 approve() 会立即在合约层面回滚。任何钱包、交易所或脚本都无法移动它们。",
+      safeStep03Title: "Transfer - QryptAir 凭证或 QryptShield",
       safeStep03Desc:
-        "要向其他地址发送代币，用户需遵循两步提交-揭示方案。这可防止重放攻击，并确保 vault proof 在交易最终确认前不会暴露。",
+        "要进行 P2P 转账，使用 QryptAir（claimAirVoucher）发送离线 EIP-712 签名凭证，或使用 QryptShield（unshieldToRailgun）通过 Railgun ZK 池匿名投递。",
       safeTransferTableHeaders: ["步骤", "操作", "是否上链"],
       safeTransferRows: [
-        ["1", "浏览器根据 vault proof、nonce、代币、接收方和金额计算提交哈希", "否"],
-        ["2", "发送 commitTransfer(commitHash)。此交易中不包含 vault proof。", "是"],
-        ["3", "等待提交交易被打包进区块（强制 1 个区块延迟）", "是"],
-        ["4", "发送 revealTransfer(token, to, amount, proof, nonce)。合约验证哈希，销毁 qToken，将真实 ERC-20 发送给接收方。", "是"],
+        ["1", "发送方离线签署 EIP-712 凭证（QryptAir）或调用 unshieldToRailgun（QryptShield）", "否 / 是"],
+        ["2", "QryptAir：接收方调用 claimAirVoucher(voucher, sig)。合约验证签名和 nonce。", "是"],
+        ["3", "QryptShield：Railgun ZK 池接收存款；接收方匿名提取。", "是"],
+        ["4", "接收方收到真实 ERC-20。发送方保险库中的 qToken 被销毁。", "是"],
       ],
       safeTransferCallout:
-        "接收方始终收到真实的 ERC-20 代币（例如 USDC），而非 qUSDC。如果接收方也想要相同的保护，可以将代币存入自己的 Qrypt-Safe。",
-      safeStep04Title: "Unshield - 将代币提取回钱包",
+        "接收方始终收到真实的 ERC-20 代币（例如 USDC），而非 qUSDC。如果想要相同保护，可在自己的 Qrypt-Safe 上调用 qrypt。",
+      safeStep04Title: "unqrypt - 将代币提取回钱包",
       safeStep04Desc:
-        "用户调用 unshield(tokenAddress, amount, vaultProof)。合约销毁 qToken 并将真实 ERC-20 代币返还到用户钱包。",
+        "用户调用 unqrypt(tokenAddress, amount, vaultProof)。合约销毁 qToken 并将真实 ERC-20 代币返还到用户钱包。",
       safeH2Creating: "创建 Qrypt-Safe",
       safeCreatingDesc:
         "每个钱包只能拥有一个 Qrypt-Safe，通过 ShieldFactory 部署。用户选择 vault proof 并在部署时提供其 keccak256 哈希。原始 vault proof 不会接触任何服务器。部署后，用户可以将任意数量的不同 ERC-20 代币存入其唯一的 Qrypt-Safe。",
@@ -715,11 +715,11 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       airStep02Title: "Encode - 通过二维码分享",
       airStep02Desc:
         "签署的凭证（接收方、代币、金额、截止时间、nonce 和签名）被编码为二维码。二维码可以打印、拍照、显示在屏幕上或通过任何物理媒介传输。它在截止时间戳之前有效。",
-      airStep03Title: "Broadcast - 接收方在链上兑换",
+      airStep03Title: "Broadcast - 接收方在链上领取",
       airStep03Desc:
-        "接收方扫描二维码，提取凭证数据，并在 QryptAir 合约上调用 redeemVoucher()。合约在链上验证 EIP-712 签名，检查截止时间和 nonce（重放保护），并执行代币转账。",
+        "接收方扫描二维码，提取凭证数据，并在保险库合约上调用 claimAirVoucher(voucher, sig)。合约在链上验证 EIP-712 签名，检查截止时间和 nonce（重放保护），并执行代币转账。",
       airStep03Callout:
-        "每个 nonce 只能兑换一次。合约上的 usedVouchers 映射永久记录已使用的 nonce，以防止重放攻击。",
+        "每个 nonce 只能使用一次。claimAirVoucher() 重放时以 VoucherAlreadyUsed() 回滚。已过期凭证以 VoucherExpired() 回滚。",
       airH2UseCases: "使用场景",
       airUseCaseHeaders: ["场景", "QryptAir 如何帮助"],
       airUseCases: [

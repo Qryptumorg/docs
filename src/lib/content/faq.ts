@@ -16,7 +16,7 @@ export const faqContent: Record<"en" | "ru" | "zh", FaqContent> = {
     items: [
       {
         q: "What are Qryptum's three transfer modes?",
-        a: "Qryptum offers three modes. QryptSafe is a personal vault on Ethereum that holds real ERC-20 tokens and issues non-transferable qTokens, protected by a commit-reveal vault proof. QryptShield routes transfers through Railgun's zero-knowledge privacy pool, breaking the on-chain link between sender and recipient. QryptAir generates an EIP-712 signed offline voucher and QR code that the recipient redeems on-chain without any prior interaction from the sender.",
+        a: "Qryptum offers three modes. QryptSafe is a personal vault on Ethereum that holds real ERC-20 tokens and issues non-transferable qTokens, protected by a commit-reveal vault proof. QryptShield routes transfers through Railgun's zero-knowledge privacy pool, breaking the on-chain link between sender and recipient. QryptAir generates an EIP-712 signed offToken and QR code that the recipient redeems on-chain without any prior interaction from the sender.",
       },
       {
         q: "What is QryptSafe?",
@@ -28,7 +28,7 @@ export const faqContent: Record<"en" | "ru" | "zh", FaqContent> = {
       },
       {
         q: "What is QryptAir?",
-        a: "QryptAir lets you create a signed offline voucher using the EIP-712 standard. You sign a structured message with your private key specifying the token, amount, and recipient. The result is a QR code the recipient can scan and redeem on-chain themselves. No prior interaction, no on-chain transaction from your side at creation time.",
+        a: "QryptAir lets you create a signed offToken using the EIP-712 standard. You sign a structured message with your private key specifying the token, amount, and recipient. The result is a QR code the recipient can scan and redeem on-chain themselves. No prior interaction, no on-chain transaction from your side at creation time.",
       },
       {
         q: "What is a vault proof?",
@@ -71,7 +71,7 @@ export const faqContent: Record<"en" | "ru" | "zh", FaqContent> = {
     items: [
       {
         q: "Какие три режима перевода есть в Qryptum?",
-        a: "Qryptum предлагает три режима. QryptSafe: личное хранилище на Ethereum, которое держит реальные токены ERC-20 и выпускает непередаваемые qToken, защищённое схемой commit-reveal с vault proof. QryptShield: переводы через zero-knowledge пул конфиденциальности Railgun, разрывающий on-chain связь между отправителем и получателем. QryptAir: подписанный офлайн-ваучер по стандарту EIP-712 с QR-кодом, который получатель сам активирует on-chain.",
+        a: "Qryptum предлагает три режима. QryptSafe: личное хранилище на Ethereum, которое держит реальные токены ERC-20 и выпускает непередаваемые qToken, защищённое схемой commit-reveal с vault proof. QryptShield: переводы через zero-knowledge пул конфиденциальности Railgun, разрывающий on-chain связь между отправителем и получателем. QryptAir: подписанный offToken по стандарту EIP-712 с QR-кодом, который получатель сам активирует on-chain.",
       },
       {
         q: "Что такое QryptSafe?",
@@ -83,7 +83,7 @@ export const faqContent: Record<"en" | "ru" | "zh", FaqContent> = {
       },
       {
         q: "Что такое QryptAir?",
-        a: "QryptAir позволяет создать подписанный офлайн-ваучер по стандарту EIP-712. Вы подписываете структурированное сообщение своим приватным ключом, указывая токен, сумму и получателя. Результатом является QR-код, который получатель сканирует и самостоятельно активирует on-chain. Никаких предварительных взаимодействий, никаких on-chain транзакций с вашей стороны в момент создания.",
+        a: "QryptAir позволяет создать подписанный offToken по стандарту EIP-712. Вы подписываете структурированное сообщение своим приватным ключом, указывая токен, сумму и получателя. Результатом является QR-код, который получатель сканирует и самостоятельно активирует on-chain. Никаких предварительных взаимодействий, никаких on-chain транзакций с вашей стороны в момент создания.",
       },
       {
         q: "Что такое vault proof?",
@@ -126,7 +126,7 @@ export const faqContent: Record<"en" | "ru" | "zh", FaqContent> = {
     items: [
       {
         q: "Qryptum 有哪三种转账模式？",
-        a: "Qryptum 提供三种模式。QryptSafe: 以太坊上的个人保险库，持有真实 ERC-20 代币并发行不可转让的 qToken，通过提交-揭示保险库密码方案保护。QryptShield: 通过 Railgun 零知识隐私池路由转账，切断发送方与接收方之间的链上关联。QryptAir: 基于 EIP-712 标准生成离线签名凭证和二维码，接收方自行在链上兑换，无需发送方提前交互。",
+        a: "Qryptum 提供三种模式。QryptSafe: 以太坊上的个人保险库，持有真实 ERC-20 代币并发行不可转让的 qToken，通过提交-揭示保险库密码方案保护。QryptShield: 通过 Railgun 零知识隐私池路由转账，切断发送方与接收方之间的链上关联。QryptAir: 基于 EIP-712 标准生成离线签名 offToken 和二维码，接收方自行在链上兑换，无需发送方提前交互。",
       },
       {
         q: "什么是 QryptSafe？",
@@ -138,7 +138,7 @@ export const faqContent: Record<"en" | "ru" | "zh", FaqContent> = {
       },
       {
         q: "什么是 QryptAir？",
-        a: "QryptAir 允许您使用 EIP-712 标准创建离线签名凭证。您用私钥对包含代币、金额和接收方信息的结构化消息进行签名。结果生成一个二维码，接收方扫描后可自行在链上兑换。创建时无需任何预先交互，发送方无需发起链上交易。",
+        a: "QryptAir 允许您使用 EIP-712 标准创建离线签名 offToken。您用私钥对包含代币、金额和接收方信息的结构化消息进行签名。结果生成一个二维码，接收方扫描后可自行在链上兑换。创建时无需任何预先交互，发送方无需发起链上交易。",
       },
       {
         q: "什么是保险库密码？",
