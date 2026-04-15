@@ -126,16 +126,7 @@ contract QryptSafeV3 {
             <td><code>{FACTORY_V3}</code></td>
             <td><a href={`${ETHERSCAN}/address/${FACTORY_V3}#code`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
           </tr>
-          <tr>
-            <td>PersonalQryptSafeV3 (impl)</td>
-            <td><code>{IMPL_V3}</code></td>
-            <td><a href={`${ETHERSCAN}/address/${IMPL_V3}#code`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
-          </tr>
-          <tr>
-            <td>Wallet A Vault (clone)</td>
-            <td><code>{VAULT_A}</code></td>
-            <td><a href={`${ETHERSCAN}/address/${VAULT_A}`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
-          </tr>
+
           <tr>
             <td>qUSDC ShieldToken (v3)</td>
             <td><code>{QUSDC}</code></td>

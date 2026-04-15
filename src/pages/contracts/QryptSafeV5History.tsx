@@ -209,33 +209,16 @@ await vault.unshieldToRailgun(token, amount, proof, railgunAddress);
                         <td><a href={`${ETHERSCAN}/address/${FACTORY_V5}#code`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
                     </tr>
                     <tr>
-                        <td>PersonalQryptSafeV5 (impl)</td>
-                        <td><AddrCell value={IMPL_V5} /></td>
-                        <td><a href={`${ETHERSCAN}/address/${IMPL_V5}#code`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
-                    </tr>
-                    <tr>
                         <td>qUSDC (qToken)</td>
                         <td><AddrCell value={QUSDC_V5} /></td>
                         <td><a href={`${ETHERSCAN}/address/${QUSDC_V5}`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
-                    </tr>
-                    <tr>
-                        <td>Vault A</td>
-                        <td><AddrCell value={VAULT_A_V5} /></td>
-                        <td><a href={`${ETHERSCAN}/address/${VAULT_A_V5}`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
-                    </tr>
-                    <tr>
-                        <td>Vault B</td>
-                        <td><AddrCell value={VAULT_B_V5} /></td>
-                        <td><a href={`${ETHERSCAN}/address/${VAULT_B_V5}`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
                     </tr>
                 </tbody>
             </table>
 
             <h2>{c.h2E2E}</h2>
             <p>{c.pE2E}</p>
-            <p style={{ fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>
-                Vault A: <code>{VAULT_A_V5}</code> &nbsp; Vault B: <code>{VAULT_B_V5}</code>
-            </p>
+
             <table>
                 <thead>
                     <tr>

@@ -251,11 +251,7 @@ await vault.reclaimAirBags(USDC);
                         <td><AddrCell value={FACTORY_V6} /></td>
                         <td>{FACTORY_V6 ? <a href={`${ETHERSCAN}/address/${FACTORY_V6}#code`} target="_blank" rel="noopener noreferrer">View ↗</a> : <span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>pending</span>}</td>
                     </tr>
-                    <tr>
-                        <td>PersonalQryptSafeV6 (impl)</td>
-                        <td><AddrCell value={IMPL_V6} /></td>
-                        <td>{IMPL_V6 ? <a href={`${ETHERSCAN}/address/${IMPL_V6}#code`} target="_blank" rel="noopener noreferrer">View ↗</a> : <span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>pending</span>}</td>
-                    </tr>
+
                 </tbody>
             </table>
 

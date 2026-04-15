@@ -111,11 +111,7 @@ function commit(bytes32 commitHash, bytes32 proof) external onlyOwner validProof
             <td><code>{FACTORY_V2 === "PENDING" ? "Deployment pending" : FACTORY_V2}</code></td>
             <td>{FACTORY_V2 !== "PENDING" && <a href={`${ETHERSCAN}/address/${FACTORY_V2}`} target="_blank" rel="noopener noreferrer">View ↗</a>}</td>
           </tr>
-          <tr>
-            <td>PersonalQryptSafeV2 (impl)</td>
-            <td><code>{IMPL_V2 === "PENDING" ? "Deployment pending" : IMPL_V2}</code></td>
-            <td>{IMPL_V2 !== "PENDING" && <a href={`${ETHERSCAN}/address/${IMPL_V2}`} target="_blank" rel="noopener noreferrer">View ↗</a>}</td>
-          </tr>
+
           <tr>
             <td>Deploy TX</td>
             <td><code>{TX_DEPLOY === "PENDING" ? "Deployment pending" : TX_DEPLOY.slice(0, 18) + "..."}</code></td>

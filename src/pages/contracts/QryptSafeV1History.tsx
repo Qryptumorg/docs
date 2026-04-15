@@ -116,11 +116,7 @@ modifier validProof(string calldata proof) {
             <td><code>{FACTORY_V1}</code></td>
             <td><a href={`${ETHERSCAN}/address/${FACTORY_V1}`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
           </tr>
-          <tr>
-            <td>PersonalVault (impl)</td>
-            <td><code>{IMPL_V1}</code></td>
-            <td><a href={`${ETHERSCAN}/address/${IMPL_V1}`} target="_blank" rel="noopener noreferrer">View ↗</a></td>
-          </tr>
+
           <tr>
             <td>Deploy TX</td>
             <td><code>{TX_DEPLOY === "PENDING" ? "Deployment TX pending" : TX_DEPLOY.slice(0, 18) + "..."}</code></td>

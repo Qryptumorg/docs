@@ -192,16 +192,12 @@ function unshield(address token, uint256 amount, bytes32 proof)
                         <td><AddrCell value={FACTORY_V4} /></td>
                         <td>{FACTORY_V4 === "Pending deployment" ? "Pending" : <a href={`${ETHERSCAN}/address/${FACTORY_V4}#code`} target="_blank" rel="noopener noreferrer">View ↗</a>}</td>
                     </tr>
-                    <tr>
-                        <td>PersonalQryptSafeV4 (impl)</td>
-                        <td><AddrCell value={IMPL_V4} /></td>
-                        <td>{IMPL_V4 === "Pending deployment" ? "Pending" : <a href={`${ETHERSCAN}/address/${IMPL_V4}#code`} target="_blank" rel="noopener noreferrer">View ↗</a>}</td>
-                    </tr>
+
                 </tbody>
             </table>
 
             <h2>On-Chain E2E Transactions (5/5)</h2>
-            <p>All broadcast transactions executed on Sepolia testnet via Wallet A (<code>0x2459...431e4</code>). Vault A: <code>{VAULT_A_V4}</code></p>
+            <p>All broadcast transactions executed on Sepolia testnet via Wallet A (<code>0x2459...431e4</code>).</p>
             <table>
                 <thead>
                     <tr>
