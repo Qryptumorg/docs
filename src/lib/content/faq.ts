@@ -36,7 +36,7 @@ export const faqContent: Record<"en" | "ru" | "zh", FaqContent> = {
       },
       {
         q: "Does Qryptum have admin access to my funds?",
-        a: "No. The QryptSafe factory (v3) has no owner, no admin keys, and no pause or unpause mechanism. Once deployed, nobody including the Qryptum team can pause vault creation, modify vault logic, or access any vault funds. The contracts are fully immutable.",
+        a: "No. The QryptSafe factory has no owner, no admin keys, and no pause or unpause mechanism. Once deployed, nobody including the Qryptum team can pause vault creation, modify vault logic, or access any vault funds. The contracts are fully immutable.",
       },
       {
         q: "Can I lose my tokens if I forget my vault proof?",
@@ -91,7 +91,7 @@ export const faqContent: Record<"en" | "ru" | "zh", FaqContent> = {
       },
       {
         q: "Имеет ли Qryptum административный доступ к моим средствам?",
-        a: "Нет. Фабрика QryptSafe (v3) не имеет владельца, административных ключей и механизма паузы. После деплоя никто, включая команду Qryptum, не может приостановить создание хранилищ, изменить логику хранилищ или получить доступ к средствам существующих хранилищ. Контракты полностью иммутабельны.",
+        a: "Нет. Фабрика QryptSafe не имеет владельца, административных ключей и механизма паузы. После деплоя никто, включая команду Qryptum, не может приостановить создание хранилищ, изменить логику хранилищ или получить доступ к средствам существующих хранилищ. Контракты полностью иммутабельны.",
       },
       {
         q: "Могу ли я потерять токены, если забуду vault proof?",
@@ -146,7 +146,7 @@ export const faqContent: Record<"en" | "ru" | "zh", FaqContent> = {
       },
       {
         q: "Qryptum 对我的资金有管理员访问权限吗？",
-        a: "没有。QryptSafe 工厂（v3）没有所有者、没有管理员密钥，也没有暂停机制。部署后，包括 Qryptum 团队在内的任何人都无法暂停保险库创建、修改保险库逻辑或访问现有保险库的资金。合约完全不可变。",
+        a: "没有。QryptSafe 工厂没有所有者、没有管理员密钥，也没有暂停机制。部署后，包括 Qryptum 团队在内的任何人都无法暂停保险库创建、修改保险库逻辑或访问现有保险库的资金。合约完全不可变。",
       },
       {
         q: "如果忘记保险库密码，会丢失代币吗？",
