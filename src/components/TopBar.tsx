@@ -22,7 +22,10 @@ export default function TopBar({ onMenuToggle, mobileMenuOpen }: Props) {
   const { t, lang, setLang } = useLanguage();
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(() => {
+    const h = window.location.hash;
+    return !h || h === "#" || h === "#/";
+  });
   const [langOpen, setLangOpen] = useState(false);
   const [, navigate] = useLocation();
   const isMobile = useIsMobile();
