@@ -49,13 +49,26 @@ export const NAV: NavSection[] = [
         ],
     },
     {
-        key: "developerDocs",
+        key: "devTestnet",
         items: [
-            { key: "quickStart", href: "/developer/quick-start" },
-            { key: "integrationGuide", href: "/developer/integration-guide" },
-            { key: "apiReference", href: "/developer/api-reference" },
+            { key: "testnetQS", href: "/developer/testnet/quick-start" },
+            { key: "testnetIntegration", href: "/developer/testnet/integration" },
+            { key: "testnetAbi", href: "/developer/testnet/abi" },
+        ],
+    },
+    {
+        key: "devMainnet",
+        items: [
+            { key: "mainnetQS", href: "/developer/mainnet/quick-start" },
+            { key: "mainnetIntegration", href: "/developer/mainnet/integration" },
+            { key: "mainnetAbi", href: "/developer/mainnet/abi" },
+        ],
+    },
+    {
+        key: "devReference",
+        items: [
             { key: "commitRevealFlow", href: "/developer/commit-reveal-flow" },
-            { key: "abiReference", href: "/developer/abi-reference" },
+            { key: "apiReference", href: "/developer/api-reference" },
             { key: "joinTestnet", href: "/developer/join-testnet" },
         ],
     },
