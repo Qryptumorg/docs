@@ -20,12 +20,15 @@ import QryptSafeV3History from "@/pages/contracts/QryptSafeV3History";
 import QryptSafeV4History from "@/pages/contracts/QryptSafeV4History";
 import QryptSafeV5History from "@/pages/contracts/QryptSafeV5History";
 import QryptSafeV6History from "@/pages/contracts/QryptSafeV6History";
-import QuickStart from "@/pages/developer/QuickStart";
-import IntegrationGuide from "@/pages/developer/IntegrationGuide";
 import ApiReference from "@/pages/developer/ApiReference";
 import CommitRevealFlow from "@/pages/developer/CommitRevealFlow";
-import AbiReference from "@/pages/developer/AbiReference";
 import JoinTestnet from "@/pages/developer/JoinTestnet";
+import TestnetQuickStart from "@/pages/developer/testnet/QuickStartTestnet";
+import IntegrationTestnet from "@/pages/developer/testnet/IntegrationTestnet";
+import AbiTestnet from "@/pages/developer/testnet/AbiTestnet";
+import MainnetQuickStart from "@/pages/developer/mainnet/QuickStartMainnet";
+import IntegrationMainnet from "@/pages/developer/mainnet/IntegrationMainnet";
+import AbiMainnet from "@/pages/developer/mainnet/AbiMainnet";
 import TestnetGuide from "@/pages/guide/TestnetGuide";
 import MainnetGuide from "@/pages/guide/MainnetGuide";
 import Faq from "@/pages/faq/Faq";
@@ -55,12 +58,33 @@ function Router() {
         <Route path="/contracts/qrypt-safe-v4" component={QryptSafeV4History} />
         <Route path="/contracts/qrypt-safe-v6" component={QryptSafeV6History} />
         <Route path="/contracts/qrypt-safe-v5" component={QryptSafeV5History} />
-        <Route path="/developer/quick-start" component={QuickStart} />
-        <Route path="/developer/integration-guide" component={IntegrationGuide} />
-        <Route path="/developer/api-reference" component={ApiReference} />
+
+        {/* Testnet integration docs */}
+        <Route path="/developer/testnet/quick-start" component={TestnetQuickStart} />
+        <Route path="/developer/testnet/integration" component={IntegrationTestnet} />
+        <Route path="/developer/testnet/abi" component={AbiTestnet} />
+
+        {/* Mainnet integration docs */}
+        <Route path="/developer/mainnet/quick-start" component={MainnetQuickStart} />
+        <Route path="/developer/mainnet/integration" component={IntegrationMainnet} />
+        <Route path="/developer/mainnet/abi" component={AbiMainnet} />
+
+        {/* Reference */}
         <Route path="/developer/commit-reveal-flow" component={CommitRevealFlow} />
-        <Route path="/developer/abi-reference" component={AbiReference} />
+        <Route path="/developer/api-reference" component={ApiReference} />
         <Route path="/developer/join-testnet" component={JoinTestnet} />
+
+        {/* Legacy redirects — old flat URLs */}
+        <Route path="/developer/quick-start">
+          <Redirect to="/developer/testnet/quick-start" />
+        </Route>
+        <Route path="/developer/integration-guide">
+          <Redirect to="/developer/testnet/integration" />
+        </Route>
+        <Route path="/developer/abi-reference">
+          <Redirect to="/developer/testnet/abi" />
+        </Route>
+
         <Route path="/guide/testnet" component={TestnetGuide} />
         <Route path="/guide/mainnet" component={MainnetGuide} />
         <Route path="/faq" component={Faq} />
