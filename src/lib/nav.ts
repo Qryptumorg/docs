@@ -45,7 +45,6 @@ export const NAV: NavSection[] = [
         key: "guide",
         items: [
             { key: "testnetGuide", href: "/guide/testnet" },
-            { key: "etherscanGuide", href: "/guide/etherscan" },
             { key: "mainnetGuide", href: "/guide/mainnet" },
         ],
     },
