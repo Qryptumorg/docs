@@ -34,8 +34,9 @@
         if (p) {
           params.delete('p');
           var rest = params.toString();
+          var base = window.location.pathname.replace(/\/$/, '');
           var newUrl =
-            window.location.pathname +
+            base +
             p +
             (rest ? (p.includes('?') ? '&' : '?') + rest : '') +
             window.location.hash;
