@@ -5,8 +5,11 @@ export type DeveloperContent = {
     h2Prerequisites: string;
     prerequisites: string[];
     h2Install: string;
+    h2Addresses: string;
     h2Connect: string;
     h2CheckVault: string;
+    h2OtpChain: string;
+    pOtpChain: string;
     h2Create: string;
     h2Shield: string;
     calloutProof: string;
@@ -97,17 +100,22 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
         "Node.js 18+ and a package manager",
       ],
       h2Install: "Install Dependencies",
-      h2Connect: "Connect to QryptSafe Factory (viem)",
-      h2CheckVault: "Check if Qrypt-Safe Exists",
-      h2Create: "Create a Qrypt-Safe",
+      h2Addresses: "Contract Addresses",
+      h2Connect: "Connect to the V6 Factory",
+      h2CheckVault: "Check if a QryptSafe Exists",
+      h2OtpChain: "OTP Chain Setup",
+      pOtpChain:
+        "V6 replaces the static bytes32 vault proof with a one-time-password ratchet chain. Each call consumes one link in the chain. The initialChainHead (H100) is stored on-chain. Each transaction passes the previous hash (H99, H98, ...) as proof. keccak256(submitted) must equal the stored chainHead.",
+      h2Create: "Create a QryptSafe",
       h2Shield: "Qrypt a Token",
       calloutProof:
-        "The vault proof string is passed in plaintext calldata during Qrypt(), unqrypt(), and finalizeTransfer(). It is visible in the transaction on Etherscan. This is acceptable because the vault proof is useless without the private key, and all vault functions have the onlyOwner modifier.",
+        "The OTP proof (a keccak256 hash link) is visible in transaction calldata on Etherscan. This is safe: the hash reveals nothing about the seed or future OTP links. Every link is single-use — replay is blocked by OtpAlreadyConsumed(). Keep the seed offline and separate from your private key.",
       h2NextSteps: "Next Steps",
       nextSteps: [
         "See the Integration Guide for the full commit-reveal transfer implementation",
-        "See ABI Reference for the complete ABIs of all contracts",
+        "See ABI Reference for complete V6 ABIs",
         "See API Reference for the backend REST API",
+        "See QryptSafe V6 History for the full E2E test suite and function changelog",
       ],
     },
     integrationGuide: {
@@ -222,17 +230,22 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
         "Node.js 18+ и менеджер пакетов",
       ],
       h2Install: "Установка зависимостей",
-      h2Connect: "Подключение к QryptSafe Factory (viem)",
-      h2CheckVault: "Проверка существования Qrypt-Safe",
-      h2Create: "Создание Qrypt-Safe",
+      h2Addresses: "Адреса контрактов",
+      h2Connect: "Подключение к фабрике V6",
+      h2CheckVault: "Проверка наличия QryptSafe",
+      h2OtpChain: "Настройка OTP-цепочки",
+      pOtpChain:
+        "V6 заменяет статический bytes32 vault proof рычажной OTP-цепочкой. Каждый вызов потребляет одно звено цепочки. initialChainHead (H100) хранится on-chain. Каждая транзакция передаёт предыдущий хэш (H99, H98, ...) как proof. keccak256(переданный) должен равняться chainHead.",
+      h2Create: "Создание QryptSafe",
       h2Shield: "Qrypt токена",
       calloutProof:
-        "Строка vault proof передаётся в открытом calldata во время Qrypt(), unqrypt() и finalizeTransfer(). Она видна в транзакции на Etherscan. Это допустимо, поскольку vault proof бесполезен без приватного ключа, а все функции хранилища имеют модификатор onlyOwner.",
+        "OTP proof (звено хэша keccak256) виден в calldata транзакции на Etherscan. Это безопасно: хэш не раскрывает ничего о seed или будущих OTP-звеньях. Каждое звено одноразовое — повтор блокируется ошибкой OtpAlreadyConsumed(). Храните seed офлайн и отдельно от приватного ключа.",
       h2NextSteps: "Следующие шаги",
       nextSteps: [
         "Смотрите Руководство по интеграции для полной реализации commit-reveal передачи",
-        "Смотрите Справочник ABI для полных ABI всех контрактов",
+        "Смотрите Справочник ABI для полных ABI V6",
         "Смотрите Справочник API для бэкенд REST API",
+        "Смотрите историю QryptSafe V6 для полного набора E2E-тестов и списка изменений функций",
       ],
     },
     integrationGuide: {
@@ -347,17 +360,22 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
         "Node.js 18+ 和包管理器",
       ],
       h2Install: "安装依赖",
-      h2Connect: "连接到 QryptSafe Factory（viem）",
-      h2CheckVault: "检查 Qrypt-Safe 是否存在",
-      h2Create: "创建 Qrypt-Safe",
+      h2Addresses: "合约地址",
+      h2Connect: "连接到 V6 工厂",
+      h2CheckVault: "检查 QryptSafe 是否存在",
+      h2OtpChain: "OTP 链设置",
+      pOtpChain:
+        "V6 用一次性密码棘轮链替换了静态 bytes32 vault proof。每次调用消耗链上的一个环节。initialChainHead（H100）存储在链上。每笔交易将前一个哈希（H99、H98……）作为 proof 传入。keccak256(提交值) 必须等于 chainHead。",
+      h2Create: "创建 QryptSafe",
       h2Shield: "Qrypt 代币",
       calloutProof:
-        "保险库密码字符串在 Qrypt()、unqrypt() 和 finalizeTransfer() 期间以明文 calldata 传递。它在 Etherscan 上的交易中可见。这是可接受的，因为没有私钥的保险库密码毫无用处，而且所有保险库函数都有 onlyOwner 修饰符。",
+        "OTP proof（一个 keccak256 哈希环节）在 Etherscan 的交易 calldata 中可见。这是安全的：该哈希不会泄露关于 seed 或未来 OTP 环节的任何信息。每个环节只能使用一次，重放会被 OtpAlreadyConsumed() 错误阻止。请将 seed 离线保存，并与私钥分开存放。",
       h2NextSteps: "后续步骤",
       nextSteps: [
         "查看集成指南了解完整的提交-揭示转账实现",
-        "查看 ABI 参考了解所有合约的完整 ABI",
+        "查看 ABI 参考了解完整的 V6 ABI",
         "查看 API 参考了解后端 REST API",
+        "查看 QryptSafe V6 历史了解完整的 E2E 测试套件和函数变更日志",
       ],
     },
     integrationGuide: {
