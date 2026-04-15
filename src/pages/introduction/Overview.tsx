@@ -84,33 +84,34 @@ export default function Overview() {
 
       {/* v6 */}
       <div className="callout callout-success" style={{ marginBottom: "0.75rem" }}>
-        <p style={{ margin: "0 0 0.25rem" }}><strong>v6 (Active)</strong> <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.8rem" }}>Pending deployment</em></p>
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v6 (Active)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
         <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>OTP chain proofs, air bag isolation, pre-image resistant nonce chain. 49/49 E2E tests.</p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}><strong>QryptSafe v6 (factory):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
-        <p style={{ margin: "0", fontSize: "0.875rem" }}><strong>PersonalQryptSafe v6 (impl):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
+          <strong>QryptSafe v6 (factory):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0xeaa722e996888b662E71aBf63d08729c6B6802F4</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0xeaa722e996888b662E71aBf63d08729c6B6802F4" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
+        </p>
       </div>
 
       {/* v5 */}
       <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
-        <p style={{ margin: "0 0 0.25rem" }}><strong>v5 (Superseded)</strong> <em style={{ color: "hsl(var(--muted-fg))", fontSize: "0.8rem" }}>Pending deployment</em></p>
+        <p style={{ margin: "0 0 0.25rem" }}><strong>v5 (Superseded)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
         <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>bytes32 proofHash, unshieldToRailgun, QryptAir EIP-712 vouchers. 32/32 E2E tests.</p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}><strong>QryptSafe v5 (factory):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
-        <p style={{ margin: "0", fontSize: "0.875rem" }}><strong>PersonalQryptSafe v5 (impl):</strong> <em style={{ color: "hsl(var(--muted-fg))" }}>Pending deployment</em></p>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
+          <strong>QryptSafe v5 (factory):</strong>{" "}
+          <code style={{ fontSize: "0.8rem" }}>0xB757fb0511A6d305370a20a0647C751D7E76D2ce</code>{" "}
+          <a href="https://sepolia.etherscan.io/address/0xB757fb0511A6d305370a20a0647C751D7E76D2ce" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
+        </p>
       </div>
 
       {/* v4 */}
       <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
         <p style={{ margin: "0 0 0.25rem" }}><strong>v4 (Superseded)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
         <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Custom errors (13), vault metadata (createdAtBlock, activityCount), partial unshield. 47 unit tests, 10 on-chain E2E txs.</p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
           <strong>QryptSafe v4 (factory):</strong>{" "}
           <code style={{ fontSize: "0.8rem" }}>0x611Ba6F93fAeC0203eBee1c3e35d72C1e5ba560F</code>{" "}
           <a href="https://sepolia.etherscan.io/address/0x611Ba6F93fAeC0203eBee1c3e35d72C1e5ba560F" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
-        </p>
-        <p style={{ margin: "0", fontSize: "0.875rem" }}>
-          <strong>PersonalQryptSafe v4 (impl):</strong>{" "}
-          <code style={{ fontSize: "0.8rem" }}>0x8E0c9350CdF384a208F6005A2F632f35FB4e413E</code>{" "}
-          <a href="https://sepolia.etherscan.io/address/0x8E0c9350CdF384a208F6005A2F632f35FB4e413E" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
         </p>
       </div>
 
@@ -118,15 +119,10 @@ export default function Overview() {
       <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
         <p style={{ margin: "0 0 0.25rem" }}><strong>v3 (Superseded)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
         <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Ownable removed entirely, changeVaultProof(), metaTransfer() EIP-712. 36 unit tests, 5 on-chain E2E txs.</p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
           <strong>QryptSafe v3 (factory):</strong>{" "}
           <code style={{ fontSize: "0.8rem" }}>0x88E8eAFafc99E83e687BCAbD53F783a92e51F75c</code>{" "}
           <a href="https://sepolia.etherscan.io/address/0x88E8eAFafc99E83e687BCAbD53F783a92e51F75c" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
-        </p>
-        <p style={{ margin: "0", fontSize: "0.875rem" }}>
-          <strong>PersonalQryptSafe v3 (impl):</strong>{" "}
-          <code style={{ fontSize: "0.8rem" }}>0xaf2E91CDc70e81fA74b9aE9C322e8302bb51715e</code>{" "}
-          <a href="https://sepolia.etherscan.io/address/0xaf2E91CDc70e81fA74b9aE9C322e8302bb51715e" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
         </p>
       </div>
 
@@ -134,15 +130,10 @@ export default function Overview() {
       <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
         <p style={{ margin: "0 0 0.25rem" }}><strong>v2 (Superseded)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
         <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Pausable removed, nonce-based commit deduplication, SafeERC20. 23/23 tests.</p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
           <strong>QryptSafe v2 (factory):</strong>{" "}
           <code style={{ fontSize: "0.8rem" }}>0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf</code>{" "}
           <a href="https://sepolia.etherscan.io/address/0x26BAb8B6e88201ad4824ea1290a7C9c7b9B10fCf" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
-        </p>
-        <p style={{ margin: "0", fontSize: "0.875rem" }}>
-          <strong>PersonalQryptSafe v2 (impl):</strong>{" "}
-          <code style={{ fontSize: "0.8rem" }}>0x675f70646713D4026612c673E644C61ae3aa7725</code>{" "}
-          <a href="https://sepolia.etherscan.io/address/0x675f70646713D4026612c673E644C61ae3aa7725" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
         </p>
       </div>
 
@@ -150,15 +141,10 @@ export default function Overview() {
       <div className="callout callout-warning" style={{ marginBottom: "0" }}>
         <p style={{ margin: "0 0 0.25rem" }}><strong>v1 (Historical)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
         <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>Genesis deployment. EIP-1167 minimal proxy. Ownable + Pausable factory (admin keys). 12/12 tests.</p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem" }}>
+        <p style={{ margin: "0", fontSize: "0.875rem" }}>
           <strong>ShieldFactory v1 (factory):</strong>{" "}
           <code style={{ fontSize: "0.8rem" }}>0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A</code>{" "}
           <a href="https://sepolia.etherscan.io/address/0xd05F4fb3f24C7bF0cb482123186CF797E42CF17A" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
-        </p>
-        <p style={{ margin: "0", fontSize: "0.875rem" }}>
-          <strong>PersonalVault v1 (impl):</strong>{" "}
-          <code style={{ fontSize: "0.8rem" }}>0x5E398e1E0Ba28f9659013B1212f24b8B43d69393</code>{" "}
-          <a href="https://sepolia.etherscan.io/address/0x5E398e1E0Ba28f9659013B1212f24b8B43d69393" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem" }}>Etherscan ↗</a>
         </p>
       </div>
     </div>
