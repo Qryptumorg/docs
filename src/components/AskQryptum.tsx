@@ -44,7 +44,8 @@ export default function AskQryptum({ onClose }: Props) {
     abortRef.current = abort;
 
     try {
-      const res = await fetch("/api/chat", {
+      const apiBase = (import.meta.env.VITE_API_BASE_URL ?? "").replace(//+$/, "");
+      const res = await fetch(`${apiBase}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: nextMessages }),
