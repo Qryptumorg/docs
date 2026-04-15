@@ -66,7 +66,7 @@ const signer = await provider.getSigner();
 
 // Sepolia testnet (chain ID 11155111)
 const FACTORY_SEPOLIA = "${FACTORY_V6_SEPOLIA}";
-// Mainnet (pending — not yet deployed)
+// Mainnet (pending - not yet deployed)
 // const FACTORY_MAINNET = "pending";
 
 const FACTORY_ABI = [
@@ -100,7 +100,7 @@ function deriveChainHead(seed: string): string {
   for (let i = 1; i < CHAIN_DEPTH; i++) {
     hash = ethers.keccak256(hash);
   }
-  return hash; // This is H100 — pass to createQryptSafe()
+  return hash; // This is H100 - pass to createQryptSafe()
 }
 
 // Keep the full chain in memory (or rebuild from seed before each tx).
@@ -149,7 +149,7 @@ const amount = ethers.parseUnits("10", 6); // 10 USDC (6 decimals)
 // Step 1: approve vault to spend tokens (one-time per token)
 await usdc.approve(safeAddress, amount);
 
-// Step 2: qrypt — pass the current OTP link as proof
+// Step 2: qrypt - pass the current OTP link as proof
 // Use chain[98] for the first call (H99), chain[97] for the second (H98), etc.
 const otpProof = chain[CHAIN_DEPTH - 2]; // H99 for first call
 await vault.qrypt(USDC_ADDRESS, amount, otpProof);
