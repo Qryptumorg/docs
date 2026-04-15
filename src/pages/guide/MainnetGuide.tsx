@@ -219,10 +219,10 @@ export default function MainnetGuide() {
           <table>
             <thead><tr>{d.contractHeaders.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
             <tbody>
-              {d.contractRows.map(([name, addr], i) => (
+              {d.contractRows.map((row, i) => (
                 <tr key={i}>
-                  <td>{name}</td>
-                  <td><span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>{addr}</span></td>
+                  <td>{row[0]}</td>
+                  <td><span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>{row[1]}</span></td>
                   <td><span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>pending</span></td>
                 </tr>
               ))}
