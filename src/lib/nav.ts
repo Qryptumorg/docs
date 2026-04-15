@@ -42,6 +42,13 @@ export const NAV: NavSection[] = [
         ],
     },
     {
+        key: "guide",
+        items: [
+            { key: "testnetGuide", href: "/guide/testnet" },
+            { key: "mainnetGuide", href: "/guide/mainnet" },
+        ],
+    },
+    {
         key: "developerDocs",
         items: [
             { key: "quickStart", href: "/developer/quick-start" },

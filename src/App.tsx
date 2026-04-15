@@ -25,6 +25,8 @@ import ApiReference from "@/pages/developer/ApiReference";
 import CommitRevealFlow from "@/pages/developer/CommitRevealFlow";
 import AbiReference from "@/pages/developer/AbiReference";
 import JoinTestnet from "@/pages/developer/JoinTestnet";
+import TestnetGuide from "@/pages/guide/TestnetGuide";
+import MainnetGuide from "@/pages/guide/MainnetGuide";
 import Faq from "@/pages/faq/Faq";
 
 function Router() {
@@ -58,6 +60,8 @@ function Router() {
         <Route path="/developer/commit-reveal-flow" component={CommitRevealFlow} />
         <Route path="/developer/abi-reference" component={AbiReference} />
         <Route path="/developer/join-testnet" component={JoinTestnet} />
+        <Route path="/guide/testnet" component={TestnetGuide} />
+        <Route path="/guide/mainnet" component={MainnetGuide} />
         <Route path="/faq" component={Faq} />
         <Route>
           <Redirect to="/introduction/overview" />
