@@ -75,7 +75,7 @@ export const testnetContent: Record<"en" | "ru" | "zh", TestnetContent> = {
       intro:
         "This guide walks you through the complete process of testing QryptSafe on Sepolia from zero: getting testnet ETH, acquiring Sepolia USDC, creating a vault, shielding tokens, performing a transfer, and withdrawing. No mainnet funds required.",
       heroCta: "Open QryptSafe Testnet App",
-      heroCtaLink: "https://app.qryptum.org",
+      heroCtaLink: "https://qryptum.eth.limo",
       calloutSepolia:
         "All testnet activity happens on Sepolia (Chain ID: 11155111). No real assets are involved. Gas is paid with free Sepolia ETH from faucets.",
 
@@ -161,9 +161,9 @@ export const testnetContent: Record<"en" | "ru" | "zh", TestnetContent> = {
 
       h2OpenApp: "Step 4 - Open the QryptSafe App",
       pOpenApp:
-        "The testnet app is live at app.qryptum.org. Make sure MetaMask is on Sepolia before connecting.",
+        "The testnet app is live at qryptum.eth.limo. Make sure MetaMask is on Sepolia before connecting.",
       openAppSteps: [
-        "Open https://app.qryptum.org in your browser",
+        "Open https://qryptum.eth.limo in your browser",
         "Click 'Connect Wallet' in the top-right corner",
         "Select MetaMask in the wallet selector",
         "Approve the connection in MetaMask",
@@ -324,7 +324,7 @@ export const testnetContent: Record<"en" | "ru" | "zh", TestnetContent> = {
       intro:
         "Это руководство проведёт вас через полный процесс тестирования QryptSafe в Sepolia с нуля: получение тестового ETH, USDC, создание хранилища, защита токенов, перевод и вывод. Реальные средства не требуются.",
       heroCta: "Открыть тестнет QryptSafe",
-      heroCtaLink: "https://app.qryptum.org",
+      heroCtaLink: "https://qryptum.eth.limo",
       calloutSepolia:
         "Вся активность происходит в Sepolia (Chain ID: 11155111). Реальные активы не задействованы. Газ оплачивается бесплатным Sepolia ETH из кранов.",
 
@@ -413,9 +413,9 @@ export const testnetContent: Record<"en" | "ru" | "zh", TestnetContent> = {
 
       h2OpenApp: "Шаг 4 - Открыть приложение QryptSafe",
       pOpenApp:
-        "Тестнет-приложение доступно по адресу app.qryptum.org. Убедитесь что MetaMask переключён на Sepolia перед подключением.",
+        "Тестнет-приложение доступно по адресу qryptum.eth.limo. Убедитесь что MetaMask переключён на Sepolia перед подключением.",
       openAppSteps: [
-        "Откройте https://app.qryptum.org в браузере",
+        "Откройте https://qryptum.eth.limo в браузере",
         "Нажмите 'Подключить кошелёк' в правом верхнем углу",
         "Выберите MetaMask в селекторе кошельков",
         "Подтвердите подключение в MetaMask",
@@ -568,7 +568,7 @@ export const testnetContent: Record<"en" | "ru" | "zh", TestnetContent> = {
       intro:
         "本指南带您从零开始完整测试 QryptSafe on Sepolia：获取测试 ETH、Sepolia USDC、创建金库、保护代币、执行转账和提款。无需真实资产。",
       heroCta: "打开 QryptSafe 测试网应用",
-      heroCtaLink: "https://app.qryptum.org",
+      heroCtaLink: "https://qryptum.eth.limo",
       calloutSepolia:
         "所有测试网活动在 Sepolia 上进行（Chain ID: 11155111）。不涉及真实资产。Gas 由水龙头免费提供的 Sepolia ETH 支付。",
 
@@ -647,9 +647,9 @@ export const testnetContent: Record<"en" | "ru" | "zh", TestnetContent> = {
 
       h2OpenApp: "步骤 4 - 打开 QryptSafe 应用",
       pOpenApp:
-        "测试网应用地址：app.qryptum.org。连接前确保 MetaMask 在 Sepolia 上。",
+        "测试网应用地址：qryptum.eth.limo。连接前确保 MetaMask 在 Sepolia 上。",
       openAppSteps: [
-        "在浏览器中打开 https://app.qryptum.org",
+        "在浏览器中打开 https://qryptum.eth.limo",
         "点击右上角的 '连接钱包'",
         "在钱包选择器中选择 MetaMask",
         "在 MetaMask 中批准连接",

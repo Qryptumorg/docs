@@ -1,6 +1,6 @@
 import { useLanguage } from "@/lib/LanguageContext";
 
-const SEPOLIA_APP = "https://qryptumorg.github.io/app/";
+const SEPOLIA_APP = "https://qryptum.eth.limo";
 const SEPOLIA_FAUCET_ALCHEMY = "https://sepoliafaucet.com";
 const SEPOLIA_FAUCET_INFURA = "https://www.infura.io/faucet/sepolia";
 const SEPOLIA_USDC = "https://sepolia.etherscan.io/address/0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
