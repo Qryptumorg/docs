@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -11,6 +11,100 @@ interface Props {
   onClose: () => void;
 }
 
+const I18N: Record<string, {
+  title: string;
+  subtitle: string;
+  heading: string;
+  subheading: string;
+  questions: string[];
+  placeholder: string;
+  powered: string;
+  error: string;
+}> = {
+  en: {
+    title: "Ask Qryptum",
+    subtitle: "AI assistant with full protocol knowledge",
+    heading: "Ask anything about Qryptum",
+    subheading: "How vault proofs work, security model, contract addresses, brute-force costs, quantum resistance: anything.",
+    questions: [
+      "How does the vault proof protect my tokens?",
+      "What happens if a quantum computer breaks ECDSA?",
+      "How much would it cost to brute-force my vault?",
+      "How do I unshield my tokens?",
+    ],
+    placeholder: "Ask anything about Qryptum...",
+    powered: "Powered by Claude, answers based on Qryptum protocol documentation",
+    error: "Something went wrong. Please try again.",
+  },
+  ru: {
+    title: "Ask Qryptum",
+    subtitle: "ИИ-ассистент с полным знанием протокола",
+    heading: "Задайте любой вопрос о Qryptum",
+    subheading: "Как работает vault proof, модель безопасности, адреса контрактов, стоимость брутфорса, квантовая устойчивость — всё.",
+    questions: [
+      "Как vault proof защищает мои токены?",
+      "Что будет, если квантовый компьютер взломает ECDSA?",
+      "Сколько стоит перебрать все комбинации моего хранилища?",
+      "Как вывести мои токены из хранилища?",
+    ],
+    placeholder: "Задайте вопрос о Qryptum...",
+    powered: "Работает на Claude, ответы основаны на документации протокола Qryptum",
+    error: "Что-то пошло не так. Попробуйте снова.",
+  },
+  zh: {
+    title: "Ask Qryptum",
+    subtitle: "具备完整协议知识的 AI 助手",
+    heading: "随时向 Qryptum 提问",
+    subheading: "保险库证明的工作原理、安全模型、合约地址、暴力破解成本、量子抗性：任何问题。",
+    questions: [
+      "保险库证明如何保护我的代币？",
+      "如果量子计算机破解 ECDSA 会怎样？",
+      "暴力破解我的保险库需要多少成本？",
+      "如何取回我的代币？",
+    ],
+    placeholder: "向 Qryptum 提问...",
+    powered: "由 Claude 驱动，答案基于 Qryptum 协议文档",
+    error: "出了点问题，请重试。",
+  },
+  id: {
+    title: "Ask Qryptum",
+    subtitle: "Asisten AI dengan pengetahuan protokol lengkap",
+    heading: "Tanyakan apa saja tentang Qryptum",
+    subheading: "Cara kerja vault proof, model keamanan, alamat kontrak, biaya brute-force, ketahanan kuantum: apa saja.",
+    questions: [
+      "Bagaimana vault proof melindungi token saya?",
+      "Apa yang terjadi jika komputer kuantum membobol ECDSA?",
+      "Berapa biaya untuk brute-force vault saya?",
+      "Bagaimana cara menarik kembali token saya?",
+    ],
+    placeholder: "Tanyakan apa saja tentang Qryptum...",
+    powered: "Didukung oleh Claude, jawaban berdasarkan dokumentasi protokol Qryptum",
+    error: "Terjadi kesalahan. Silakan coba lagi.",
+  },
+  ms: {
+    title: "Ask Qryptum",
+    subtitle: "Pembantu AI dengan pengetahuan protokol penuh",
+    heading: "Tanya apa sahaja tentang Qryptum",
+    subheading: "Cara vault proof berfungsi, model keselamatan, alamat kontrak, kos brute-force, rintangan kuantum: apa sahaja.",
+    questions: [
+      "Bagaimana vault proof melindungi token saya?",
+      "Apa yang berlaku jika komputer kuantum memecahkan ECDSA?",
+      "Berapa kos untuk brute-force vault saya?",
+      "Bagaimana saya menarik balik token saya?",
+    ],
+    placeholder: "Tanya apa sahaja tentang Qryptum...",
+    powered: "Dikuasakan oleh Claude, jawapan berdasarkan dokumentasi protokol Qryptum",
+    error: "Sesuatu telah berlaku. Sila cuba lagi.",
+  },
+};
+
+function detectLang(): string {
+  const nav = navigator.language ?? "en";
+  const code = nav.toLowerCase().split("-")[0];
+  if (code in I18N) return code;
+  return "en";
+}
+
 export default function AskQryptum({ onClose }: Props) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -18,6 +112,9 @@ export default function AskQryptum({ onClose }: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const lang = useMemo(() => detectLang(), []);
+  const t = I18N[lang] ?? I18N.en;
+  const logoSrc = `${import.meta.env.BASE_URL}qryptum-logo.png`;
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -27,8 +124,8 @@ export default function AskQryptum({ onClose }: Props) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const send = useCallback(async () => {
-    const text = input.trim();
+  const send = useCallback(async (overrideText?: string) => {
+    const text = (overrideText ?? input).trim();
     if (!text || streaming) return;
 
     const userMsg: Message = { role: "user", content: text };
@@ -44,11 +141,11 @@ export default function AskQryptum({ onClose }: Props) {
     abortRef.current = abort;
 
     try {
-      const apiBase = (import.meta.env.VITE_API_BASE_URL ?? "").replace(//+$/, "");
+      const apiBase = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/+$/, "");
       const res = await fetch(`${apiBase}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: nextMessages }),
+        body: JSON.stringify({ messages: nextMessages, lang }),
         signal: abort.signal,
       });
 
@@ -94,7 +191,7 @@ export default function AskQryptum({ onClose }: Props) {
           if (last.role === "assistant" && last.content === "") {
             updated[updated.length - 1] = {
               ...last,
-              content: "Something went wrong. Please try again.",
+              content: t.error,
             };
           }
           return updated;
@@ -105,7 +202,7 @@ export default function AskQryptum({ onClose }: Props) {
       abortRef.current = null;
       setTimeout(() => inputRef.current?.focus(), 50);
     }
-  }, [input, messages, streaming]);
+  }, [input, messages, streaming, lang, t]);
 
   const handleKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -152,6 +249,7 @@ export default function AskQryptum({ onClose }: Props) {
           pointerEvents: "auto",
         }}
       >
+        {/* Header */}
         <div
           style={{
             padding: "1rem 1.25rem",
@@ -165,7 +263,7 @@ export default function AskQryptum({ onClose }: Props) {
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
             <img
-              src="/qryptum-logo.png"
+              src={logoSrc}
               alt="Qryptum"
               style={{
                 width: "28px",
@@ -177,10 +275,10 @@ export default function AskQryptum({ onClose }: Props) {
             />
             <div>
               <div style={{ fontWeight: 700, fontSize: "0.875rem", color: "hsl(var(--fg))" }}>
-                Ask Qryptum
+                {t.title}
               </div>
               <div style={{ fontSize: "0.68rem", color: "hsl(var(--muted-fg))" }}>
-                AI assistant with full protocol knowledge
+                {t.subtitle}
               </div>
             </div>
           </div>
@@ -203,6 +301,7 @@ export default function AskQryptum({ onClose }: Props) {
           </button>
         </div>
 
+        {/* Messages / Empty state */}
         <div
           style={{
             flex: 1,
@@ -234,21 +333,16 @@ export default function AskQryptum({ onClose }: Props) {
                 </svg>
               </div>
               <div style={{ fontWeight: 600, fontSize: "0.875rem", color: "hsl(var(--fg))", marginBottom: "0.5rem" }}>
-                Ask anything about Qryptum
+                {t.heading}
               </div>
               <div style={{ fontSize: "0.75rem", color: "hsl(var(--muted-fg))", lineHeight: 1.5, marginBottom: "1.25rem" }}>
-                How vault proofs work, security model, contract addresses, brute-force costs, quantum resistance: anything.
+                {t.subheading}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                {[
-                  "How does the vault proof protect my tokens?",
-                  "What happens if a quantum computer breaks ECDSA?",
-                  "How much would it cost to brute-force my vault?",
-                  "How do I unshield my tokens?",
-                ].map((q) => (
+                {t.questions.map((q) => (
                   <button
                     key={q}
-                    onClick={() => setInput(q)}
+                    onClick={() => send(q)}
                     style={{
                       background: "hsl(var(--bg))",
                       border: "1px solid hsl(var(--card-border))",
@@ -307,6 +401,7 @@ export default function AskQryptum({ onClose }: Props) {
           <div ref={bottomRef} />
         </div>
 
+        {/* Input */}
         <div
           style={{
             padding: "0.75rem",
@@ -330,7 +425,7 @@ export default function AskQryptum({ onClose }: Props) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKey}
-              placeholder="Ask anything about Qryptum..."
+              placeholder={t.placeholder}
               rows={1}
               style={{
                 flex: 1,
@@ -347,7 +442,7 @@ export default function AskQryptum({ onClose }: Props) {
               }}
             />
             <button
-              onClick={send}
+              onClick={() => send()}
               disabled={!input.trim() || streaming}
               style={{
                 width: "30px",
@@ -370,7 +465,7 @@ export default function AskQryptum({ onClose }: Props) {
             </button>
           </div>
           <div style={{ fontSize: "0.65rem", color: "hsl(var(--muted-fg))", textAlign: "center", marginTop: "0.4rem" }}>
-            Powered by Claude, answers based on Qryptum protocol documentation
+            {t.powered}
           </div>
         </div>
       </div>
@@ -453,14 +548,7 @@ function MarkdownContent({ content }: { content: string }) {
         ),
         table: ({ children }) => (
           <div style={{ overflowX: "auto", margin: "0.5rem 0" }}>
-            <table
-              style={{
-                width: "100%",
-                borderCollapse: "collapse",
-                fontSize: "0.75rem",
-                lineHeight: 1.5,
-              }}
-            >
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.75rem", lineHeight: 1.5 }}>
               {children}
             </table>
           </div>
@@ -473,38 +561,17 @@ function MarkdownContent({ content }: { content: string }) {
           <tr style={{ borderBottom: "1px solid hsl(var(--card-border))" }}>{children}</tr>
         ),
         th: ({ children }) => (
-          <th
-            style={{
-              padding: "0.3rem 0.6rem",
-              textAlign: "left",
-              fontWeight: 700,
-              color: "hsl(var(--fg))",
-              whiteSpace: "nowrap",
-            }}
-          >
+          <th style={{ padding: "0.3rem 0.6rem", textAlign: "left", fontWeight: 700, color: "hsl(var(--fg))", whiteSpace: "nowrap" }}>
             {children}
           </th>
         ),
         td: ({ children }) => (
-          <td
-            style={{
-              padding: "0.3rem 0.6rem",
-              color: "hsl(var(--fg))",
-            }}
-          >
+          <td style={{ padding: "0.3rem 0.6rem", color: "hsl(var(--fg))" }}>
             {children}
           </td>
         ),
         blockquote: ({ children }) => (
-          <blockquote
-            style={{
-              borderLeft: "3px solid rgba(6,182,212,0.5)",
-              paddingLeft: "0.75rem",
-              margin: "0.4rem 0",
-              color: "hsl(var(--muted-fg))",
-              fontStyle: "italic",
-            }}
-          >
+          <blockquote style={{ borderLeft: "3px solid rgba(6,182,212,0.5)", paddingLeft: "0.75rem", margin: "0.4rem 0", color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>
             {children}
           </blockquote>
         ),

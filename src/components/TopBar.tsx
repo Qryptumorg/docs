@@ -124,7 +124,7 @@ export default function TopBar({ onMenuToggle, mobileMenuOpen }: Props) {
               </button>
 
               <a
-                href={import.meta.env.BASE_URL}
+                href="/"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -134,7 +134,7 @@ export default function TopBar({ onMenuToggle, mobileMenuOpen }: Props) {
                 }}
               >
                 <img
-                  src={import.meta.env.BASE_URL + 'qryptum-logo.png'}
+                  src={`${import.meta.env.BASE_URL}qryptum-logo.png`}
                   alt="Qryptum"
                   style={{ height: "28px", width: "28px", objectFit: "contain", flexShrink: 0 }}
                 />
@@ -261,7 +261,7 @@ export default function TopBar({ onMenuToggle, mobileMenuOpen }: Props) {
                 }}
               >
                 <a
-                  href={import.meta.env.BASE_URL}
+                  href="/"
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -271,7 +271,7 @@ export default function TopBar({ onMenuToggle, mobileMenuOpen }: Props) {
                   }}
                 >
                   <img
-                    src={import.meta.env.BASE_URL + 'qryptum-logo.png'}
+                    src={`${import.meta.env.BASE_URL}qryptum-logo.png`}
                     alt="Qryptum"
                     style={{ height: "32px", width: "32px", objectFit: "contain", flexShrink: 0 }}
                   />
