@@ -8,36 +8,24 @@
     <meta name="theme-color" content="#0ea5e9" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="64x64" href="%BASE_URL%favicon-tight.png" />
-    <link rel="apple-touch-icon" href="%BASE_URL%favicon-tight.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/qryptum-logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/qryptum-logo.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Qryptum Docs — Post-Quantum Vault Protocol" />
     <meta property="og:description" content="Shield ERC-20 tokens behind a vault proof. Non-custodial. Ethereum L1. Open source." />
-    <meta property="og:image" content="%BASE_URL%opengraph.jpg" />
+    <meta property="og:image" content="/opengraph.jpg" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Qryptum Docs — Post-Quantum Vault Protocol" />
     <meta name="twitter:description" content="Shield ERC-20 tokens behind a vault proof. Non-custodial. Ethereum L1. Open source." />
-    <meta name="twitter:image" content="%BASE_URL%opengraph.jpg" />
+    <meta name="twitter:image" content="/opengraph.jpg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-      <script>
-      (function(l) {
-        if (l.search[1] === '/') {
-          var decoded = l.search.slice(1).split('&').map(function(s) {
-            return s.replace(/~and~/g, '&');
-          }).join('?');
-          window.history.replaceState(null, null,
-            l.pathname.slice(0, -1) + decoded + l.hash
-          );
-        }
-      }(window.location));
-    </script>
   </head>
   <body>
     <div id="root"></div>
