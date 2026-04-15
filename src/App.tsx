@@ -1,4 +1,5 @@
 import { Switch, Route, Router as WouterRouter, Redirect } from "wouter";
+import { useHashLocation } from "wouter/use-hash-location";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import DocsLayout from "@/components/DocsLayout";
 import Overview from "@/pages/introduction/Overview";
@@ -74,7 +75,7 @@ function Router() {
 function App() {
   return (
     <LanguageProvider>
-      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+      <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")} hook={useHashLocation}>
         <Router />
       </WouterRouter>
     </LanguageProvider>
