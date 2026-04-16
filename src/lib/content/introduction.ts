@@ -114,7 +114,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
     overview: {
       title: "Overview",
       intro:
-        "Qryptum is a non-custodial token protection protocol on Ethereum L1 with three distinct transfer modes. Each mode addresses a different security scenario: from personal vault protection against key theft, to fully anonymous zero-knowledge transfers, to offline airgapped signing without any internet connection. All modes run on Sepolia testnet. Mainnet deployment is planned for a later phase.",
+        "Qryptum is a non-custodial token protection protocol on Ethereum L1 with three distinct transfer modes. Each mode addresses a different security scenario: from personal vault protection against key theft, to fully anonymous zero-knowledge transfers, to offline airgapped signing without any internet connection. QryptSafe runs on both Sepolia testnet and Ethereum mainnet. QryptShield and QryptAir operate on Sepolia.",
       h2TransferModes: "Transfer Modes",
       modeTableHeaders: ["Mode", "Mechanism", "Privacy Level", "Best For"],
       modes: [
@@ -158,19 +158,19 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         "rechargeChain() added: owner can append a new OTP chain to the vault without redeploying.",
         "Air bags isolation: QryptAir offToken redemption draws from a separate air bags balance, preventing double-spend against the shielded balance.",
         "depositToAirBag() and withdrawFromAirBag() added for explicit air bags balance management.",
-        "49/49 E2E tests pass on Sepolia. Factory and implementation MIT-verified on Etherscan.",
+        "67/67 E2E tests pass on Sepolia. Factory and implementation MIT-verified on Etherscan.",
       ],
       labelFactoryV5: "QryptSafe factory v5 (superseded by v6):",
       labelImplV5: "PersonalQryptSafe impl v5 (superseded by v6):",
       labelQryptAirV5: "QryptAir claimAirVoucher v5 (superseded by v6):",
-      pDeployedV5: "v5 is superseded by v6 (OTP chain upgrade). All v5 contracts remain verified MIT on Sepolia Etherscan. 32/32 E2E tests pass.",
+      pDeployedV5: "v5 is superseded by v6 (OTP chain upgrade). All v5 contracts remain verified MIT on Sepolia Etherscan. 51/51 E2E tests pass.",
       h2V3ToV5: "v3 to v5: What Changed",
       v3ToV5Items: [
         "bytes32 proofHash replaces string vaultProof: keccak256 hash sent to contract instead of raw string, enabling EIP-712 struct-hash compatibility.",
         "unshieldToRailgun() added: QryptShield can now route unshields directly to the Railgun privacy pool.",
         "claimAirVoucher() added: QryptAir EIP-712 offline signed vouchers now live in PersonalQryptSafe (no separate contract needed).",
         "v4 intermediate deployment decommissioned (used string vaultProof with QryptAir/QryptShield). Superseded by v5.",
-        "32/32 E2E tests pass on Sepolia. All contracts MIT-verified on Etherscan.",
+        "51/51 E2E tests pass on Sepolia. All contracts MIT-verified on Etherscan.",
       ],
       h2V4ToV5: "v4 to v5: bytes32 proofHash Upgrade",
       v4ToV5Items: [
@@ -219,7 +219,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         "Not a custodian. Qryptum never holds or controls user funds at any point. Vault contracts have zero admin keys.",
         "Not a multisig wallet. No co-signers, recovery parties, or time delays imposed by Qryptum itself.",
         "Not a wrapped token bridge. Tokens stay on Ethereum L1. No cross-chain movement.",
-        "Not a Layer 2. All smart contracts execute directly on Ethereum L1 (Sepolia testnet; mainnet planned).",
+        "Not a Layer 2. All smart contracts execute directly on Ethereum L1. QryptSafe is live on both Sepolia testnet and Ethereum mainnet.",
         "Not a replacement for hardware wallets. Qryptum adds a layer on top of, not instead of, proper key management.",
       ],
       h2KeyInsights: "Key Insights",
@@ -237,7 +237,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
     howItWorks: {
       title: "How It Works",
       intro:
-        "Qryptum has three transfer modes. Each has a different flow, smart contract layer, and privacy model. Select a mode below to see its step-by-step flow. All modes operate on Sepolia testnet.",
+        "Qryptum has three transfer modes. Each has a different flow, smart contract layer, and privacy model. Select a mode below to see its step-by-step flow. QryptSafe operates on both Sepolia testnet and Ethereum mainnet. QryptShield and QryptAir operate on Sepolia.",
       tabSafe: "QryptSafe",
       tabShield: "QryptShield",
       tabAir: "QryptAir",
@@ -247,7 +247,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       safeH2Lifecycle: "Token Lifecycle",
       safeStep01Title: "qrypt - Deposit tokens into your Qrypt-Safe",
       safeStep01Desc:
-        "The user approves the vault contract to pull tokens, then calls qrypt(tokenAddress, amount, vaultProof). The contract verifies the vault proof, pulls the ERC-20 tokens, and mints an equivalent amount of non-transferable qTokens (for example, qUSDC) to the user's wallet.",
+        "The user approves the vault contract to pull tokens, then calls qrypt(tokenAddress, amount, otpProof). The contract verifies the OTP chain proof (keccak256(proof) == chainHead), advances the chain head to the next position, pulls the ERC-20 tokens, and mints an equivalent amount of non-transferable qTokens (for example, qUSDC) to the user's wallet.",
       safeStep02Title: "Hold - qTokens as receipts",
       safeStep02Desc:
         "After calling qrypt, the user holds qTokens in their wallet. The underlying ERC-20 tokens sit at the vault contract address. Any call to transfer(), transferFrom(), or approve() on qTokens immediately reverts at the contract level. No wallet, exchange, or script can move them.",
@@ -268,7 +268,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         "The user calls unqrypt(tokenAddress, amount, vaultProof). The contract burns the qTokens and returns the real ERC-20 tokens to the user's wallet.",
       safeH2Creating: "Creating a Qrypt-Safe",
       safeCreatingDesc:
-        "Each wallet can have exactly one Qrypt-Safe, deployed via the ShieldFactory. The user chooses a vault proof and provides its keccak256 hash on deployment. The raw vault proof never touches any server. After deployment, the user can shield any number of different ERC-20 tokens into their single Qrypt-Safe.",
+        "Each wallet can have exactly one Qrypt-Safe, deployed via the ShieldFactory. The user calls createQryptSafe(initialChainHead), where initialChainHead is a keccak256 hash derived off-chain from their vault proof - this seeds the OTP chain. The raw vault proof never touches any server. After deployment, the user can shield any number of different ERC-20 tokens into their single Qrypt-Safe.",
 
       shieldIntro:
         "QryptShield routes transfers through the Railgun privacy pool on Ethereum L1. Zero-knowledge proofs cryptographically sever the on-chain link between sender and recipient. Even a full blockchain analysis cannot determine who sent to whom.",
@@ -321,7 +321,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
     overview: {
       title: "Обзор",
       intro:
-        "Qryptum: некастодиальный протокол защиты токенов на Ethereum L1 с тремя режимами перевода. Каждый режим предназначен для конкретного сценария безопасности: от защиты личного хранилища от кражи ключей до полностью анонимных переводов на основе доказательств с нулевым разглашением и автономной подписи без доступа к интернету. Все режимы работают в тестовой сети Sepolia. Развёртывание в основной сети запланировано на следующий этап.",
+        "Qryptum: некастодиальный протокол защиты токенов на Ethereum L1 с тремя режимами перевода. Каждый режим предназначен для конкретного сценария безопасности: от защиты личного хранилища от кражи ключей до полностью анонимных переводов на основе доказательств с нулевым разглашением и автономной подписи без доступа к интернету. QryptSafe работает как в тестовой сети Sepolia, так и в основной сети Ethereum. QryptShield и QryptAir работают в Sepolia.",
       h2TransferModes: "Режимы перевода",
       modeTableHeaders: ["Режим", "Механизм", "Уровень конфиденциальности", "Лучше всего подходит для"],
       modes: [
@@ -365,19 +365,19 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         "rechargeChain() добавлен: владелец может добавить новую OTP-цепочку в хранилище без повторного деплоя.",
         "Изоляция air bags: погашение ваучера QryptAir берётся из отдельного баланса air bags, предотвращая двойную трату относительно защищённого баланса.",
         "depositToAirBag() и withdrawFromAirBag() добавлены для явного управления средствами air bags.",
-        "49/49 E2E-тестов проходят в Sepolia. Factory и implementation MIT-верифицированы на Etherscan.",
+        "67/67 E2E-тестов проходят в Sepolia. Factory и implementation MIT-верифицированы на Etherscan.",
       ],
       labelFactoryV5: "QryptSafe factory v5 (заменён v6):",
       labelImplV5: "PersonalQryptSafe impl v5 (заменён v6):",
       labelQryptAirV5: "QryptAir claimAirVoucher v5 (заменён v6):",
-      pDeployedV5: "v5 заменён v6 (обновление OTP-цепочки). Все контракты v5 по-прежнему верифицированы MIT в Sepolia Etherscan. 32/32 E2E-теста проходят.",
+      pDeployedV5: "v5 заменён v6 (обновление OTP-цепочки). Все контракты v5 по-прежнему верифицированы MIT в Sepolia Etherscan. 51/51 E2E-теста проходят.",
       h2V3ToV5: "v3 to v5: что изменилось",
       v3ToV5Items: [
         "bytes32 proofHash вместо string vaultProof: keccak256 хэш передаётся в контракт вместо сырой строки, обеспечивая совместимость с EIP-712 struct-hash.",
         "Добавлен unshieldToRailgun(): QryptShield теперь может направлять аншилды напрямую в пул приватности Railgun.",
         "Добавлен claimAirVoucher(): EIP-712 офлайн-подписанные ваучеры QryptAir теперь живут в PersonalQryptSafe (отдельный контракт не нужен).",
         "Промежуточное развёртывание v4 выведено (использовало string vaultProof с QryptAir/QryptShield). Заменено v5.",
-        "32/32 E2E-теста проходят на Sepolia. Все контракты MIT-верифицированы на Etherscan.",
+        "51/51 E2E-теста проходят на Sepolia. Все контракты MIT-верифицированы на Etherscan.",
       ],
       h2V4ToV5: "v4 to v5: апгрейд bytes32 proofHash",
       v4ToV5Items: [
@@ -426,7 +426,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         "Не кастодиан. Qryptum никогда не держит и не контролирует средства пользователей. У контрактов хранилищ нет административных ключей.",
         "Не мультисиг-кошелёк. Нет со-подписантов, сторон восстановления или временных задержек, навязанных Qryptum.",
         "Не мост обёрнутых токенов. Токены остаются на Ethereum L1. Кросс-чейн движения нет.",
-        "Не Layer 2. Все смарт-контракты исполняются непосредственно на Ethereum L1 (тестовая сеть Sepolia; основная сеть в планах).",
+        "Не Layer 2. Все смарт-контракты исполняются непосредственно на Ethereum L1. QryptSafe работает как в Sepolia, так и в основной сети Ethereum.",
         "Не замена аппаратным кошелькам. Qryptum добавляет слой поверх, а не вместо, надлежащего управления ключами.",
       ],
       h2KeyInsights: "Ключевые выводы",
@@ -444,7 +444,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
     howItWorks: {
       title: "Как это работает",
       intro:
-        "У Qryptum три режима перевода. Каждый имеет свой поток, уровень смарт-контракта и модель конфиденциальности. Выберите режим ниже, чтобы увидеть его пошаговый процесс. Все режимы работают в тестовой сети Sepolia.",
+        "У Qryptum три режима перевода. Каждый имеет свой поток, уровень смарт-контракта и модель конфиденциальности. Выберите режим ниже, чтобы увидеть его пошаговый процесс. QryptSafe работает как в Sepolia, так и в основной сети Ethereum. QryptShield и QryptAir работают в Sepolia.",
       tabSafe: "QryptSafe",
       tabShield: "QryptShield",
       tabAir: "QryptAir",
@@ -454,7 +454,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       safeH2Lifecycle: "Жизненный цикл токена",
       safeStep01Title: "qrypt: внести токены в Qrypt-Safe",
       safeStep01Desc:
-        "Пользователь разрешает контракту хранилища списать токены, затем вызывает qrypt(tokenAddress, amount, vaultProof). Контракт проверяет vault proof, списывает токены ERC-20 и выпускает эквивалентное количество непередаваемых qToken (например, qUSDC) на кошелёк пользователя.",
+        "Пользователь разрешает контракту хранилища списать токены, затем вызывает qrypt(tokenAddress, amount, otpProof). Контракт проверяет OTP-цепочку (keccak256(proof) == chainHead), продвигает голову цепочки на следующую позицию, списывает токены ERC-20 и выпускает эквивалентное количество непередаваемых qToken (например, qUSDC) на кошелёк пользователя.",
       safeStep02Title: "Hold: qToken как квитанции",
       safeStep02Desc:
         "После вызова qrypt пользователь держит qToken в своём кошельке. Исходные токены ERC-20 находятся по адресу контракта хранилища. Любой вызов transfer(), transferFrom() или approve() для qToken немедленно завершается с ошибкой на уровне контракта. Ни один кошелёк, биржа или скрипт не может их переместить.",
@@ -475,7 +475,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         "Пользователь вызывает unqrypt(tokenAddress, amount, vaultProof). Контракт сжигает qToken и возвращает реальные токены ERC-20 на кошелёк пользователя.",
       safeH2Creating: "Создание Qrypt-Safe",
       safeCreatingDesc:
-        "Каждый кошелёк может иметь ровно один Qrypt-Safe, развёртываемый через ShieldFactory. Пользователь выбирает vault proof и предоставляет его keccak256-хэш при деплое. Сам vault proof никогда не попадает ни на один сервер. После развёртывания пользователь может защитить любое количество различных токенов ERC-20 в своём единственном Qrypt-Safe.",
+        "Каждый кошелёк может иметь ровно один Qrypt-Safe, развёртываемый через ShieldFactory. Пользователь вызывает createQryptSafe(initialChainHead), где initialChainHead - keccak256-хэш, получаемый офлайн из vault proof - это заряжает OTP-цепочку. Сам vault proof никогда не попадает ни на один сервер. После развёртывания пользователь может защитить любое количество различных токенов ERC-20 в своём единственном Qrypt-Safe.",
 
       shieldIntro:
         "QryptShield маршрутизирует переводы через пул конфиденциальности Railgun на Ethereum L1. Доказательства с нулевым разглашением криптографически разрывают on-chain связь между отправителем и получателем. Даже полный анализ блокчейна не позволяет установить, кто кому отправил.",
@@ -528,7 +528,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
     overview: {
       title: "概述",
       intro:
-        "Qryptum 是以太坊 L1 上的非托管代币保护协议，提供三种不同的转账模式。每种模式针对不同的安全场景：从防御私钥被盗的个人保险库保护，到基于零知识证明的完全匿名转账，再到无需互联网连接的离线隔空签名。所有模式均在 Sepolia 测试网运行，主网部署计划于后续阶段进行。",
+        "Qryptum 是以太坊 L1 上的非托管代币保护协议，提供三种不同的转账模式。每种模式针对不同的安全场景：从防御私钥被盗的个人保险库保护，到基于零知识证明的完全匿名转账，再到无需互联网连接的离线隔空签名。QryptSafe 在 Sepolia 测试网和以太坊主网均上线运行。QryptShield 和 QryptAir 在 Sepolia 运行。",
       h2TransferModes: "转账模式",
       modeTableHeaders: ["模式", "机制", "隐私级别", "最适合"],
       modes: [
@@ -572,19 +572,19 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         "新增 rechargeChain()：owner 可在不重新部署的情况下向保险库追加新的 OTP 链。",
         "Air bags 隔离：QryptAir 凭证兑换从独立的 air bags 余额中提取，防止对屏蔽余额的双花。",
         "新增 depositToAirBag() 和 withdrawFromAirBag() 用于显式管理 air bags 资金。",
-        "49/49 E2E 测试在 Sepolia 全部通过。Factory 和 implementation 在 Etherscan 进行 MIT 验证。",
+        "67/67 E2E 测试在 Sepolia 全部通过。Factory 和 implementation 在 Etherscan 进行 MIT 验证。",
       ],
       labelFactoryV5: "QryptSafe factory v5（已被 v6 取代）：",
       labelImplV5: "PersonalQryptSafe impl v5（已被 v6 取代）：",
       labelQryptAirV5: "QryptAir claimAirVoucher v5（已被 v6 取代）：",
-      pDeployedV5: "v5 已被 v6 取代（OTP 链升级）。所有 v5 合约仍在 Sepolia Etherscan 上通过 MIT 许可证验证。32/32 E2E 测试全部通过。",
+      pDeployedV5: "v5 已被 v6 取代（OTP 链升级）。所有 v5 合约仍在 Sepolia Etherscan 上通过 MIT 许可证验证。51/51 E2E 测试全部通过。",
       h2V3ToV5: "v3 to v5: 变更内容",
       v3ToV5Items: [
         "bytes32 proofHash 替换 string vaultProof：将 keccak256 哈希发送到合约而非原始字符串，实现 EIP-712 struct-hash 兼容性。",
         "添加 unshieldToRailgun()：QryptShield 现在可以将取消屏蔽直接路由到 Railgun 隐私池。",
         "添加 claimAirVoucher()：QryptAir EIP-712 离线签名凭证现在存在于 PersonalQryptSafe 中（无需单独合约）。",
         "v4 中间部署已停用（使用 string vaultProof 配合 QryptAir/QryptShield）。被 v5 取代。",
-        "Sepolia 上 32/32 E2E 测试全部通过。所有合约已在 Etherscan 进行 MIT 验证。",
+        "Sepolia 上 51/51 E2E 测试全部通过。所有合约已在 Etherscan 进行 MIT 验证。",
       ],
       h2V4ToV5: "v4 to v5: bytes32 proofHash 升级",
       v4ToV5Items: [
@@ -633,7 +633,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         "不是托管方。Qryptum 从不持有或控制用户资金。保险库合约没有管理密钥。",
         "不是多签钱包。没有 Qryptum 强加的共同签名人、恢复方或时间延迟。",
         "不是跨链代币桥。代币留在以太坊 L1，没有跨链操作。",
-        "不是 Layer 2。所有智能合约直接在以太坊 L1 上执行（Sepolia 测试网；主网已规划）。",
+        "不是 Layer 2。所有智能合约直接在以太坊 L1 上执行。QryptSafe 在 Sepolia 测试网和以太坊主网均上线。",
         "不是硬件钱包的替代品。Qryptum 在正确密钥管理的基础上增加一层保护，而非取代它。",
       ],
       h2KeyInsights: "核心洞察",
@@ -651,7 +651,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
     howItWorks: {
       title: "工作原理",
       intro:
-        "Qryptum 有三种转账模式，各自具有不同的流程、智能合约层和隐私模型。在下方选择一种模式，查看其逐步流程。所有模式均在 Sepolia 测试网上运行。",
+        "Qryptum 有三种转账模式，各自具有不同的流程、智能合约层和隐私模型。在下方选择一种模式，查看其逐步流程。QryptSafe 在 Sepolia 测试网和以太坊主网均上线。QryptShield 和 QryptAir 在 Sepolia 运行。",
       tabSafe: "QryptSafe",
       tabShield: "QryptShield",
       tabAir: "QryptAir",
@@ -661,7 +661,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
       safeH2Lifecycle: "代币生命周期",
       safeStep01Title: "qrypt - 将代币存入 Qrypt-Safe",
       safeStep01Desc:
-        "用户授权保险库合约提取代币，然后调用 qrypt(tokenAddress, amount, vaultProof)。合约验证 vault proof，提取 ERC-20 代币，并向用户钱包铸造等量的不可转让 qToken（例如 qUSDC）。",
+        "用户授权保险库合约提取代币，然后调用 qrypt(tokenAddress, amount, otpProof)。合约验证 OTP 链 proof（keccak256(proof) == chainHead），将链头推进到下一位置，提取 ERC-20 代币，并向用户钱包铸造等量的不可转让 qToken（例如 qUSDC）。",
       safeStep02Title: "Hold - qToken 作为凭证",
       safeStep02Desc:
         "调用 qrypt 后，用户在钱包中持有 qToken。底层 ERC-20 代币存放在保险库合约地址。对 qToken 调用 transfer()、transferFrom() 或 approve() 会立即在合约层面回滚。任何钱包、交易所或脚本都无法移动它们。",
@@ -682,7 +682,7 @@ export const introductionContent: Record<"en" | "ru" | "zh", IntroductionContent
         "用户调用 unqrypt(tokenAddress, amount, vaultProof)。合约销毁 qToken 并将真实 ERC-20 代币返还到用户钱包。",
       safeH2Creating: "创建 Qrypt-Safe",
       safeCreatingDesc:
-        "每个钱包只能拥有一个 Qrypt-Safe，通过 ShieldFactory 部署。用户选择 vault proof 并在部署时提供其 keccak256 哈希。原始 vault proof 不会接触任何服务器。部署后，用户可以将任意数量的不同 ERC-20 代币存入其唯一的 Qrypt-Safe。",
+        "每个钱包只能拥有一个 Qrypt-Safe，通过 ShieldFactory 部署。用户调用 createQryptSafe(initialChainHead)，其中 initialChainHead 是离线从 vault proof 派生的 keccak256 哈希，用于初始化 OTP 链。原始 vault proof 不会接触任何服务器。部署后，用户可以将任意数量的不同 ERC-20 代币存入其唯一的 Qrypt-Safe。",
 
       shieldIntro:
         "QryptShield 将转账路由通过以太坊 L1 上的 Railgun 隐私池。零知识证明在密码学上切断发送方和接收方之间的链上关联。即使进行完整的区块链分析，也无法确定谁向谁发送了代币。",
