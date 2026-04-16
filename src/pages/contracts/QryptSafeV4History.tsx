@@ -220,7 +220,7 @@ function unshield(address token, uint256 amount, bytes32 proof)
             <p>47 unit tests in a single suite. Run with: <code>pnpm test:v4</code></p>
             <ul>
                 <li>Factory: no Ownable, no owner(), MINIMUM_SHIELD_AMOUNT constant, vaultCreatedAt per owner</li>
-                <li>Vault metadata: createdAtBlock, lastActivityBlock, activityCount — all three field groups</li>
+                <li>Vault metadata: createdAtBlock, lastActivityBlock, activityCount - all three field groups</li>
                 <li>Shield: full path, emit event, reject below minimum (InvalidAmount), reject wrong proof (InvalidProof), reject non-owner (NotOwner)</li>
                 <li>Unshield: full balance, partial balance, reject exceeding balance (InsufficientBalance), reject wrong proof</li>
                 <li>changeVaultProof: rotation works, old proof rejected, zero hash rejected (InvalidNewProof), activityCount increments</li>
