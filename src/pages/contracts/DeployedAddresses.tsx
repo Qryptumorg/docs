@@ -159,6 +159,10 @@ export default function DeployedAddresses() {
       <div className="callout callout-info">
         {c.calloutMainnet}
       </div>
+      <h3 style={{ color: statusColor.active }}>QryptSafe (Ethereum Mainnet)</h3>
+      <p style={{ fontSize: "0.9rem", color: "hsl(var(--muted-fg))" }}>
+        QryptSafe · Qrypt/unQrypt · initTransfer/finalizeTransfer · mintOffToken/reclaimOffToken · enterRailgun · MIT · 0.8.34
+      </p>
       <table>
         <thead>
           <tr>
@@ -169,17 +173,26 @@ export default function DeployedAddresses() {
         </thead>
         <tbody>
           <tr>
-            <td>QryptSafe v6 (factory)</td>
-            <td>{PENDING}</td>
-            <td style={{ color: statusColor.pending, fontWeight: 600 }}>Pending</td>
+            <td>QryptSafeFactory (factory)</td>
+            <td><code>0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f</code></td>
+            <td style={{ color: statusColor.active, fontWeight: 600 }}>Verified</td>
           </tr>
           <tr>
-            <td>PersonalQryptSafe v6 (impl)</td>
-            <td>{PENDING}</td>
-            <td style={{ color: statusColor.pending, fontWeight: 600 }}>Pending</td>
+            <td>QryptSafe (impl)</td>
+            <td><code>0x9E73602079fCbB918D22A7a8b57C2d99F5D701b4</code></td>
+            <td style={{ color: statusColor.active, fontWeight: 600 }}>Verified</td>
           </tr>
         </tbody>
       </table>
+      <p>
+        <a href="https://etherscan.io/address/0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f#code" target="_blank" rel="noopener noreferrer">
+          QryptSafeFactory on Etherscan
+        </a>
+        {" | "}
+        <a href="https://etherscan.io/address/0x9E73602079fCbB918D22A7a8b57C2d99F5D701b4#code" target="_blank" rel="noopener noreferrer">
+          QryptSafe impl on Etherscan
+        </a>
+      </p>
 
       <h2>{c.h2TestWallets}</h2>
       <p>{c.pTestWallets}</p>
