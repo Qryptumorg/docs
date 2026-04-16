@@ -107,9 +107,9 @@ export default function WhyQryptum() {
 
       {(
         [
-          { label: c.insightSafeLabel, text: c.insightSafe, color: "#22C55E" },
-          { label: c.insightShieldLabel, text: c.insightShield, color: "#8B5CF6" },
-          { label: c.insightAirLabel, text: c.insightAir, color: "#F59E0B" },
+          { label: c.insightSafeLabel, text: c.insightSafe, color: "hsl(var(--muted-fg))" },
+          { label: c.insightShieldLabel, text: c.insightShield, color: "hsl(var(--muted-fg))" },
+          { label: c.insightAirLabel, text: c.insightAir, color: "hsl(var(--muted-fg))" },
         ] as const
       ).map(({ label, text, color }) => (
         <div
