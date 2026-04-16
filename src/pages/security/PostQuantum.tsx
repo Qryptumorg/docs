@@ -47,14 +47,15 @@ export default function PostQuantum() {
 
       <h2>{c.h2HowProtects}</h2>
       <p>{c.pHowProtects}</p>
-      <pre><code>{`// On-chain storage (PersonalVault.sol)
-bytes32 private passwordHash;  // keccak256(abi.encodePacked("abc123"))
+      <pre><code>{`// On-chain storage (PersonalVault.sol) - V6 OTP chain
+bytes32 public chainHead;  // keccak256 of next valid proof position
 
-// Verification on every vault operation
+// Verification on every vault operation - advances the chain head
 require(
-    keccak256(abi.encodePacked(password)) == passwordHash,
+    keccak256(abi.encodePacked(proof)) == chainHead,
     "Invalid vault proof"
-);`}</code></pre>
+);
+chainHead = proof;  // advance: consumed proof becomes new chain head`}</code></pre>
       <p>{c.pPreimage}</p>
 
       <div className="callout callout-info">
