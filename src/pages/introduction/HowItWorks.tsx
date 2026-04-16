@@ -6,9 +6,9 @@ import QryptShieldFlowDiagram from "@/components/diagrams/QryptShieldFlowDiagram
 import QryptAirFlowDiagram from "@/components/diagrams/QryptAirFlowDiagram";
 
 const PRODUCTS = [
-  { badge: "QryptSafe",   color: "#22C55E", key: "tabSafe"   as const },
-  { badge: "QryptShield", color: "#8B5CF6", key: "tabShield" as const },
-  { badge: "QryptAir",    color: "#F59E0B", key: "tabAir"    as const },
+  { badge: "QryptSafe",   color: "rgba(255,255,255,0.7)", key: "tabSafe"   as const },
+  { badge: "QryptShield", color: "rgba(255,255,255,0.7)", key: "tabShield" as const },
+  { badge: "QryptAir",    color: "rgba(255,255,255,0.7)", key: "tabAir"    as const },
 ];
 
 function StepCard({
@@ -141,8 +141,10 @@ export default function HowItWorks() {
           <h2>{c.safeH2Creating}</h2>
           <p>{c.safeCreatingDesc}</p>
 
-          <pre><code>{`// Deploy your Qrypt-Safe via the factory
-const tx = await factory.createVault(keccak256(toUtf8Bytes("abc123")));
+          <pre><code>{`// Derive the initial chain head off-chain from your vault proof
+const initialChainHead = keccak256(toUtf8Bytes("abc123"));
+// Deploy your Qrypt-Safe via the factory (seeds the OTP chain)
+const tx = await factory.createQryptSafe(initialChainHead);
 // After deployment, getVault(walletAddress) returns your vault address`}</code></pre>
         </div>
       )}
@@ -182,7 +184,7 @@ const tx = await factory.createVault(keccak256(toUtf8Bytes("abc123")));
             <tbody>
               {c.shieldPrivacyRows.map(([hidden, visible]) => (
                 <tr key={hidden}>
-                  <td style={{ color: "#8B5CF6" }}>{hidden}</td>
+                  <td style={{ color: "hsl(var(--muted-fg))" }}>{hidden}</td>
                   <td style={{ color: "hsl(var(--muted-fg))" }}>{visible}</td>
                 </tr>
               ))}
