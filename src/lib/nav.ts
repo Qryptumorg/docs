@@ -67,7 +67,7 @@ export const NAV: NavSection[] = [
     {
         key: "devReference",
         items: [
-            { key: "commitRevealFlow", href: "/developer/commit-reveal-flow" },
+            { key: "initFinalizeFlow", href: "/developer/init-finalize-flow" },
             { key: "apiReference", href: "/developer/api-reference" },
             { key: "joinTestnet", href: "/developer/join-testnet" },
         ],
