@@ -85,7 +85,7 @@ export default function Overview() {
       {/* v6 */}
       <div className="callout callout-success" style={{ marginBottom: "0.75rem" }}>
         <p style={{ margin: "0 0 0.25rem" }}><strong>v6 (Active)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>OTP chain proofs, air bag isolation, pre-image resistant nonce chain. 49/49 E2E tests.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>OTP chain proofs, air bag isolation, pre-image resistant nonce chain. 67/67 E2E tests.</p>
         <p style={{ margin: "0", fontSize: "0.875rem" }}>
           <strong>QryptSafe v6 (factory):</strong>{" "}
           <code style={{ fontSize: "0.8rem" }}>0xeaa722e996888b662E71aBf63d08729c6B6802F4</code>{" "}
@@ -96,7 +96,7 @@ export default function Overview() {
       {/* v5 */}
       <div className="callout callout-warning" style={{ marginBottom: "0.75rem" }}>
         <p style={{ margin: "0 0 0.25rem" }}><strong>v5 (Superseded)</strong> <em style={{ color: "#22C55E", fontSize: "0.8rem", fontWeight: 600 }}>Deployed and verified</em></p>
-        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>bytes32 proofHash, unshieldToRailgun, QryptAir EIP-712 vouchers. 32/32 E2E tests.</p>
+        <p style={{ margin: "0 0 0.25rem", fontSize: "0.875rem", color: "hsl(var(--muted-fg))" }}>bytes32 proofHash, unshieldToRailgun, QryptAir EIP-712 vouchers. 51/51 E2E tests.</p>
         <p style={{ margin: "0", fontSize: "0.875rem" }}>
           <strong>QryptSafe v5 (factory):</strong>{" "}
           <code style={{ fontSize: "0.8rem" }}>0xB757fb0511A6d305370a20a0647C751D7E76D2ce</code>{" "}
