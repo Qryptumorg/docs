@@ -109,7 +109,7 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
       h2Create: "Create a QryptSafe",
       h2Shield: "Qrypt a Token",
       calloutProof:
-        "The OTP proof (a keccak256 hash link) is visible in transaction calldata on Etherscan. This is safe: the hash reveals nothing about the seed or future OTP links. Every link is single-use — replay is blocked by OtpAlreadyConsumed(). Keep the seed offline and separate from your private key.",
+        "The OTP proof (a keccak256 hash link) is visible in transaction calldata on Etherscan. This is safe: the hash reveals nothing about the seed or future OTP links. Every link is single-use - replay is blocked by OtpAlreadyConsumed(). Keep the seed offline and separate from your private key.",
       h2NextSteps: "Next Steps",
       nextSteps: [
         "See the Integration Guide for the full commit-reveal transfer implementation",
@@ -176,7 +176,7 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
       ],
     },
     commitReveal: {
-      title: "Commit-Reveal Flow",
+      title: "Init-Finalize Flow",
       intro:
         "Transfers in Qryptum use a two-step commit-reveal scheme. The commit step records a hash on-chain without revealing the vault proof. The reveal step verifies the hash and executes the transfer.",
       h2WhyTwo: "Why Two Steps",
@@ -185,10 +185,10 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
       pWhyTwo2:
         "Additionally, each commit hash includes a unique random nonce, making replay attacks impossible even if the same transfer parameters are used again.",
       h2Implementation: "Step-by-Step Implementation (viem)",
-      h3Step1: "Step 1: Build the Commit Hash",
-      h3Step2: "Step 2: Submit the Commit",
+      h3Step1: "Step 1: Build the Init Hash",
+      h3Step2: "Step 2: Call initTransfer",
       h3Step3: "Step 3: Wait for the Next Block",
-      h3Step4: "Step 4: Execute the Reveal",
+      h3Step4: "Step 4: Call finalizeTransfer",
       h2Constraints: "Constraints",
       constraintHeaders: ["Constraint", "Value", "Enforced By"],
       constraintRows: [
@@ -239,7 +239,7 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
       h2Create: "Создание QryptSafe",
       h2Shield: "Qrypt токена",
       calloutProof:
-        "OTP proof (звено хэша keccak256) виден в calldata транзакции на Etherscan. Это безопасно: хэш не раскрывает ничего о seed или будущих OTP-звеньях. Каждое звено одноразовое — повтор блокируется ошибкой OtpAlreadyConsumed(). Храните seed офлайн и отдельно от приватного ключа.",
+        "OTP proof (звено хэша keccak256) виден в calldata транзакции на Etherscan. Это безопасно: хэш не раскрывает ничего о seed или будущих OTP-звеньях. Каждое звено одноразовое - повтор блокируется ошибкой OtpAlreadyConsumed(). Храните seed офлайн и отдельно от приватного ключа.",
       h2NextSteps: "Следующие шаги",
       nextSteps: [
         "Смотрите Руководство по интеграции для полной реализации commit-reveal передачи",
@@ -306,7 +306,7 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
       ],
     },
     commitReveal: {
-      title: "Схема Commit-Reveal",
+      title: "Init-Finalize Flow",
       intro:
         "Передачи в Qryptum используют двухэтапную схему commit-reveal. Этап commit записывает хэш on-chain без раскрытия vault proof. Этап reveal верифицирует хэш и выполняет передачу.",
       h2WhyTwo: "Почему два шага",
@@ -315,10 +315,10 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
       pWhyTwo2:
         "Кроме того, каждый хэш коммита включает уникальный случайный nonce, делая атаки воспроизведения невозможными даже при повторном использовании тех же параметров передачи.",
       h2Implementation: "Пошаговая реализация (viem)",
-      h3Step1: "Шаг 1: Формирование хэша коммита",
-      h3Step2: "Шаг 2: Отправка коммита",
+      h3Step1: "Шаг 1: Формирование initHash",
+      h3Step2: "Шаг 2: Вызов initTransfer",
       h3Step3: "Шаг 3: Ожидание следующего блока",
-      h3Step4: "Шаг 4: Выполнение раскрытия",
+      h3Step4: "Шаг 4: Вызов finalizeTransfer",
       h2Constraints: "Ограничения",
       constraintHeaders: ["Ограничение", "Значение", "Кто проверяет"],
       constraintRows: [
@@ -436,7 +436,7 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
       ],
     },
     commitReveal: {
-      title: "提交-揭示流程",
+      title: "Init-Finalize 流程",
       intro:
         "Qryptum 的转账使用两步提交-揭示方案。提交步骤在不揭示保险库密码的情况下在链上记录哈希。揭示步骤验证哈希并执行转账。",
       h2WhyTwo: "为何需要两步",
@@ -445,10 +445,10 @@ export const developerContent: Record<"en" | "ru" | "zh", DeveloperContent> = {
       pWhyTwo2:
         "此外，每个提交哈希包含一个唯一的随机 nonce，即使再次使用相同的转账参数也无法进行重放攻击。",
       h2Implementation: "逐步实现（viem）",
-      h3Step1: "第 1 步：构建提交哈希",
-      h3Step2: "第 2 步：提交",
+      h3Step1: "第 1 步：构建 initHash",
+      h3Step2: "第 2 步：调用 initTransfer",
       h3Step3: "第 3 步：等待下一个区块",
-      h3Step4: "第 4 步：执行揭示",
+      h3Step4: "第 4 步：调用 finalizeTransfer",
       h2Constraints: "约束条件",
       constraintHeaders: ["约束", "值", "由谁执行"],
       constraintRows: [
