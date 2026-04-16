@@ -18,7 +18,7 @@ export default function ShieldFactory() {
         {c.intro}
       </p>
       <div className="callout callout-info" style={{ marginBottom: "2rem" }}>
-        All factory contracts use the EIP-1167 minimal proxy pattern. Each user deploys a personal vault clone by calling <code>createVault()</code>. Contracts are MIT-licensed and verified on Etherscan. V6 and V5 are live on Sepolia. Mainnet deployment follows V6 audit completion.
+        All factory contracts use the EIP-1167 minimal proxy pattern. Each user deploys a personal vault clone by calling <code>createQryptSafe(initialChainHead)</code>. Contracts are MIT-licensed and verified on Etherscan. V6 is live on both Sepolia and Ethereum mainnet. V5 is on Sepolia only.
       </div>
 
       <h2>{c.h2V6Design}</h2>
