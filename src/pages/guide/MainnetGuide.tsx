@@ -5,30 +5,30 @@ const content = {
   en: {
     section: "Guide",
     title: "Mainnet Guide",
-    badge: "Coming Soon",
-    intro: "Qryptum mainnet deployment is planned for a later phase. All current contracts are live on Sepolia testnet. This page will be updated with mainnet contract addresses and step-by-step instructions when mainnet launches.",
-    calloutStatus: "Mainnet is not yet live. Use the Testnet Guide to explore Qryptum on Sepolia at no cost.",
+    badge: "Live",
+    intro: "QryptSafe V6 is live on Ethereum mainnet. Factory and implementation are deployed and Etherscan verification is in progress. Use this guide for mainnet vault operations with real assets.",
+    calloutStatus: "QryptSafe is live on Ethereum mainnet. Factory: 0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f. Always test on Sepolia first.",
     tabDapp: "DApp",
     tabContract: "Call Contract",
 
     dapp: {
-      h2WhatToExpect: "What to Expect at Mainnet Launch",
+      h2WhatToExpect: "Mainnet is Live - What Changed",
       expectItems: [
-        "QryptSafeV6 factory and implementation deployed and verified on Ethereum Mainnet (chain ID 1)",
-        "Full E2E test suite re-run against mainnet contracts before announcement",
-        "Mainnet contract addresses published here and in the app",
-        "App automatically detects mainnet and routes to the correct factory",
-        "Same OTP chain flow as testnet, no changes to the UX",
+        "QryptSafeV6 factory deployed on Ethereum Mainnet (chain ID 1). Factory: 0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f",
+        "67/67 E2E tests passed on Sepolia before mainnet deploy. Mainnet round-trip verified.",
+        "Mainnet contract addresses published above and in the app",
+        "App automatically detects mainnet (chain ID 1) and routes to the correct factory",
+        "Same OTP chain flow as testnet - no UX changes, identical smart contract interface",
       ],
       h2Contracts: "Mainnet Contracts",
       contractHeaders: ["Contract", "Address", "Etherscan"],
       contractRows: [
-        ["QryptSafeV6 Factory", "pending", ""],
-        ["PersonalQryptSafeV6 Implementation", "pending", ""],
+        ["QryptSafeV6 Factory", "0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f", "https://etherscan.io/address/0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f"],
+        ["PersonalQryptSafeV6 Implementation", "0x9E73602079fCbB918D22A7a8b57C2d99F5D701b4", "https://etherscan.io/address/0x9E73602079fCbB918D22A7a8b57C2d99F5D701b4"],
       ],
       h2Security: "Mainnet Security Notes",
       securityItems: [
-        "Use a hardware wallet (Ledger, Trezor) for signing mainnet vault operations",
+        "Connect with MetaMask, Trust Wallet, or any EIP-1193 wallet. Verify the network is Ethereum Mainnet (chain ID 1) before signing any vault transaction.",
         "Start with a small amount to verify the vault round-trip before moving larger balances",
         "Keep your vault proof (OTP chain seed) stored offline, separate from your seed phrase",
         "The emergency withdrawal function is available after approximately 6 months of inactivity",
@@ -38,20 +38,20 @@ const content = {
       timelineHeaders: ["Network", "Status", "Address"],
       timelineRows: [
         ["Sepolia testnet V6", "Live",    "0xeaa722e996888b662E71aBf63d08729c6B6802F4"],
-        ["Ethereum Mainnet V6", "Planned", "Pending"],
+        ["Ethereum Mainnet V6", "Live", "0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f"],
       ],
     },
 
     contract: {
-      calloutPending: "Mainnet contracts are not yet deployed. This tab will be populated with exact Etherscan Write Contract field names and addresses once mainnet is live. For now, use the Testnet tab to practice the Call Contract flow on Sepolia.",
-      h2Preview: "What Call Contract Will Look Like",
-      pPreview: "When mainnet launches, this tab will guide you through calling the mainnet V6 factory and vault directly on Etherscan, with the same field-by-field layout as the testnet guide:",
+      calloutPending: "Mainnet contracts are live. Factory: 0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f. Use Etherscan Write Contract with the same field layout as the testnet guide. Always test on Sepolia first before committing real assets.",
+      h2Preview: "Call Contract on Mainnet",
+      pPreview: "Use the mainnet V6 factory and vault directly on Etherscan. The field-by-field layout is the same as the testnet guide:",
       previewSteps: [
-        "Factory Write Contract: createQryptSafe — field: initialChainHead (bytes32)",
-        "Factory Read Contract: getQryptSafe — enter your wallet address",
-        "USDC (mainnet) Write Contract: approve — fields: spender (address), value (uint256)",
-        "Vault Write Contract: qrypt — fields: token (address), amount (uint256), otpProof (bytes32)",
-        "Vault Write Contract: unqrypt — fields: token (address), amount (uint256), otpProof (bytes32)",
+        "Factory Write Contract: createQryptSafe - field: initialChainHead (bytes32)",
+        "Factory Read Contract: getQryptSafe - enter your wallet address",
+        "USDC (mainnet) Write Contract: approve - fields: spender (address), value (uint256)",
+        "Vault Write Contract: qrypt - fields: token (address), amount (uint256), otpProof (bytes32)",
+        "Vault Write Contract: unqrypt - fields: token (address), amount (uint256), otpProof (bytes32)",
       ],
     },
   },
@@ -59,9 +59,9 @@ const content = {
   ru: {
     section: "Руководство",
     title: "Руководство по основной сети",
-    badge: "Скоро",
-    intro: "Развёртывание Qryptum в основной сети запланировано на следующий этап. Все текущие контракты работают в тестовой сети Sepolia.",
-    calloutStatus: "Основная сеть ещё не запущена. Используйте руководство по тестовой сети для изучения Qryptum на Sepolia.",
+    badge: "Активна",
+    intro: "QryptSafe V6 запущен в основной сети Ethereum. Factory и реализация задеплоены, верификация на Etherscan выполняется. Используйте это руководство для операций с хранилищем в основной сети.",
+    calloutStatus: "QryptSafe активен в основной сети Ethereum. Factory: 0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f. Всегда сначала тестируйте на Sepolia.",
     tabDapp: "DApp",
     tabContract: "Вызов контракта",
 
@@ -77,12 +77,12 @@ const content = {
       h2Contracts: "Контракты основной сети",
       contractHeaders: ["Контракт", "Адрес", "Etherscan"],
       contractRows: [
-        ["QryptSafeV6 Factory", "ожидается", ""],
-        ["PersonalQryptSafeV6 Implementation", "ожидается", ""],
+        ["QryptSafeV6 Factory", "0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f", "https://etherscan.io/address/0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f"],
+        ["PersonalQryptSafeV6 Implementation", "0x9E73602079fCbB918D22A7a8b57C2d99F5D701b4", "https://etherscan.io/address/0x9E73602079fCbB918D22A7a8b57C2d99F5D701b4"],
       ],
       h2Security: "Безопасность в основной сети",
       securityItems: [
-        "Используйте аппаратный кошелёк (Ledger, Trezor) для подписи операций",
+        "Подключайтесь через MetaMask, Trust Wallet или любой EIP-1193 кошелёк. Перед подписью любой операции убедитесь, что выбрана сеть Ethereum Mainnet (chain ID 1).",
         "Начните с небольшой суммы, чтобы проверить цикл хранилища",
         "Храните OTP-цепочку офлайн, отдельно от сид-фразы",
         "Функция экстренного вывода доступна примерно после 6 месяцев неактивности",
@@ -92,20 +92,20 @@ const content = {
       timelineHeaders: ["Сеть", "Статус", "Адрес"],
       timelineRows: [
         ["Sepolia testnet V6", "Активна",    "0xeaa722e996888b662E71aBf63d08729c6B6802F4"],
-        ["Ethereum Mainnet V6", "Планируется", "Ожидается"],
+        ["Ethereum Mainnet V6", "Активна", "0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f"],
       ],
     },
 
     contract: {
-      calloutPending: "Контракты основной сети ещё не задеплоены. Эта вкладка будет заполнена точными названиями полей Write Contract и адресами после запуска основной сети. Пока используйте вкладку Testnet, чтобы попрактиковаться в вызове контрактов через Etherscan на Sepolia.",
+      calloutPending: "Контракты основной сети активны. Factory: 0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f. Используйте Etherscan Write Contract с той же схемой полей, что и в тестовой сети. Всегда сначала тестируйте на Sepolia.",
       h2Preview: "Как будет выглядеть Вызов контракта",
       pPreview: "После запуска основной сети эта вкладка будет направлять вас по вызову фабрики и хранилища V6 напрямую на Etherscan:",
       previewSteps: [
-        "Фабрика Write Contract: createQryptSafe — поле: initialChainHead (bytes32)",
-        "Фабрика Read Contract: getQryptSafe — введите адрес вашего кошелька",
-        "USDC (mainnet) Write Contract: approve — поля: spender (address), value (uint256)",
-        "Хранилище Write Contract: qrypt — поля: token (address), amount (uint256), otpProof (bytes32)",
-        "Хранилище Write Contract: unqrypt — поля: token (address), amount (uint256), otpProof (bytes32)",
+        "Фабрика Write Contract: createQryptSafe - поле: initialChainHead (bytes32)",
+        "Фабрика Read Contract: getQryptSafe - введите адрес вашего кошелька",
+        "USDC (mainnet) Write Contract: approve - поля: spender (address), value (uint256)",
+        "Хранилище Write Contract: qrypt - поля: token (address), amount (uint256), otpProof (bytes32)",
+        "Хранилище Write Contract: unqrypt - поля: token (address), amount (uint256), otpProof (bytes32)",
       ],
     },
   },
@@ -113,9 +113,9 @@ const content = {
   zh: {
     section: "指南",
     title: "主网指南",
-    badge: "即将推出",
-    intro: "Qryptum 主网部署计划在后续阶段进行。当前所有合约都在 Sepolia 测试网上运行。",
-    calloutStatus: "主网尚未上线。请使用测试网指南在 Sepolia 上免费探索 Qryptum。",
+    badge: "已上线",
+    intro: "QryptSafe V6 已在以太坊主网上线。Factory 和实现已部署，Etherscan 验证进行中。使用本指南进行主网保险库操作。",
+    calloutStatus: "QryptSafe 已在以太坊主网上线。Factory：0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f。始终先在 Sepolia 上测试。",
     tabDapp: "DApp",
     tabContract: "调用合约",
 
@@ -131,12 +131,12 @@ const content = {
       h2Contracts: "主网合约",
       contractHeaders: ["合约", "地址", "Etherscan"],
       contractRows: [
-        ["QryptSafeV6 工厂", "待定", ""],
-        ["PersonalQryptSafeV6 实现", "待定", ""],
+        ["QryptSafeV6 工厂", "0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f", "https://etherscan.io/address/0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f"],
+        ["PersonalQryptSafeV6 实现", "0x9E73602079fCbB918D22A7a8b57C2d99F5D701b4", "https://etherscan.io/address/0x9E73602079fCbB918D22A7a8b57C2d99F5D701b4"],
       ],
       h2Security: "主网安全注意事项",
       securityItems: [
-        "使用硬件钱包（Ledger、Trezor）签署主网保险库操作",
+        "使用 MetaMask、Trust Wallet 或任何 EIP-1193 钱包连接。签署任何保险库交易前，请确认网络为以太坊主网（chain ID 1）。",
         "先从小额开始验证保险库的往返流程",
         "将 OTP 链（秘密种子）离线存储，与助记词分开保管",
         "紧急提款功能在约 6 个月不活跃后可用",
@@ -146,20 +146,20 @@ const content = {
       timelineHeaders: ["网络", "状态", "地址"],
       timelineRows: [
         ["Sepolia 测试网 V6", "已上线",  "0xeaa722e996888b662E71aBf63d08729c6B6802F4"],
-        ["以太坊主网 V6",     "计划中",  "待定"],
+        ["以太坊主网 V6",     "已上线",  "0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f"],
       ],
     },
 
     contract: {
-      calloutPending: "主网合约尚未部署。主网上线后，本标签页将填充 Etherscan Write Contract 的确切字段名称和地址。目前请使用测试网标签页在 Sepolia 上练习调用合约流程。",
+      calloutPending: "主网合约已上线。Factory：0xE3583f8cA00Edf89A00d9D8c46AE456487a4C56f。使用 Etherscan Write Contract，字段布局与测试网指南相同。始终先在 Sepolia 上测试再操作真实资产。",
       h2Preview: "调用合约标签页预览",
       pPreview: "主网上线后，本标签页将引导您在 Etherscan 上直接调用 V6 工厂和保险库：",
       previewSteps: [
-        "工厂 Write Contract：createQryptSafe — 字段：initialChainHead (bytes32)",
-        "工厂 Read Contract：getQryptSafe — 输入您的钱包地址",
-        "USDC（主网）Write Contract：approve — 字段：spender (address)、value (uint256)",
-        "保险库 Write Contract：qrypt — 字段：token (address)、amount (uint256)、otpProof (bytes32)",
-        "保险库 Write Contract：unqrypt — 字段：token (address)、amount (uint256)、otpProof (bytes32)",
+        "工厂 Write Contract：createQryptSafe - 字段：initialChainHead (bytes32)",
+        "工厂 Read Contract：getQryptSafe - 输入您的钱包地址",
+        "USDC（主网）Write Contract：approve - 字段：spender (address)、value (uint256)",
+        "保险库 Write Contract：qrypt - 字段：token (address)、amount (uint256)、otpProof (bytes32)",
+        "保险库 Write Contract：unqrypt - 字段：token (address)、amount (uint256)、otpProof (bytes32)",
       ],
     },
   },
@@ -222,8 +222,8 @@ export default function MainnetGuide() {
               {d.contractRows.map((row, i) => (
                 <tr key={i}>
                   <td>{row[0]}</td>
-                  <td><span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>{row[1]}</span></td>
-                  <td><span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>pending</span></td>
+                  <td><code style={{ fontSize: "0.75rem" }}>{row[1]}</code></td>
+                  <td>{row[2] ? <a href={row[2]} target="_blank" rel="noopener noreferrer">Etherscan</a> : <span style={{ color: "hsl(var(--muted-fg))", fontStyle: "italic" }}>pending</span>}</td>
                 </tr>
               ))}
             </tbody>
