@@ -21,7 +21,7 @@ import QryptSafeV4History from "@/pages/contracts/QryptSafeV4History";
 import QryptSafeV5History from "@/pages/contracts/QryptSafeV5History";
 import QryptSafeV6History from "@/pages/contracts/QryptSafeV6History";
 import ApiReference from "@/pages/developer/ApiReference";
-import CommitRevealFlow from "@/pages/developer/CommitRevealFlow";
+import InitFinalizeFlow from "@/pages/developer/InitFinalizeFlow";
 import JoinTestnet from "@/pages/developer/JoinTestnet";
 import TestnetQuickStart from "@/pages/developer/testnet/QuickStartTestnet";
 import IntegrationTestnet from "@/pages/developer/testnet/IntegrationTestnet";
@@ -70,11 +70,11 @@ function Router() {
         <Route path="/developer/mainnet/abi" component={AbiMainnet} />
 
         {/* Reference */}
-        <Route path="/developer/commit-reveal-flow" component={CommitRevealFlow} />
+        <Route path="/developer/init-finalize-flow" component={InitFinalizeFlow} />
         <Route path="/developer/api-reference" component={ApiReference} />
         <Route path="/developer/join-testnet" component={JoinTestnet} />
 
-        {/* Legacy redirects — old flat URLs */}
+        {/* Legacy redirects - old flat URLs */}
         <Route path="/developer/quick-start">
           <Redirect to="/developer/testnet/quick-start" />
         </Route>
