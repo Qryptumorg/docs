@@ -32,6 +32,10 @@ import AbiMainnet from "@/pages/developer/mainnet/AbiMainnet";
 import TestnetGuide from "@/pages/guide/TestnetGuide";
 import MainnetGuide from "@/pages/guide/MainnetGuide";
 import Faq from "@/pages/faq/Faq";
+import Phase1 from "@/pages/roadmap/Phase1";
+import Phase2 from "@/pages/roadmap/Phase2";
+import Phase3 from "@/pages/roadmap/Phase3";
+import Phase4 from "@/pages/roadmap/Phase4";
 
 function Router() {
   return (
@@ -87,6 +91,10 @@ function Router() {
 
         <Route path="/guide/testnet" component={TestnetGuide} />
         <Route path="/guide/mainnet" component={MainnetGuide} />
+        <Route path="/roadmap/phase-1" component={Phase1} />
+        <Route path="/roadmap/phase-2" component={Phase2} />
+        <Route path="/roadmap/phase-3" component={Phase3} />
+        <Route path="/roadmap/phase-4" component={Phase4} />
         <Route path="/faq" component={Faq} />
         <Route>
           <Redirect to="/introduction/overview" />
