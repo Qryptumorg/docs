@@ -73,6 +73,15 @@ export const NAV: NavSection[] = [
         ],
     },
     {
+        key: "roadmap",
+        items: [
+            { key: "roadmapPhase1", href: "/roadmap/phase-1" },
+            { key: "roadmapPhase2", href: "/roadmap/phase-2" },
+            { key: "roadmapPhase3", href: "/roadmap/phase-3" },
+            { key: "roadmapPhase4", href: "/roadmap/phase-4" },
+        ],
+    },
+    {
         key: "faq",
         items: [
             { key: "faq", href: "/faq" },
