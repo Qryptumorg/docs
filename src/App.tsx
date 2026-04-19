@@ -36,6 +36,7 @@ import Phase1 from "@/pages/roadmap/Phase1";
 import Phase2 from "@/pages/roadmap/Phase2";
 import Phase3 from "@/pages/roadmap/Phase3";
 import Phase4 from "@/pages/roadmap/Phase4";
+import Tokenomics from "@/pages/tokenomics/Tokenomics";
 
 function Router() {
   return (
@@ -95,6 +96,7 @@ function Router() {
         <Route path="/roadmap/phase-2" component={Phase2} />
         <Route path="/roadmap/phase-3" component={Phase3} />
         <Route path="/roadmap/phase-4" component={Phase4} />
+        <Route path="/tokenomics" component={Tokenomics} />
         <Route path="/faq" component={Faq} />
         <Route>
           <Redirect to="/introduction/overview" />
