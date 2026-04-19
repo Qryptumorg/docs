@@ -18,6 +18,7 @@ export const translations = {
                 devMainnet: "Mainnet - Ethereum",
                 devReference: "Reference",
                 roadmap: "Roadmap",
+                tokenomics: "Tokenomics",
                 faq: "FAQ",
             },
             items: {
@@ -57,6 +58,7 @@ export const translations = {
                 roadmapPhase2: "Phase 2: Intelligence & Offline",
                 roadmapPhase3: "Phase 3: Chain Expansion",
                 roadmapPhase4: "Phase 4: Post-Quantum",
+                tokenomics: "Tokenomics",
                 faq: "FAQ",
             },
         },
@@ -78,6 +80,7 @@ export const translations = {
                 devMainnet: "Основная сеть - Ethereum",
                 devReference: "Справочник",
                 roadmap: "Дорожная карта",
+                tokenomics: "Токеномика",
                 faq: "ЧЗВ",
             },
             items: {
@@ -117,6 +120,7 @@ export const translations = {
                 roadmapPhase2: "Фаза 2: Интеллект и офлайн",
                 roadmapPhase3: "Фаза 3: Расширение сетей",
                 roadmapPhase4: "Фаза 4: Постквантовая защита",
+                tokenomics: "Токеномика",
                 faq: "ЧЗВ",
             },
         },
@@ -138,6 +142,7 @@ export const translations = {
                 devMainnet: "主网 - Ethereum",
                 devReference: "参考文档",
                 roadmap: "路线图",
+                tokenomics: "代币经济学",
                 faq: "常见问题",
             },
             items: {
@@ -177,6 +182,7 @@ export const translations = {
                 roadmapPhase2: "阶段 2: 智能与离线转账",
                 roadmapPhase3: "阶段 3: 多链扩展",
                 roadmapPhase4: "阶段 4: 后量子加固",
+                tokenomics: "代币经济学",
                 faq: "常见问题",
             },
         },
