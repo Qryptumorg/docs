@@ -82,6 +82,12 @@ export const NAV: NavSection[] = [
         ],
     },
     {
+        key: "tokenomics",
+        items: [
+            { key: "tokenomics", href: "/tokenomics" },
+        ],
+    },
+    {
         key: "faq",
         items: [
             { key: "faq", href: "/faq" },
