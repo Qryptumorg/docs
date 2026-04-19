@@ -9,7 +9,7 @@ interface Props {
 }
 
 const DEV_KEYS = ["devTestnet", "devMainnet", "devReference"] as const;
-const DIVIDER_BEFORE = ["security", "smartContracts", "guide", "devTestnet", "faq"];
+const DIVIDER_BEFORE = ["security", "smartContracts", "guide", "devTestnet", "tokenomics", "faq"];
 
 export default function Sidebar({ open, onClose }: Props) {
   const [location] = useLocation();
