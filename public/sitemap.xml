@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://qryptum.eth.limo/docs/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/introduction/overview</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/introduction/why-qryptum</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/introduction/how-it-works</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/security/security-model</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/security/non-custodial</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/security/token-protection</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/security/post-quantum</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/roadmap/phase-1</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/roadmap/phase-2</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/roadmap/phase-3</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/roadmap/phase-4</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/roadmap/phase-5</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/tokenomics</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://qryptum.eth.limo/docs/#/faq</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>
