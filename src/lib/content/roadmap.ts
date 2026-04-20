@@ -14,6 +14,7 @@ export type RoadmapContent = {
   phase2: PhaseContent;
   phase3: PhaseContent;
   phase4: PhaseContent;
+  phase5: PhaseContent;
 };
 
 export const roadmapContent: Record<"en" | "ru" | "zh", RoadmapContent> = {
@@ -113,6 +114,40 @@ export const roadmapContent: Record<"en" | "ru" | "zh", RoadmapContent> = {
         {
           title: "5. QryptAir v2: batch multi-recipient vouchers",
           body: "The Phase 1 QryptAir system supports one voucher per recipient per signing action. Phase 3 upgrades QryptAir to support batch vouchers: a single EIP-712 signature authorizes a split of a shielded amount across multiple recipient addresses in specified proportions. The vault owner signs once. Each recipient can independently redeem their allocation. The nonce for the batch is consumed atomically on the first partial claim, and a bitmap tracks which recipients have redeemed. This enables payroll-style distributions, DAO contributor payouts, or prize splits from a single vault operation.",
+        },
+      ],
+    },
+    phase5: {
+      sectionLabel: "Roadmap",
+      phaseLabel: "Phase 5",
+      statusBadge: "PLANNED",
+      title: "Qrypt Chain",
+      intro:
+        "A dedicated Qrypt blockchain built exclusively for private transactions and ecosystem utility. Qrypt Chain is not a general-purpose trading chain. There is no public order book, no open DEX, and no external token listings. Every feature on the chain exists to serve one purpose: private, secure asset movement within the Qryptum ecosystem, powered entirely by $Qrypt.",
+      items: [
+        {
+          title: "1. $Qrypt as the native gas token",
+          body: "$Qrypt replaces ETH as the gas token across the entire Qryptum protocol. Vault operations, transfers, and all on-chain interactions are paid in $Qrypt. No ETH is required at any point. Every transaction permanently burns a portion of $Qrypt, continuously reducing total supply over time. The higher the protocol activity, the faster the burn. The chain is deflationary by design, not by governance vote.",
+        },
+        {
+          title: "2. Auto-bridge for all ERC-20 assets",
+          body: "Any ERC-20 token held on Ethereum mainnet or supported L2 networks can be bridged to Qrypt Chain in one click. The bridge is non-custodial and secured by the same two-factor vault proof system used in QryptSafe. Users retain full control of their assets throughout the bridging process. No third party holds funds at any step.",
+        },
+        {
+          title: "3. Private swap via ZK-shielded AMM",
+          body: "Token swaps on Qrypt Chain are routed through a ZK-shielded AMM where the input token, output token, amounts, and swap path are all hidden from the public mempool. Trades are settled on-chain without exposing position size, strategy, or wallet address to observers. This is not a standard DEX. It is a private swap layer built for users who need to move between assets without leaving an on-chain trail.",
+        },
+        {
+          title: "4. Community broadcaster program",
+          body: "The broadcaster relay layer is decentralized from a single protocol-operated node to a permissionless network of community broadcaster nodes. Anyone can run a broadcaster node by staking $Qrypt. Nodes earn $Qrypt rewards for successfully relaying vault transactions. Malicious or unreliable nodes lose their stake. This creates a self-sustaining, incentive-aligned relay network that cannot be shut down by taking out a single point of failure.",
+        },
+        {
+          title: "5. Native two-factor proof at the protocol level",
+          body: "Qrypt Chain is purpose-built around the QryptSafe vault architecture. The two-factor proof system and broadcaster relay are not bolt-on additions; they are enforced at the consensus layer. Every vault operation on Qrypt Chain is cheaper than on Ethereum mainnet because the chain is optimized specifically for this workload, with no competition from unrelated contract execution.",
+        },
+        {
+          title: "6. Migration path from Ethereum mainnet",
+          body: "All existing QryptSafe vault holders on Ethereum mainnet can migrate to Qrypt Chain through a non-custodial bridge. The migration process is batched into a single transaction per vault: withdraw from the Ethereum vault, bridge assets to Qrypt Chain, and open a new vault on the destination chain. ETH-based vaults remain fully operational on mainnet for users who prefer to stay. Migration is optional, not forced.",
         },
       ],
     },
@@ -247,6 +282,40 @@ export const roadmapContent: Record<"en" | "ru" | "zh", RoadmapContent> = {
         },
       ],
     },
+    phase5: {
+      sectionLabel: "Дорожная карта",
+      phaseLabel: "Фаза 5",
+      statusBadge: "ПЛАНИРУЕТСЯ",
+      title: "Qrypt Chain",
+      intro:
+        "Выделенный блокчейн Qrypt, созданный исключительно для приватных транзакций и утилит экосистемы. Qrypt Chain не является блокчейном общего назначения для торговли. Здесь нет публичного ордербука, открытой DEX и листинга сторонних токенов. Каждая функция цепочки служит одной цели: приватное и безопасное движение активов внутри экосистемы Qryptum, полностью на $Qrypt.",
+      items: [
+        {
+          title: "1. $Qrypt как нативный токен для оплаты газа",
+          body: "$Qrypt заменяет ETH как токен для оплаты газа во всём протоколе Qryptum. Операции с хранилищем, переводы и все взаимодействия on-chain оплачиваются в $Qrypt. ETH не требуется ни на каком этапе. Каждая транзакция безвозвратно сжигает часть $Qrypt, постоянно уменьшая общее предложение. Чем выше активность протокола, тем быстрее сжигание. Дефляция заложена в дизайне цепочки, а не регулируется голосованием.",
+        },
+        {
+          title: "2. Автоматический мост для всех ERC-20 активов",
+          body: "Любой ERC-20 токен на Ethereum mainnet или поддерживаемых L2 можно переместить в Qrypt Chain в один клик. Мост некастодиальный и защищён той же двухфакторной системой доказательств хранилища, что и QryptSafe. Пользователи сохраняют полный контроль над своими активами на протяжении всего процесса бриджинга. Ни один сторонний участник не держит средства ни на каком этапе.",
+        },
+        {
+          title: "3. Приватный своп через ZK-защищённый AMM",
+          body: "Обмены токенов на Qrypt Chain маршрутизируются через ZK-защищённый AMM, где входной токен, выходной токен, суммы и путь свопа скрыты от публичного мемпула. Сделки исполняются on-chain без раскрытия размера позиции, стратегии или адреса кошелька наблюдателям. Это не стандартный DEX, а приватный слой свопов для пользователей, которым нужно переключаться между активами, не оставляя on-chain следов.",
+        },
+        {
+          title: "4. Программа сообщества broadcaster",
+          body: "Уровень ретрансляции broadcaster децентрализован от единственного узла протокола до беспермиссионной сети community broadcaster-узлов. Любой желающий может запустить broadcaster-узел, застейкав $Qrypt. Узлы получают вознаграждения в $Qrypt за успешную ретрансляцию транзакций хранилища. Злонамеренные или ненадёжные узлы теряют свой стейк. Это создаёт самодостаточную, стимулированную сеть ретрансляции, которую невозможно отключить, устранив единую точку отказа.",
+        },
+        {
+          title: "5. Нативная двухфакторная система доказательств на уровне протокола",
+          body: "Qrypt Chain создан специально для архитектуры хранилищ QryptSafe. Двухфакторная система доказательств и broadcaster-ретрансляция не являются надстройками — они реализованы на уровне консенсуса. Каждая операция с хранилищем на Qrypt Chain дешевле, чем на Ethereum mainnet, потому что цепочка оптимизирована именно под эту нагрузку, без конкуренции со стороны несвязанного исполнения контрактов.",
+        },
+        {
+          title: "6. Путь миграции с Ethereum mainnet",
+          body: "Все существующие владельцы хранилищ QryptSafe на Ethereum mainnet могут мигрировать в Qrypt Chain через некастодиальный мост. Процесс миграции объединён в одну транзакцию на хранилище: вывод из Ethereum-хранилища, бридж активов в Qrypt Chain и открытие нового хранилища в целевой сети. ETH-хранилища остаются полностью работоспособными на mainnet для пользователей, которые предпочитают остаться. Миграция необязательна, не принудительна.",
+        },
+      ],
+    },
     phase4: {
       sectionLabel: "Дорожная карта",
       phaseLabel: "Фаза 4",
@@ -375,6 +444,40 @@ export const roadmapContent: Record<"en" | "ru" | "zh", RoadmapContent> = {
         {
           title: "5. QryptAir v2：批量多收款人凭证",
           body: "第1阶段的 QryptAir 系统每次签名操作支持一个收款人对应一个凭证。第3阶段升级 QryptAir 以支持批量凭证：单个 EIP-712 签名授权将屏蔽金额按指定比例分配给多个收款地址。金库所有者签名一次。每个收款人可以独立赎回其分配。批次的 nonce 在首次部分认领时原子性消耗，位图跟踪哪些收款人已赎回。这支持薪资式分配、DAO 贡献者奖励或从单个金库操作进行奖品分配。",
+        },
+      ],
+    },
+    phase5: {
+      sectionLabel: "路线图",
+      phaseLabel: "阶段 5",
+      statusBadge: "计划中",
+      title: "Qrypt Chain",
+      intro:
+        "专为私密交易与生态系统功能而构建的 Qrypt 专用区块链。Qrypt Chain 并非通用交易链，链上没有公开订单簿、开放式 DEX 或外部代币上市。链上的每项功能只服务于一个目的：在 Qryptum 生态系统内进行私密、安全的资产流转，全部由 $Qrypt 驱动。",
+      items: [
+        {
+          title: "1. $Qrypt 作为原生 Gas 代币",
+          body: "$Qrypt 取代 ETH，成为整个 Qryptum 协议的 Gas 代币。金库操作、转账及所有链上交互均以 $Qrypt 支付，任何环节都不再需要 ETH。每笔交易永久销毁一部分 $Qrypt，持续减少总供应量。协议活跃度越高，销毁速度越快。通缩机制由链的设计决定，而非由治理投票控制。",
+        },
+        {
+          title: "2. 所有 ERC-20 资产自动跨链",
+          body: "以太坊主网或支持 L2 上持有的任意 ERC-20 代币，可一键桥接至 Qrypt Chain。跨链桥为非托管式，由与 QryptSafe 相同的双因素金库证明系统保护。用户在整个桥接过程中始终保有对资产的完全控制权，任何环节均无第三方持有资金。",
+        },
+        {
+          title: "3. 通过 ZK 屏蔽 AMM 实现私密兑换",
+          body: "Qrypt Chain 上的代币兑换通过 ZK 屏蔽 AMM 路由，输入代币、输出代币、金额及兑换路径均对公开内存池不可见。交易在链上结算，无需向观察者暴露仓位大小、策略或钱包地址。这不是标准 DEX，而是为需要在资产之间转换且不留链上痕迹的用户构建的私密兑换层。",
+        },
+        {
+          title: "4. 社区广播者计划",
+          body: "广播者中继层从单一协议节点分散为无许可的社区广播者节点网络。任何人均可通过质押 $Qrypt 运行广播者节点。节点因成功中继金库交易而获得 $Qrypt 奖励。恶意或不可靠的节点将失去其质押。这构建了一个自我维持、激励对齐的中继网络，无法通过消除单一故障点而被关闭。",
+        },
+        {
+          title: "5. 协议层的原生双因素证明系统",
+          body: "Qrypt Chain 专为 QryptSafe 金库架构而构建。双因素证明系统与广播者中继并非附加功能，而是在共识层强制执行。Qrypt Chain 上的每次金库操作都比以太坊主网更便宜，因为该链专为此工作负载优化，无需与无关合约执行竞争。",
+        },
+        {
+          title: "6. 从以太坊主网的迁移路径",
+          body: "以太坊主网上所有现有 QryptSafe 金库持有者均可通过非托管跨链桥迁移至 Qrypt Chain。迁移流程每个金库合并为一笔交易：从以太坊金库提款、将资产桥接至 Qrypt Chain、在目标链上开设新金库。偏好留在主网的用户，其 ETH-based 金库仍可完全正常运行。迁移为可选项，非强制。",
         },
       ],
     },
